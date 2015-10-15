@@ -1,5 +1,6 @@
 <?php 
-
+	require_once("clases/consultas.php");
+	$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
  ?>
  <html>
  <head>
@@ -53,11 +54,12 @@
 		{	
 			var espacio = document.getElementById('espacioSeleccionado').value;
 			var tipo    = "1";
+			var estado  = "LIBRES"
 			
 			$.ajax({
 				type: "POST",
 				url: "quitar.php",
-				data: "espacio=" + espacio + "&tipo=" + tipo,
+				data: "espacio=" + espacio + "&tipo=" + tipo +"&estado=" + estado,
 				dataType:"html",
 				success: function(data) 
 				{
@@ -101,36 +103,7 @@
  	<div>
 		<table cellspacing="0" cellpadding="0">     
             <tr>        
-                <th class="espacios" id="A1" valor="A1">A1</th>
-                <th class="espacios" id="A2" valor="A2">A2</th>
-                <th class="espacios" id="A3" valor="A3">A3</th>
-                <th class="espacios" id="A4" valor="A4">A4</th>
-                <th class="espacios" id="A5" valor="A5">A5</th>
-                <th class="espacios" id="A6" valor="A6">A6</th>
-                <th class="espacios" id="A7" valor="A7">A7</th>
-                <th class="espacios" id="A8" valor="A8">A8</th>
-                <th class="espacios" id="A9" valor="A9">A9</th>
-                <th class="espacios" id="A10" valor="A10">A10</th>
-                <th class="espacios" id="B1" valor="B1">B1</th>
-                <th class="espacios" id="B2" valor="B2">B2</th>
-                <th class="espacios" id="B3" valor="B3">B3</th>
-                <th class="espacios" id="B4" valor="B4">B4</th>
-                <th class="espacios" id="B5" valor="B5">B5</th>
-                <th class="espacios" id="B6" valor="B6">B6</th>
-                <th class="espacios" id="B7" valor="B7">B7</th>
-                <th class="espacios" id="B8" valor="B8">B8</th>
-                <th class="espacios" id="B9" valor="B9">B9</th>
-                <th class="espacios" id="B10" valor="B10">B10</th>
-                <th class="espacios" id="E1" valor="E1">E1</th>
-                <th class="espacios" id="E2" valor="E2">E2</th>
-                <th class="espacios" id="E3" valor="E3">E3</th>
-                <th class="espacios" id="E4" valor="E4">E4</th>
-                <th class="espacios" id="E5" valor="E5">E5</th>
-                <th class="espacios" id="E6" valor="E6">E6</th>
-                <th class="espacios" id="E7" valor="E7">E7</th>
-                <th class="espacios" id="E8" valor="E8">E8</th>
-                <th class="espacios" id="E9" valor="E9">E9</th>
-                <th class="espacios" id="E10" valor="E10">E10</th>
+                <?php  while($arr = mysql_fetch_array($espaciosVacios)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
             </tr>
         </table>
 	</div>

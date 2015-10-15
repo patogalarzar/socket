@@ -97,7 +97,8 @@ function actualiza_mensaje(message)
 				var tipo = JSONdata[0].tipo;
 				var mensaje = JSONdata[0].espacio;
 				var fecha = JSONdata[0].fecha;
-				
+				var estado = JSONdata[0].estado;
+				alert(estado);
 				var contenidoDiv  = $("#"+tipo).html();
 				var mensajehtml   = fecha+' : '+mensaje;
 				var etiqueta = document.getElementById(mensaje);

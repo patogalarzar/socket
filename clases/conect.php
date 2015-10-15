@@ -30,5 +30,5 @@ class conect
 }
 
 $conex=new conect();
-$conex->dbconect("127.0.0.1","root","","chat");
+$conex->dbconect("localhost","root","","web_parking");
 ?>
