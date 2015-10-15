@@ -5,7 +5,7 @@
  <head>
  	<meta charset="utf-8" />
 	<title>Socket</title>
-	<link rel="stylesheet" href="css/style.css">
+	<!-- <link rel="stylesheet" href="css/style.css"> -->
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/fancywebsocket.js"></script>
 	<style type="text/css">
@@ -61,6 +61,7 @@
 				dataType:"html",
 				success: function(data) 
 				{
+					alert(data);
 				 	send(data);// array JSON
 					//window.location.href = 'form.php'
 					document.getElementById("espacioSeleccionado").value = "";

@@ -17,6 +17,6 @@ $arrayjson[] = array(
 					'fecha'         => $timestamp,//fecha de envio
 					'actualizacion' => '1'
 );
-
+var_dump($arrayjson);
 echo json_encode($arrayjson);
 ?>
