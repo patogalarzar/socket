@@ -1,34 +1,14 @@
 <?php
-
-if( basename( $_SERVER['PHP_SELF'] )== "conect.php" )
-exit;
-
-class conect
-{
-	private $host;
-	private $root;
-	private $pass;
-	private $db;
-
-	public function dbconect($host,$root,$pass,$db)
-	{
-		$this->host = $host;
-		$this->root = $root;
-		$this->pass = $pass;
-		$this->db   = $db;
-		$this->conexion = mysql_connect($this->host,$this->root,$this->pass);
-		mysql_query("SET NAMES 'utf8'");
-		mysql_select_db( $this->db, $this->conexion );
+	define('HOST','localhost');
+	define('USER','root');
+	define('PASS','');
+	define('DB','web_parking');
+	function conexion(){
+		mysql_connect(HOST, USER, PASS) or die("ERROR DE CONEXIÓN".mysql_error());
+		mysql_select_db(DB);
 	}
-
-	//se cierra la conexión
-	public function dbcerrar()
-	{
-		mysql_close($this->conexion);
+		
+	function salir(){
+		mysql_close();
 	}
-//
-}
-
-$conex=new conect();
-$conex->dbconect("localhost","root","","web_parking");
 ?>

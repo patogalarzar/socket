@@ -94,14 +94,14 @@ $(document).ready(function()
 function actualiza_mensaje(message)
 {
 	var JSONdata    = JSON.parse(message); //parseo la informacion
-				var tipo = JSONdata[0].tipo;
-				var mensaje = JSONdata[0].espacio;
-				var fecha = JSONdata[0].fecha;
-				var estado = JSONdata[0].estado;
-				alert(estado);
-				var contenidoDiv  = $("#"+tipo).html();
-				var mensajehtml   = fecha+' : '+mensaje;
-				var etiqueta = document.getElementById(mensaje);
+				var nespacio = JSONdata[0].nespacio;
+				var placa = JSONdata[0].placa;
+				var nusuario = JSONdata[0].nusuario;
+				var actualizacion = JSONdata[0].actualizacion;
+				// alert(estado);
+				// var contenidoDiv  = $("#"+tipo).html();
+				// var mensajehtml   = fecha+' : '+mensaje;
+				var etiqueta = document.getElementById(nespacio);
 
 				etiqueta.parentNode.removeChild(etiqueta);
 				// $("#"+tipo).html(contenidoDiv+mensajehtml);
