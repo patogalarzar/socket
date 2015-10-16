@@ -51,10 +51,10 @@ var FancyWebSocket = function(url)
 				switch(JSONdata[0].actualizacion)//que tipo de actualizacion vamos a hacer(un nuevo mensaje, solicitud de amistad nueva, etc )
 				{
 					case '1':
-					actualiza_mensaje(message);
+					quitar_espacio(message);
 					break;
 					case '2':
-					actualiza_solicitud(message);
+					colocar_espacio(message);
 					break;
 					
 				}
@@ -91,13 +91,14 @@ $(document).ready(function()
 
 
 
-function actualiza_mensaje(message)
+function quitar_espacio(message)
 {
 	var JSONdata    = JSON.parse(message); //parseo la informacion
 				var nespacio = JSONdata[0].nespacio;
 				var placa = JSONdata[0].placa;
 				var nusuario = JSONdata[0].nusuario;
 				var actualizacion = JSONdata[0].actualizacion;
+				var espacios = JSONdata[0].espacios;
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
@@ -106,7 +107,19 @@ function actualiza_mensaje(message)
 				etiqueta.parentNode.removeChild(etiqueta);
 				// $("#"+tipo).html(contenidoDiv+mensajehtml);
 }
-function actualiza_solicitud()
+function colocar_espacio(message)
 {
-	alert("tipo de envio 2");
+	var JSONdata    = JSON.parse(message); //parseo la informacion
+				var nespacio = JSONdata[0].nespacio;
+				var placa = JSONdata[0].placa;
+				var nusuario = JSONdata[0].nusuario;
+				var actualizacion = JSONdata[0].actualizacion;
+				var espacios = JSONdata[0].espacios;
+				// alert(estado);
+				// var contenidoDiv  = $("#"+tipo).html();
+				// var mensajehtml   = fecha+' : '+mensaje;
+				var tabla = document.getElementById("espaciosVacios");
+				alert(espacios);
+				tabla.innerHTML = espacios;
+				// tabla.innerHTML = "<th class='espacios' id='"+nespacio+"' valor='"+nespacio+"'>"+nespacio+"</th>";
 }
