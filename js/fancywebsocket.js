@@ -119,7 +119,7 @@ function colocar_espacio(message)
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
 				var tabla = document.getElementById("espaciosVacios");
-				alert(espacios);
-				tabla.innerHTML = espacios;
-				// tabla.innerHTML = "<th class='espacios' id='"+nespacio+"' valor='"+nespacio+"'>"+nespacio+"</th>";
+				// alert(espacios);
+				// tabla.innerHTML = espacios;
+				tabla.innerHTML = "<th class='espacios' id='"+nespacio+"' valor='"+nespacio+"'>"+nespacio+"</th>";
 }

@@ -1,6 +1,8 @@
 <?php 
 	require_once("../clases/consultas.php");
-	$espaciosOcupados = consultarGeneral("espacio","estado_espacio","=","OCUPADO");
+	$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
+	$nespacio = $_GET['nespacio'];
+	$nusuario = "TATTY";
  ?>
  <html>
  <head>
@@ -34,14 +36,14 @@
 	  	padding: 0;
 		}
 		.boton{
-		background-color: #CC181E;
+		background-color: #00AB6B;
 		border: 1px solid #fff;
 		border-radius: 5px;
 		color: #fff;
 		padding: 10px 5px;
 		text-align: center;
 		vertical-align: top;
-		width: 75px;
+		width: 100px;
 		}
 		.cabecera{
 		color:#fff;
@@ -54,9 +56,19 @@
 		text-align: left;
 		width: 97%;
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		padding: 0 15px;
+		padding: 10 15px;
 		font-weight: 300;
 		overflow: hidden;
+		}
+		.caja{
+		background: #ffffff;
+		border-radius: 3px;
+		border-top: 5px solid #d2d6de;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+		margin-bottom: 20px;
+		padding: 10px 5px;
+ 		position: relative;
+		width: 100%;
 		}
 		.cajatexto{
 		border: 1px solid #B8B8B8;
@@ -64,7 +76,7 @@
 		color: #B8B8B8;
 		padding: 10px 5px;
 		vertical-align: top;
-		width: 150px;
+		width: 200px;
 		}
 		.celeste{
 		background-color: #39cccc;
@@ -88,33 +100,30 @@
 		background-color: #ff5000;
 		}
 		.espacios{
-		display: inline-block;
-		vertical-align: top;
-		width: 50px;
-		text-align: center;
 		background-color: #39cccc;
 		border: 1px solid #fff;
 		color: #fff;
 		cursor: pointer;
+		display: inline-block;
 		padding: 10px 5px;
+		vertical-align: top;
+		text-align: center;
+		width: 50px;
 		}
 		.naranja{
 		background-color: #ff5000;
 		}
     </style>
     <script language="javascript">
-		function liberar()
+		function quitar()
 		{	
-
 			var nespacio = document.getElementById('espacioSeleccionado').value;
 			var placa    = document.getElementById('placaVehiculo').value;
-			var cplaca   = document.getElementById('confirmarPlaca').value;
 			var nusuario = document.getElementById('usuarioSistema').value;
-			if (placa == cplaca) {
-				$.ajax({
-				async: false,
+			alert(nespacio+" "+placa+" "+nusuario);
+			$.ajax({
 				type: "POST",
-				url: "colocar.php",
+				url: "quitar.php",
 				data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
 				dataType:"html",
 				success: function(data) 
@@ -123,14 +132,11 @@
 				 	send(data);// array JSON
 					document.getElementById("espacioSeleccionado").value = "";
 					document.getElementById("placaVehiculo").value = "";
-					document.getElementById('confirmarPlaca').value = "";
+				},
+				error:function(data){
+					alert(data);
 				}
-				});
-			} else{
-				alert("Las placas no coinciden.");
-				document.getElementById('confirmarPlaca').value = "";
-			};
-			
+			});
 		}
 	</script>
 	<script type="text/javascript">
@@ -151,14 +157,6 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            $.ajax({
-              type:"GET",
-              url:"consultarPlaca.php",
-              data:{numespacio:valor}
-            }).done(function(msg){
-              document.getElementById("placaVehiculo").value = msg;
-            });
-
             alert(clase+" "+valor);
         });
         
@@ -170,13 +168,10 @@
  </head>
  <body>
  	<header class="cabecera">
- 		<div>
- 			<a href="index.php">
- 				<span>Web<b>PARKING</b></span>
- 			</a>
- 		</div>
- 		<div>
- 		</div>
+ 		<a href="../index.php">
+ 			<span>Web<b>PARKING</b></span>
+ 		</a>
+ 				 		
  		<!-- <nav class="navbar" role="navigation">
  			<div class="navbar-custom-menu">
  				<ul>
@@ -196,17 +191,17 @@
  				<li>MENU PRINCIPAL</li>
  				<li>
  					<a href="#">
- 						<i></i><span>Tickets</span><i> ">"</i>
+ 						<i></i><span>Tickets</span><i> ></i>
  					</a>
  					<ul>
- 						<!-- <li><a href="../registrar/index.php"><span>Registrar</span></a></li> -->
- 						<li><a href="#"><span>Liberar</span></a></li>
+ 						<!-- <li><a href="#"><span>Registrar</span></a></li> -->
+ 						<li><a href="../liberar/index.php"><span>Liberar</span></a></li>
  						<li><a href="#"><span>Historial</span></a></li>
  					</ul>
  				</li>
  				<li>
  					<a href="#">
- 						<i></i><span>Usuarios</span><i> ">"</i>
+ 						<i></i><span>Usuarios</span><i> ></i>
  					</a>
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
@@ -218,21 +213,22 @@
  	</aside>
  	<div class="contenedor">
  		<section class="contenido">
- 			<h3>Seleccione el espacio de parqueo</h3>
-		 	<div>
+ 			<!-- <h3>Seleccione el espacio de parqueo</h3> -->
+		 	<!-- <div>
 				<table cellspacing="0" cellpadding="0">     
-		            <tr>        
-		                <?php  while($arr = mysql_fetch_array($espaciosOcupados)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
+		            <tr id="espaciosVacios">        
+		                <?php  while($arr = mysql_fetch_array($espaciosVacios)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
 		            </tr>
 		        </table>
-			</div>
+			</div> -->
 			<h3>Registrar el espacio de parqueo</h3>
-			<div>
-				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="TATTY"/>
-				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..."/>
+			<div class="caja">
+				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo $nusuario; ?>"/>
+				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..."/>
+				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..."/>
+				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo $nespacio; ?>"/>
 				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
-				<input class="cajatexto" id="confirmarPlaca" type="text" placeholder="Confirmar placa..."/>
-				<input class="boton" type="submit" value="Quitar" onclick="liberar();"/>
+				<input class="boton" type="submit" value="Quitar" onclick="quitar();"/>
 			</div>
  	  	</section>
  	</div>

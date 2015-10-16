@@ -34,29 +34,29 @@
 	  	padding: 0;
 		}
 		.boton{
-		background-color: #CC181E;
+		background-color: #00AB6B;
 		border: 1px solid #fff;
 		border-radius: 5px;
 		color: #fff;
 		padding: 10px 5px;
 		text-align: center;
 		vertical-align: top;
-		width: 75px;
+		width: 100px;
 		}
 		.cabecera{
 		color:#fff;
 		background-color: #3C8DBC;
 		display: block;
-		float: left;
+		/*float: left;*/
 		height: 50px;
 		font-size: 20px;
 		line-height: 50px;
 		text-align: left;
-		width: 97%;
+		/*width: 97%;*/
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		padding: 0 15px;
 		font-weight: 300;
-		overflow: hidden;
+		/*overflow: hidden;*/
 		}
 		.cajatexto{
 		border: 1px solid #B8B8B8;
@@ -64,7 +64,7 @@
 		color: #B8B8B8;
 		padding: 10px 5px;
 		vertical-align: top;
-		width: 150px;
+		width: 200px;
 		}
 		.celeste{
 		background-color: #39cccc;
@@ -103,29 +103,31 @@
 		}
     </style>
     <script language="javascript">
-		function quitar()
-		{	
-			var nespacio = document.getElementById('espacioSeleccionado').value;
-			var placa    = document.getElementById('placaVehiculo').value;
-			var nusuario = document.getElementById('usuarioSistema').value;
-			alert(nespacio+" "+placa+" "+nusuario);
-			$.ajax({
-				type: "POST",
-				url: "quitar.php",
-				data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
-				dataType:"html",
-				success: function(data) 
-				{
-					alert(data);
-				 	send(data);// array JSON
-					document.getElementById("espacioSeleccionado").value = "";
-					document.getElementById("placaVehiculo").value = "";
-				},
-				error:function(data){
-					alert(data);
-				}
-			});
-		}
+		// 	function quitar()
+		// 	{	
+		// 		var nespacio = document.getElementById('espacioSeleccionado').value;
+		// 		// var placa    = document.getElementById('placaVehiculo').value;
+		// 		var nusuario = "TATTY";
+		// 		alert(nespacio+" "+nusuario);
+		// 		$.ajax({
+		// 			type: "POST",
+		// 			url: "registrar/index.php",
+		// 			data: "nespacio=" + nespacio + "&nusuario=" + nusuario,
+		// 			// data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
+		// 			dataType:"html",
+		// 			success: function(data) 
+		// 			{
+		// 				alert(data);
+		// 			 	send(data);// array JSON
+		// 				// document.getElementById("espacioSeleccionado").value = "";
+		// 				// document.getElementById("placaVehiculo").value = "";
+		// 			}
+		// 			,
+		// 			error:function(data){
+		// 				alert(data);
+		// 			}
+		// 		});
+		// 	}
 	</script>
 	<script type="text/javascript">
       $(document).on("ready",function(){
@@ -156,9 +158,15 @@
  </head>
  <body>
  	<header class="cabecera">
- 		<a href="index.php">
- 			<span>Web<b>PARKING</b></span>
- 		</a>
+ 		<div>
+ 			<a href="index.php">
+ 				<span>Web<b>PARKING</b></span>
+ 			</a>
+ 			<form action="registrar/index.php" method=GET role="form">
+ 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio seleccionado..."/>
+	 			<input class="boton" type="submit" value="Registrar"/>
+ 			</form>
+ 		</div>
  		<!-- <nav class="navbar" role="navigation">
  			<div class="navbar-custom-menu">
  				<ul>
@@ -178,17 +186,17 @@
  				<li>MENU PRINCIPAL</li>
  				<li>
  					<a href="#">
- 						<i></i><span>Tickets</span><i> ">"</i>
+ 						<i></i><span>Tickets</span><i> ></i>
  					</a>
  					<ul>
- 						<li><a href="#"><span>Registrar</span></a></li>
+ 						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
  						<li><a href="liberar/index.php"><span>Liberar</span></a></li>
  						<li><a href="#"><span>Historial</span></a></li>
  					</ul>
  				</li>
  				<li>
  					<a href="#">
- 						<i></i><span>Usuarios</span><i> ">"</i>
+ 						<i></i><span>Usuarios</span><i> ></i>
  					</a>
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
@@ -208,13 +216,13 @@
 		            </tr>
 		        </table>
 			</div>
-			<h3>Registrar el espacio de parqueo</h3>
+			<!-- <h3>Registrar el espacio de parqueo</h3>
 			<div>
 				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="TATTY"/>
 				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..."/>
 				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
 				<input class="boton" type="submit" value="Quitar" onclick="quitar();"/>
-			</div>
+			</div> -->
  	  	</section>
  	</div>
  </body>
