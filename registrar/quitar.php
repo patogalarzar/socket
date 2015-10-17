@@ -7,9 +7,16 @@
 
 	$timestamp = date("Y-m-d H:i:s");
 	conexion();
-	$idespacio = mysql_query("SELECT id_espacio FROM espacio WHERE nombre_espacio='$nespacio'");
-	// var_dump($id_espacio);
-	$idusuario = mysql_query("SELECT id_usuario FROM usuario WHERE alias_usuario='$nusuario'");
+	$idespacio="";
+	$queryIdEsp = mysql_query("SELECT id_espacio FROM espacio WHERE nombre_espacio='$nespacio'");
+	while ($ides = mysql_fetch_array($queryIdEsp)) {
+		$idespacio=$ides["id_espacio"]; 
+	}
+	$idusuario="";
+	$queryIdUs = mysql_query("SELECT id_usuario FROM usuario WHERE alias_usuario='$nusuario'");
+	while ($idus = mysql_fetch_array($queryIdUs)) {
+		$idusuario = $idus["id_usuario"];
+	}
 	$insert    = "INSERT INTO ticket values ('','$placa','$timestamp','','1','$idespacio','$idusuario')";
 	$resI = mysql_query($insert) or die (mysql_error());
 	$update    = "UPDATE espacio SET estado_espacio='OCUPADO' WHERE nombre_espacio='$nespacio'";

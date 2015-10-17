@@ -1,8 +1,25 @@
 <?php 
-	require_once("../clases/consultas.php");
-	$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
-	$nespacio = $_GET['nespacio'];
-	$nusuario = "TATTY";
+	//INICIAMOS LA SESION
+	session_start();
+
+	//boton salir desconatamosy borramos la sesion
+	if (!empty($_GET['salir'])) {
+		//limpiar las varibles de sesion t destruirla
+		$_SESSION['id_usuario'] = "";
+		session_unset();
+		session_destroy();
+	}
+
+	//
+	if (empty($_SESSION['id_usuario'])) {
+		header("Location: /socket/");
+	}else{
+		require_once("../clases/consultas.php");
+		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
+		$nespacio = $_GET['nespacio'];
+		$nusuario = "TATTY";
+		$fechaRegistro = date("Y-m-d H:i:s");
+	}
  ?>
  <html>
  <head>
@@ -12,14 +29,40 @@
 	<script src="../js/jquery-1.7.2.min.js"></script>
 	<script src="../js/fancywebsocket.js"></script>
 	<style type="text/css">
+		@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.barra{
+			/*display: inline-block;
+			vertical-align: top;*/
+		}
+		.barra a{
+			color: #fff;
+			font-size: 24px;
+			float: left;
+			margin-left: 45px;
+		}
+		.barra a:hover{
+			color: #000;
+			font-size: 30px;
+			margin-left: 40px;
+		}
+		.barra form{
+			float: right;
+			margin-top: 7px;
+			margin-right: 20px;
+		}
 		.barralateral-principal{
-		position: absolute;
-		top: 0;
-		left: 0;
-		padding-top: 50px;
+		/*position: absolute;*/
+		/*top: 0;
+		left: 0;*/
+		padding-top: 15;
 		min-height: 100%;
-		width: 230px;
-		z-index: 810;
+		width: 19%;
+		z-index: -1;
 		}
 		.barralateral{
 		padding-bottom: 10px;
@@ -28,7 +71,8 @@
 		.barralateral-menu{
 		list-style: none;
 	  	margin: 0;
-	  	padding: 0;
+	  	padding-top: 53px;
+	  	padding-left: 45px;
 		}
 		.barralateral-menu > li{
 		position: relative;
@@ -40,53 +84,65 @@
 		border: 1px solid #fff;
 		border-radius: 5px;
 		color: #fff;
+		display: block;
+		margin: 10px auto;
 		padding: 10px 5px;
 		text-align: center;
-		vertical-align: top;
-		width: 100px;
+		/*vertical-align: top;*/
+		width: 160px;
 		}
 		.cabecera{
+		background-color: #FF656D;
 		color:#fff;
-		background-color: #3C8DBC;
-		display: block;
-		float: left;
-		height: 50px;
+		/*display: block;*/
+		/*float: left;*/
+		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 20px;
-		line-height: 50px;
-		text-align: left;
-		width: 97%;
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		padding: 10 15px;
 		font-weight: 300;
-		overflow: hidden;
+		height: 50px;
+		line-height: 50px;
+		/*overflow: hidden;*/
+		/*padding: 0 15px;*/
+		position: fixed;
+		text-align: left;
+		width: 100%;
 		}
 		.caja{
 		background: #ffffff;
 		border-radius: 3px;
-		border-top: 5px solid #d2d6de;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+		border-top: 5px solid #FF656D;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		margin: 10px auto;
 		margin-bottom: 20px;
-		padding: 10px 5px;
- 		position: relative;
-		width: 100%;
+		padding: 15px 15px;
+ 		/*position: relative;*/
+		width: 50%;
 		}
 		.cajatexto{
 		border: 1px solid #B8B8B8;
 		border-radius: 5px;
 		color: #B8B8B8;
+		display: block;
+		margin: 10px auto;
 		padding: 10px 5px;
 		vertical-align: top;
-		width: 200px;
+		width: 85%;
 		}
 		.celeste{
 		background-color: #39cccc;
 		}
+		.contenedor, .barralateral-principal{
+			display: inline-block;
+			vertical-align: top;
+		}
 		.contenedor{
   		background-color: #ecf0f5;
-		margin-left: 250px;
+  		font-family: 'Source Sans Pro', sans-serif;
+		/*margin-left: 225px;*/
 		min-height: 100%;
 		padding-top: 50px;
-		z-index: 820;
+		width: 80%;
+		/*z-index: 820;*/
 		}
 		.contenido{
 		min-height: 250px;
@@ -168,10 +224,15 @@
  </head>
  <body>
  	<header class="cabecera">
- 		<a href="../index.php">
- 			<span>Web<b>PARKING</b></span>
- 		</a>
- 				 		
+ 		<div class="barra">
+ 			<a  href="../tablero/">
+ 				<span>Web<b>PARKING</b></span>
+ 			</a>
+ 			<!-- <form action="../registrar/" method=GET role="form">
+ 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio seleccionado..."/>
+	 			<input class="boton" type="submit" value="Registrar"/>
+ 			</form> -->
+ 		</div> 		
  		<!-- <nav class="navbar" role="navigation">
  			<div class="navbar-custom-menu">
  				<ul>
@@ -195,7 +256,7 @@
  					</a>
  					<ul>
  						<!-- <li><a href="#"><span>Registrar</span></a></li> -->
- 						<li><a href="../liberar/index.php"><span>Liberar</span></a></li>
+ 						<li><a href="../liberar/"><span>Liberar</span></a></li>
  						<li><a href="#"><span>Historial</span></a></li>
  					</ul>
  				</li>
@@ -224,6 +285,7 @@
 			<h3>Registrar el espacio de parqueo</h3>
 			<div class="caja">
 				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo $nusuario; ?>"/>
+				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo $fechaRegistro; ?>"/>
 				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..."/>
 				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..."/>
 				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo $nespacio; ?>"/>

@@ -1,5 +1,5 @@
 <?php 
-//INICIAMOS LA SESION
+	//INICIAMOS LA SESION
 	session_start();
 
 	//boton salir desconatamosy borramos la sesion
@@ -15,8 +15,7 @@
 		header("Location: /socket/");
 	}else{
 		require_once("../clases/consultas.php");
-		$espaciosOcupados = consultarGeneral("espacio","estado_espacio","=","OCUPADO");
-		$fechaSalida = date("Y-m-d H:i:s");
+		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
 	}
  ?>
  <html>
@@ -82,12 +81,10 @@
 		border: 1px solid #fff;
 		border-radius: 5px;
 		color: #fff;
-		display: block;
-		margin: 10px auto;
 		padding: 10px 5px;
 		text-align: center;
-		/*vertical-align: top;*/
-		width: 160px;
+		vertical-align: top;
+		width: 100px;
 		}
 		.cabecera{
 		background-color: #FF656D;
@@ -106,26 +103,13 @@
 		width: 100%;
 		z-index: 1;
 		}
-		.caja{
-		background: #ffffff;
-		border-radius: 3px;
-		border-top: 5px solid #FF656D;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-		margin: 10px auto;
-		margin-bottom: 20px;
-		padding: 15px 15px;
- 		/*position: relative;*/
-		width: 50%;
-		}
 		.cajatexto{
 		border: 1px solid #B8B8B8;
 		border-radius: 5px;
 		color: #B8B8B8;
-		display: block;
-		margin: 10px auto;
 		padding: 10px 5px;
 		vertical-align: top;
-		width: 85%;
+		width: 200px;
 		}
 		.celeste{
 		background-color: #39cccc;
@@ -139,7 +123,6 @@
   		font-family: 'Source Sans Pro', sans-serif;
 		/*margin-left: 225px;*/
 		min-height: 100%;
-		/*padding-top: 50px;*/
 		width: 80%;
 		/*z-index: 820;*/
 		}
@@ -176,35 +159,31 @@
 		}
     </style>
     <script language="javascript">
-		function liberar()
-		{	
-
-			var nespacio = document.getElementById('espacioSeleccionado').value;
-			var placa    = document.getElementById('placaVehiculo').value;
-			var cplaca   = document.getElementById('confirmarPlaca').value;
-			var nusuario = document.getElementById('usuarioSistema').value;
-			if (placa == cplaca) {
-				$.ajax({
-				async: false,
-				type: "POST",
-				url: "colocar.php",
-				data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
-				dataType:"html",
-				success: function(data) 
-				{
-					alert(data);
-				 	send(data);// array JSON
-					document.getElementById("espacioSeleccionado").value = "";
-					document.getElementById("placaVehiculo").value = "";
-					document.getElementById('confirmarPlaca').value = "";
-				}
-				});
-			} else{
-				alert("Las placas no coinciden.");
-				document.getElementById('confirmarPlaca').value = "";
-			};
-			
-		}
+		// 	function quitar()
+		// 	{	
+		// 		var nespacio = document.getElementById('espacioSeleccionado').value;
+		// 		// var placa    = document.getElementById('placaVehiculo').value;
+		// 		var nusuario = "TATTY";
+		// 		alert(nespacio+" "+nusuario);
+		// 		$.ajax({
+		// 			type: "POST",
+		// 			url: "registrar/index.php",
+		// 			data: "nespacio=" + nespacio + "&nusuario=" + nusuario,
+		// 			// data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
+		// 			dataType:"html",
+		// 			success: function(data) 
+		// 			{
+		// 				alert(data);
+		// 			 	send(data);// array JSON
+		// 				// document.getElementById("espacioSeleccionado").value = "";
+		// 				// document.getElementById("placaVehiculo").value = "";
+		// 			}
+		// 			,
+		// 			error:function(data){
+		// 				alert(data);
+		// 			}
+		// 		});
+		// 	}
 	</script>
 	<script type="text/javascript">
       $(document).on("ready",function(){
@@ -224,14 +203,6 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            $.ajax({
-              type:"GET",
-              url:"consultarPlaca.php",
-              data:{numespacio:valor}
-            }).done(function(msg){
-              document.getElementById("placaVehiculo").value = msg;
-            });
-
             alert(clase+" "+valor);
         });
         
@@ -244,14 +215,14 @@
  <body>
  	<header class="cabecera">
  		<div class="barra">
- 			<a  href="../tablero/">
+ 			<a  href="index.php">
  				<span>Web<b>PARKING</b></span>
  			</a>
- 			<!-- <form action="../registrar/" method=GET role="form">
+ 			<form action="../registrar/" method=GET role="form">
  				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio seleccionado..."/>
 	 			<input class="boton" type="submit" value="Registrar"/>
- 			</form> -->
- 		</div> 	
+ 			</form>
+ 		</div>
  		<!-- <nav class="navbar" role="navigation">
  			<div class="navbar-custom-menu">
  				<ul>
@@ -271,17 +242,17 @@
  				<li>MENU PRINCIPAL</li>
  				<li>
  					<a href="#">
- 						<i></i><span>Tickets</span><i> ">"</i>
+ 						<i></i><span>Tickets</span><i> ></i>
  					</a>
  					<ul>
- 						<!-- <li><a href="../registrar/index.php"><span>Registrar</span></a></li> -->
- 						<li><a href="#"><span>Liberar</span></a></li>
+ 						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
+ 						<li><a href="../liberar/"><span>Liberar</span></a></li>
  						<li><a href="#"><span>Historial</span></a></li>
  					</ul>
  				</li>
  				<li>
  					<a href="#">
- 						<i></i><span>Usuarios</span><i> ">"</i>
+ 						<i></i><span>Usuarios</span><i> ></i>
  					</a>
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
@@ -296,22 +267,18 @@
  			<h3>Seleccione el espacio de parqueo</h3>
 		 	<div class="tablero">
 				<table cellspacing="0" cellpadding="0">     
-		            <tr>        
-		                <?php  while($arr = mysql_fetch_array($espaciosOcupados)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
+		            <tr id="espaciosVacios">        
+		                <?php  while($arr = mysql_fetch_array($espaciosVacios)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
 		            </tr>
 		        </table>
 			</div>
-			<h3>Liberar el espacio de parqueo</h3>
-			<div class="caja">
+			<!-- <h3>Registrar el espacio de parqueo</h3>
+			<div>
 				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="TATTY"/>
-				<input class="cajatexto" id="fechaSalida" type="text" placeholder="Usuario..." value="<?php echo $fechaSalida; ?>"/>
-				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..."/>
-				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..."/>
 				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..."/>
 				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
-				<input class="cajatexto" id="confirmarPlaca" type="text" placeholder="Confirmar placa..."/>
-				<input class="boton" type="submit" value="Quitar" onclick="liberar();"/>
-			</div>
+				<input class="boton" type="submit" value="Quitar" onclick="quitar();"/>
+			</div> -->
  	  	</section>
  	</div>
  </body>
