@@ -109,7 +109,7 @@
 		color: #B8B8B8;
 		padding: 10px 5px;
 		vertical-align: top;
-		width: 200px;
+		width: 150px;
 		}
 		.celeste{
 		background-color: #39cccc;

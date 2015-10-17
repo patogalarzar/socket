@@ -17,8 +17,27 @@
 		require_once("../clases/consultas.php");
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
 		$nespacio = $_GET['nespacio'];
+		$id_piso="";
+		$id_edificio = "";
+		$nombre_piso = "";
+		$tipo_piso = "";
+		$nombre_edificio = "";
 		$nusuario = "TATTY";
 		$fechaRegistro = date("Y-m-d H:i:s");
+		$espacios  = consultarGeneral("espacio","nombre_espacio","=",$_GET['nespacio']);
+		while ($espacio=mysql_fetch_array($espacios)) {
+			$id_piso=$espacio["id_piso"];
+		}
+		$pisos = consultarGeneral("piso","id_piso","=",$id_piso);
+		while ($piso = mysql_fetch_array($pisos)) {
+			$id_edificio= $piso["id_edificio"];
+			$nombre_piso = $piso["nombre_piso"];
+			$tipo_piso = $piso["tipo_piso"];
+		}
+		$edificios = consultarGeneral("edificio","id_edificio","=",$id_edificio);
+		while ($edificio = mysql_fetch_array($edificios)) {
+			$nombre_edificio = $edificio["nombre_edificio"];
+		}
 	}
  ?>
  <html>
@@ -284,11 +303,11 @@
 			</div> -->
 			<h3>Registrar el espacio de parqueo</h3>
 			<div class="caja">
-				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo $nusuario; ?>"/>
-				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo $fechaRegistro; ?>"/>
-				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..."/>
-				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..."/>
-				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo $nespacio; ?>"/>
+				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
+				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
+				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
+				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
+				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
 				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
 				<input class="boton" type="submit" value="Quitar" onclick="quitar();"/>
 			</div>

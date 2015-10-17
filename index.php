@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	if (!empty($_GET['entrar'])) {
-		if ( $_GET['usuario'] == "tito" && $_GET['password'] == "tito") {
+		if ( $_GET['usuario'] == "TATTY" && $_GET['password'] == "MATHEW123") {
 			$_SESSION['id_usuario'] = 1;
 			header('Location: /socket/tablero/');
 		}
@@ -63,7 +63,7 @@
 	 	<div class="caja" id="login">
 	 		<form action="index.php" method="GET">
 	 			<input class="cajatexto"type="text" name="usuario" placeholder="Usuario">
-	 			<input class="cajatexto"type="text" name="password" placeholder="Password">
+	 			<input class="cajatexto"type="password" name="password" placeholder="Password">
 				<button class="boton"id="entrar" name="entrar" value="1">Entrar</button>
 	 		</form>
 	 	</div>

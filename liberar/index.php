@@ -15,6 +15,8 @@
 		header("Location: /socket/");
 	}else{
 		require_once("../clases/consultas.php");
+		$nusuario = "TATTY";
+
 		$espaciosOcupados = consultarGeneral("espacio","estado_espacio","=","OCUPADO");
 		$fechaSalida = date("Y-m-d H:i:s");
 	}
@@ -223,13 +225,22 @@
               //cambio de color espacio
               $(this).addClass('naranja').removeClass('celeste');
             };
-            document.getElementById("espacioSeleccionado").value = valor;
+            document.getElementById("espacioSeleccionado").value = "Espacio: "+valor;
             $.ajax({
               type:"GET",
               url:"consultarPlaca.php",
-              data:{numespacio:valor}
+              data:{nespacio:valor}
             }).done(function(msg){
-              document.getElementById("placaVehiculo").value = msg;
+            	alert(msg);
+            	var JSONdata    = JSON.parse(msg); //parseo la informacion
+					var placa = JSONdata[0].placa;
+					var nombre_piso = JSONdata[0].nombre_piso;
+					var tipo_piso = JSONdata[0].tipo_piso;
+					var nombre_edificio = JSONdata[0].nombre_edificio;
+				
+              	document.getElementById("placaVehiculo").value = "Placa: "+placa;
+              	document.getElementById("pisoEspacio").value = "Piso: "+nombre_piso+" / "+tipo_piso;
+	            document.getElementById("edificioEspacio").value = "Edificio: "+nombre_edificio;
             });
 
             alert(clase+" "+valor);
@@ -303,8 +314,8 @@
 			</div>
 			<h3>Liberar el espacio de parqueo</h3>
 			<div class="caja">
-				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="TATTY"/>
-				<input class="cajatexto" id="fechaSalida" type="text" placeholder="Usuario..." value="<?php echo $fechaSalida; ?>"/>
+				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
+				<input class="cajatexto" id="fechaSalida" type="text" placeholder="Usuario..." value="<?php echo "Fecha Salida: ".$fechaSalida; ?>"/>
 				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..."/>
 				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..."/>
 				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..."/>

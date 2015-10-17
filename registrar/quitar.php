@@ -19,10 +19,12 @@
 	}
 	$insert    = "INSERT INTO ticket values ('','$placa','$timestamp','','1','$idespacio','$idusuario')";
 	$resI = mysql_query($insert) or die (mysql_error());
-	$update    = "UPDATE espacio SET estado_espacio='OCUPADO' WHERE nombre_espacio='$nespacio'";
-	$resU = mysql_query($update) or die (mysql_error());
-
 	salir();
+	conexion();
+	$update    = "UPDATE espacio SET estado_espacio='OCUPADO' WHERE nombre_espacio='".$nespacio."'";
+	$resU = mysql_query($update) or die (mysql_error());
+	salir();
+	
 
 	$arrayjson = array();
 	$arrayjson[]=array('nespacio'=> $nespacio,
