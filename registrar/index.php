@@ -292,7 +292,7 @@
  					<ul>
  						<!-- <li><a href="#"><span>Registrar</span></a></li> -->
  						<li><a href="../liberar/"><span>Liberar</span></a></li>
- 						<li><a href="#"><span>Historial</span></a></li>
+ 						<li><a href="../historial/"><span>Historial</span></a></li>
  					</ul>
  				</li>
  				<li>
@@ -325,7 +325,7 @@
 				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
 				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
 				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
-				<input class="boton" type="submit" value="Quitar" onclick="quitar();"/>
+				<input class="boton" type="submit" value="Registrar" onclick="quitar();"/>
 			</div>
  	  	</section>
  	</div>

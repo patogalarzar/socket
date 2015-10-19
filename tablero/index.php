@@ -330,7 +330,7 @@
  					<ul>
  						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
  						<li><a href="../liberar/"><span>Liberar</span></a></li>
- 						<li><a href="#"><span>Historial</span></a></li>
+ 						<li><a href="../historial/"><span>Historial</span></a></li>
  					</ul>
  				</li>
  				<li>

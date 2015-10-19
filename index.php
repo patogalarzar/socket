@@ -55,7 +55,7 @@
  <!DOCTYPE html>
  <html lang="es">
 	 <head>
-	 	<title>Sesiones PHP</title>
+	 	<title>OROMALL</title>
 	 </head>
 	 <body style="bacground='#52C3A5">
 	 	<h1 class="etiqueta">Bienvenido</b></h1>
