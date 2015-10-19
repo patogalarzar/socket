@@ -97,11 +97,80 @@ function quitar_espacio(message)
 				var nespacio = JSONdata[0].nespacio;
 				var placa = JSONdata[0].placa;
 				var nusuario = JSONdata[0].nusuario;
+				var edificio = JSONdata[0].edificio;
+				var libresA = JSONdata[0].libresA;
+				var ocupadosA = JSONdata[0].ocupadosA; 
+				var libresB = JSONdata[0].libresB;
+				var ocupadosB = JSONdata[0].ocupadosB;
+				var libresE = JSONdata[0].libresE;
+				var ocupadosE = JSONdata[0].ocupadosE;
 				var actualizacion = JSONdata[0].actualizacion;
 				var espacios = JSONdata[0].espacios;
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
+				alert("Edificio: "+edificio);
+
+				if (edificio=="1") {
+					// alert("entro al 1");
+					// alert(libresA);
+					var nuevaEtiqueta = document.createElement("p");
+					var nuevaEtiquetaO = document.createElement("p");
+					var texto = document.createTextNode(libresA);
+					var textoO = document.createTextNode(ocupadosA);
+					nuevaEtiqueta.appendChild(texto);
+					nuevaEtiquetaO.appendChild(textoO);
+					nuevaEtiqueta.setAttribute('id','libresA');
+					nuevaEtiquetaO.setAttribute('id','ocupadosA');
+					nuevaEtiqueta.setAttribute('value',libresA);
+					nuevaEtiquetaO.setAttribute('value',ocupadosA);
+					var etiquetaAnterior = document.getElementById("libresA");
+					var etiquetaAnteriorO = document.getElementById("ocupadosA");
+					etiquetaAnterior.setAttribute('value',libresA);
+					etiquetaAnteriorO.setAttribute('value',ocupadosA);
+					etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+					etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+				} else{
+					if (edificio=="2") {
+						// alert("entro al 2");
+						// alert(libresB);
+						var nuevaEtiqueta = document.createElement("p");
+						var nuevaEtiquetaO = document.createElement("p");
+						var texto = document.createTextNode(libresB);
+						var textoO = document.createTextNode(ocupadosB);
+						nuevaEtiqueta.appendChild(texto);
+						nuevaEtiquetaO.appendChild(textoO);
+						nuevaEtiqueta.setAttribute('id','libresB');
+						nuevaEtiquetaO.setAttribute('id','ocupadosB');
+						nuevaEtiqueta.setAttribute('value',libresB);
+						nuevaEtiquetaO.setAttribute('value',ocupadosB);
+						var etiquetaAnterior = document.getElementById("libresB");
+						var etiquetaAnteriorO = document.getElementById("ocupadosB");
+						etiquetaAnterior.setAttribute('value',libresB);
+						etiquetaAnteriorO.setAttribute('value',ocupadosB);
+						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+					} else{
+						// alert("entro al 3");
+						// alert(libresE);
+						var nuevaEtiqueta = document.createElement("p");
+						var nuevaEtiquetaO = document.createElement("p");
+						var texto = document.createTextNode(libresE);
+						var textoO = document.createTextNode(ocupadosE);
+						nuevaEtiqueta.appendChild(texto);
+						nuevaEtiquetaO.appendChild(textoO);
+						nuevaEtiqueta.setAttribute('id','libresE');
+						nuevaEtiquetaO.setAttribute('id','ocupadosE');
+						nuevaEtiqueta.setAttribute('value',libresE);
+						nuevaEtiquetaO.setAttribute('value',ocupadosE);
+						var etiquetaAnterior = document.getElementById("libresE");
+						var etiquetaAnteriorO = document.getElementById("ocupadosE");
+						etiquetaAnterior.setAttribute('value',libresE);
+						etiquetaAnteriorO.setAttribute('value',ocupadosE);
+						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+					}
+				}
 				var etiqueta = document.getElementById(nespacio);
 
 				etiqueta.parentNode.removeChild(etiqueta);
@@ -113,13 +182,91 @@ function colocar_espacio(message)
 				var nespacio = JSONdata[0].nespacio;
 				var placa = JSONdata[0].placa;
 				var nusuario = JSONdata[0].nusuario;
+				var edificio = JSONdata[0].edificio;
+				var libresA = JSONdata[0].libresA;
+				var ocupadosA = JSONdata[0].ocupadosA; 
+				var libresB = JSONdata[0].libresB;
+				var ocupadosB = JSONdata[0].ocupadosB;
+				var libresE = JSONdata[0].libresE;
+				var ocupadosE = JSONdata[0].ocupadosE;
 				var actualizacion = JSONdata[0].actualizacion;
 				var espacios = JSONdata[0].espacios;
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
-				var tabla = document.getElementById("espaciosVacios");
+				alert("Edificio: "+edificio);
+
+				if (edificio=="1") {
+					// alert("entro al 1");
+					// alert(libresA);
+					var nuevaEtiqueta = document.createElement("p");
+					var nuevaEtiquetaO = document.createElement("p");
+					var texto = document.createTextNode(libresA);
+					var textoO = document.createTextNode(ocupadosA);
+					nuevaEtiqueta.appendChild(texto);
+					nuevaEtiquetaO.appendChild(textoO);
+					nuevaEtiqueta.setAttribute('id','libresA');
+					nuevaEtiquetaO.setAttribute('id','ocupadosA');
+					nuevaEtiqueta.setAttribute('value',libresA);
+					nuevaEtiquetaO.setAttribute('value',ocupadosA);
+					var etiquetaAnterior = document.getElementById("libresA");
+					var etiquetaAnteriorO = document.getElementById("ocupadosA");
+					etiquetaAnterior.setAttribute('value',libresA);
+					etiquetaAnteriorO.setAttribute('value',ocupadosA);
+					etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+					etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+				} else{
+					if (edificio=="2") {
+						// alert("entro al 2");
+						// alert(libresB);
+						var nuevaEtiqueta = document.createElement("p");
+						var nuevaEtiquetaO = document.createElement("p");
+						var texto = document.createTextNode(libresB);
+						var textoO = document.createTextNode(ocupadosB);
+						nuevaEtiqueta.appendChild(texto);
+						nuevaEtiquetaO.appendChild(textoO);
+						nuevaEtiqueta.setAttribute('id','libresB');
+						nuevaEtiquetaO.setAttribute('id','ocupadosB');
+						nuevaEtiqueta.setAttribute('value',libresB);
+						nuevaEtiquetaO.setAttribute('value',ocupadosB);
+						var etiquetaAnterior = document.getElementById("libresB");
+						var etiquetaAnteriorO = document.getElementById("ocupadosB");
+						etiquetaAnterior.setAttribute('value',libresB);
+						etiquetaAnteriorO.setAttribute('value',ocupadosB);
+						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+					} else{
+						// alert("entro al 3");
+						// alert(libresE);
+						var nuevaEtiqueta = document.createElement("p");
+						var nuevaEtiquetaO = document.createElement("p");
+						var texto = document.createTextNode(libresE);
+						var textoO = document.createTextNode(ocupadosE);
+						nuevaEtiqueta.appendChild(texto);
+						nuevaEtiquetaO.appendChild(textoO);
+						nuevaEtiqueta.setAttribute('id','libresE');
+						nuevaEtiquetaO.setAttribute('id','ocupadosE');
+						nuevaEtiqueta.setAttribute('value',libresE);
+						nuevaEtiquetaO.setAttribute('value',ocupadosE);
+						var etiquetaAnterior = document.getElementById("libresE");
+						var etiquetaAnteriorO = document.getElementById("ocupadosE");
+						etiquetaAnterior.setAttribute('value',libresE);
+						etiquetaAnteriorO.setAttribute('value',ocupadosE);
+						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+					}
+				}
+				// alert(estado);
+				var contenidoTabla  = $("#espaciosVacios").html();
+				// alert(contenidoTabla);
+				var espaciohtml   = "<th class='espacios' id='"+nespacio+"' value='"+nespacio+"'>"+nespacio+"</th>";
+				$("#espaciosVacios").html(contenidoTabla+espaciohtml);
+				// var tabla = document.getElementsByTagName("th");
+				// alert(tabla);
+				// var nuevaEtiqueta = document.createElement("th");
+				// var texto = document.createTextNode(nespacio);
+				// nuevaEtiqueta.appendChild(texto);
 				// alert(espacios);
 				// tabla.innerHTML = espacios;
-				tabla.innerHTML = "<th class='espacios' id='"+nespacio+"' valor='"+nespacio+"'>"+nespacio+"</th>";
+				// document.body.div.appendChild(nuevaEtiqueta);
 }

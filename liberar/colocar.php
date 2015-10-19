@@ -1,10 +1,18 @@
 <?php 
 	require_once("../clases/conect.php");
 	require_once("../clases/consultas.php");
-	
+	date_default_timezone_set("America/Guayaquil");
+
 	$nespacio = $_POST['nespacio'];
 	$placa = $_POST['placa'];
 	$nusuario = $_POST['nusuario'];
+	$libresA = $_POST['libresA'];
+	$ocupadosA = $_POST['ocupadosA'];
+	$libresB = $_POST['libresB'];
+	$ocupadosB = $_POST['ocupadosB'];
+	$libresE = $_POST['libresE'];
+	$ocupadosE = $_POST['ocupadosE'];
+	
 	$timestamp = date("Y-m-d H:i:s");
 	
 	
@@ -32,14 +40,44 @@
 	
 	$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
 	while($arr = mysql_fetch_array($espaciosVacios)){ $espacios = "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}
-	
+	conexion();
+	$idpiso = "";
+	// var_dump($nespacio);
+	$queryIdEsp = mysql_query("SELECT * FROM espacio WHERE nombre_espacio='$nespacio'");
+	while ($ides = mysql_fetch_array($queryIdEsp)) {
+		$idespacio = $ides["id_espacio"]; 
+		$idpiso = $ides["id_piso"]; 
+	}
+
+	salir();
+
+	$edificio="";
+	if ($idpiso > 0 and $idpiso < 6) {
+		$edificio = "1";
+		$libresA = $libresA +1;
+		$ocupadosA = $ocupadosA -1;
+	}elseif ($idpiso > 5 and $idpiso < 10) {
+		$edificio = "2";
+		$libresB = $libresB +1;
+		$ocupadosB = $ocupadosB -1;
+	}else{
+		$edificio = "3";
+		$libresE = $libresE +1;
+		$ocupadosE = $ocupadosE -1;
+	}
 	$arrayjson = array();
 	$arrayjson[]=array('nespacio'=> $nespacio,
-					   'placa'   => $placa,
-					   'nusuario'=> $nusuario,
-					   'actualizacion' => '2',
-					   'espacios' => $espacios
-	);
+						'placa'   => $placa,
+						'nusuario'=> $nusuario,
+						'edificio'=> $edificio,
+						'libresA' => $libresA,
+						'ocupadosA' => $ocupadosA,
+						'libresB' => $libresB,
+						'ocupadosB' => $ocupadosB,
+						'libresE' => $libresE,
+						'ocupadosE' => $ocupadosE,
+						'actualizacion' => '2'
+					  );
 	
 	echo json_encode($arrayjson);
  ?>

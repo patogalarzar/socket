@@ -15,8 +15,15 @@
 		header("Location: /socket/");
 	}else{
 		require_once("../clases/consultas.php");
+		date_default_timezone_set("America/Guayaquil");
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
 		$nespacio = $_GET['nespacio'];
+		$libresA = $_GET['libresA'];
+		$ocupadosA = $_GET['ocupadosA'];
+		$libresB = $_GET['libresB'];
+		$ocupadosB = $_GET['ocupadosB'];
+		$libresE = $_GET['libresE'];
+		$ocupadosE = $_GET['ocupadosE'];
 		$id_piso="";
 		$id_edificio = "";
 		$nombre_piso = "";
@@ -63,6 +70,7 @@
 			font-size: 24px;
 			float: left;
 			margin-left: 45px;
+			margin-top: 10px;
 		}
 		.barra a:hover{
 			color: #000;
@@ -71,8 +79,8 @@
 		}
 		.barra form{
 			float: right;
-			margin-top: 7px;
 			margin-right: 20px;
+			margin-top: 14px;
 		}
 		.barralateral-principal{
 		/*position: absolute;*/
@@ -90,7 +98,7 @@
 		.barralateral-menu{
 		list-style: none;
 	  	margin: 0;
-	  	padding-top: 53px;
+	  	padding-top: 85px;
 	  	padding-left: 45px;
 		}
 		.barralateral-menu > li{
@@ -118,13 +126,14 @@
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 20px;
 		font-weight: 300;
-		height: 50px;
+		height: 65px;
 		line-height: 50px;
 		/*overflow: hidden;*/
 		/*padding: 0 15px;*/
 		position: fixed;
 		text-align: left;
 		width: 100%;
+		z-index: 1;
 		}
 		.caja{
 		background: #ffffff;
@@ -159,7 +168,7 @@
   		font-family: 'Source Sans Pro', sans-serif;
 		/*margin-left: 225px;*/
 		min-height: 100%;
-		padding-top: 50px;
+		padding-top: 80px;
 		width: 80%;
 		/*z-index: 820;*/
 		}
@@ -192,21 +201,28 @@
     <script language="javascript">
 		function quitar()
 		{	
-			var nespacio = document.getElementById('espacioSeleccionado').value;
+			var nespacio = "<?php echo $nespacio; ?>";
 			var placa    = document.getElementById('placaVehiculo').value;
-			var nusuario = document.getElementById('usuarioSistema').value;
+			var nusuario = "<?php echo $nusuario; ?>";
+			var libresA = "<?php echo $libresA ?>";
+			var ocupadosA = "<?php echo $ocupadosA ?>";
+			var libresB = "<?php echo $libresB ?>";
+			var ocupadosB = "<?php echo $ocupadosB ?>";
+			var libresE = "<?php echo $libresE ?>";
+			var ocupadosE = "<?php echo $ocupadosE ?>";
 			alert(nespacio+" "+placa+" "+nusuario);
 			$.ajax({
 				type: "POST",
 				url: "quitar.php",
-				data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
+				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE,
 				dataType:"html",
 				success: function(data) 
 				{
 					alert(data);
 				 	send(data);// array JSON
-					document.getElementById("espacioSeleccionado").value = "";
-					document.getElementById("placaVehiculo").value = "";
+				 	window.location="../tablero/";
+					// document.getElementById("espacioSeleccionado").value = "";
+					// document.getElementById("placaVehiculo").value = "";
 				},
 				error:function(data){
 					alert(data);
