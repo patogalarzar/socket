@@ -380,8 +380,8 @@
  						<i></i><span>Usuarios</span><i> ">"</i>
  					</a>
  					<ul>
- 						<li><a href="#"><span>Login</span></a></li>
- 						<li><a href="#"><span>Registrar</span></a></li>
+ 						<li><a href="../"><span>Login</span></a></li>
+ 						<li><a href="../usuario/"><span>Registrar</span></a></li>
  						<li><a href="../"><span>Salir</span></a></li>
  					</ul>
  				</li>
