@@ -9,7 +9,6 @@
 		session_unset();
 		session_destroy();
 	}
-
 	//
 	if (empty($_SESSION['id_usuario'])) {
 		header("Location: /socket/");
@@ -220,33 +219,6 @@
 			margin-top: 14px;
 		}
     </style>
-    <script language="javascript">
-		// 	function quitar()
-		// 	{	
-		// 		var nespacio = document.getElementById('espacioSeleccionado').value;
-		// 		// var placa    = document.getElementById('placaVehiculo').value;
-		// 		var nusuario = "TATTY";
-		// 		alert(nespacio+" "+nusuario);
-		// 		$.ajax({
-		// 			type: "POST",
-		// 			url: "registrar/index.php",
-		// 			data: "nespacio=" + nespacio + "&nusuario=" + nusuario,
-		// 			// data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
-		// 			dataType:"html",
-		// 			success: function(data) 
-		// 			{
-		// 				alert(data);
-		// 			 	send(data);// array JSON
-		// 				// document.getElementById("espacioSeleccionado").value = "";
-		// 				// document.getElementById("placaVehiculo").value = "";
-		// 			}
-		// 			,
-		// 			error:function(data){
-		// 				alert(data);
-		// 			}
-		// 		});
-		// 	}
-	</script>
 	<script type="text/javascript">
       $(document).on("ready",function(){
         $('th').click(function(){
@@ -306,18 +278,6 @@
  			</div>
  			
  		</div>
- 		<!-- <nav class="navbar" role="navigation">
- 			<div class="navbar-custom-menu">
- 				<ul>
- 				<li>
-				  	<a href="#">
-			            <img src="img/avatar2.png" class="user-image" alt="User Image">
-			            <span>TATTY</span>
-	             	</a>
- 				</li>
- 			</ul>
- 			</div>
- 		</nav> -->
  	</header>
  	<aside class="barralateral-principal">
  		<section class="barralateral">
@@ -340,6 +300,7 @@
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
  						<li><a href="#"><span>Registrar</span></a></li>
+ 						<li><a href="../"><span>Salir</span></a></li>
  					</ul>
  				</li>
  			</ul>

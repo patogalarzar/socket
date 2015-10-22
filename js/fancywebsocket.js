@@ -76,7 +76,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://127.0.0.1:8080');
+	Server = new FancyWebSocket('ws://192.168.1.7:8080');
     Server.bind('open', function()
 	{
     });
@@ -195,7 +195,7 @@ function colocar_espacio(message)
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
 				alert("Edificio: "+edificio);
-
+				var idPadre=""; // id del padre al que se va a añadir el espacio liberado
 				if (edificio=="1") {
 					// alert("entro al 1");
 					// alert(libresA);
@@ -215,6 +215,7 @@ function colocar_espacio(message)
 					etiquetaAnteriorO.setAttribute('value',ocupadosA);
 					etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 					etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+					idPadre="espaciosVaciosA";
 				} else{
 					if (edificio=="2") {
 						// alert("entro al 2");
@@ -235,6 +236,7 @@ function colocar_espacio(message)
 						etiquetaAnteriorO.setAttribute('value',ocupadosB);
 						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+						idPadre="espaciosVaciosB";
 					} else{
 						// alert("entro al 3");
 						// alert(libresE);
@@ -254,19 +256,14 @@ function colocar_espacio(message)
 						etiquetaAnteriorO.setAttribute('value',ocupadosE);
 						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+						idPadre="espaciosVaciosE";
 					}
 				}
 				// alert(estado);
-				var contenidoTabla  = $("#espaciosVacios").html();
+
+				var contenidoTabla  = $("#"+idPadre).html();
 				// alert(contenidoTabla);
 				var espaciohtml   = "<th class='espacios' id='"+nespacio+"' value='"+nespacio+"'>"+nespacio+"</th>";
-				$("#espaciosVacios").html(contenidoTabla+espaciohtml);
-				// var tabla = document.getElementsByTagName("th");
-				// alert(tabla);
-				// var nuevaEtiqueta = document.createElement("th");
-				// var texto = document.createTextNode(nespacio);
-				// nuevaEtiqueta.appendChild(texto);
-				// alert(espacios);
-				// tabla.innerHTML = espacios;
-				// document.body.div.appendChild(nuevaEtiqueta);
+				$("#"+idPadre).html(contenidoTabla+espaciohtml);
+				
 }

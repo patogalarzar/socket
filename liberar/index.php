@@ -360,18 +360,6 @@
  				</form>
  			</div> -->
  		</div> 	
- 		<!-- <nav class="navbar" role="navigation">
- 			<div class="navbar-custom-menu">
- 				<ul>
- 				<li>
-				  	<a href="#">
-			            <img src="img/avatar2.png" class="user-image" alt="User Image">
-			            <span>TATTY</span>
-	             	</a>
- 				</li>
- 			</ul>
- 			</div>
- 		</nav> -->
  	</header>
  	<aside class="barralateral-principal">
  		<section class="barralateral">
@@ -394,6 +382,7 @@
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
  						<li><a href="#"><span>Registrar</span></a></li>
+ 						<li><a href="../"><span>Salir</span></a></li>
  					</ul>
  				</li>
  			</ul>

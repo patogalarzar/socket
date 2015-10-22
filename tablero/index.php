@@ -19,7 +19,17 @@
 		$libresB=0;$ocupadosB=0;$reservadosB=0;
 		$libresE=0;$ocupadosE=0;$reservadosE=0;
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
+
 		conexion();
+		$espaciosVaciosA = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(1,2,3,4,5)");
+		$espaciosVaciosB = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(6,7,8,9)");
+		$espaciosVaciosE = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(10)");
+
+		$torreA=array();
+		$torreB=array();
+		$exteriores=array();
+		$indice=0;	
+		
 		$espaciosTorreA = mysql_query("SELECT * FROM espacio WHERE id_piso IN(1,2,3,4,5)");
 		while ($espacios = mysql_fetch_array($espaciosTorreA)) {
 			$est = $espacios["estado_espacio"];
@@ -138,8 +148,8 @@
 		background-color: #39cccc;
 		}
 		.contenedor, .barralateral-principal{
-			display: inline-block;
-			vertical-align: top;
+		display: inline-block;
+		vertical-align: top;
 		}
 		.contenedor{
   		background-color: #ecf0f5;
@@ -159,6 +169,20 @@
 		padding-top: 98px;
 		width: 100%
 		}
+		.contenido h2{
+		text-align: center;
+		}
+		.edificios{
+		background: #ffffff;
+		border-radius: 3px;
+		border-top: 5px solid #FF656D;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		margin: 10px auto;
+		margin-bottom: 20px;
+		padding: 15px 15px;
+ 		/*position: relative;*/
+		width: 98%;
+		}
 		.espacios:hover {
 		background-color: #ff5000;
 		}
@@ -177,76 +201,50 @@
 		background-color: #ff5000;
 		}
 		.tablero{
-			padding-top: 15px;
-			margin-bottom: 30px;
+		padding-top: 15px;
+		margin-bottom: 30px;
 		}
 		.logo{
-			display: inline-block;
-			width: 19%;
+		display: inline-block;
+		width: 19%;
 		}
 		.logo a{
-			color: #fff;
-			font-size: 24px;
-			float: left;
-			/*margin-left: 45px;*/
-			margin-top: 10px;
+		color: #fff;
+		font-size: 24px;
+		float: left;
+		/*margin-left: 45px;*/
+		margin-top: 10px;
 		}
 		.logo a:hover{
-			color: #000;
-			font-size: 30px;
-			margin-left: 40px;
+		color: #000;
+		font-size: 30px;
+		margin-left: 40px;
 		}
 		
 		.valores{
-			display: inline-block;
-			font-size: 16px;
-			/*margin-left: 115px;*/
-			/*margin-top: 10px;*/
-			width: 30%;
+		display: inline-block;
+		font-size: 16px;
+		/*margin-left: 115px;*/
+		/*margin-top: 10px;*/
+		width: 30%;
 		}
 		.valores div{
-			display: block;
+		display: block;
 		}
 		.valores p{
-			display: inline-block;
+		display: inline-block;
 		}
 		.registrar{
-			display: inline-block;
-			width: 50%;
+		display: inline-block;
+		width: 50%;
 		}
 		.registrar form{
-			float: right;
-			margin-right: 20px;
-			margin-top: 14px;
+		float: right;
+		margin-right: 20px;
+		margin-top: 14px;
 		}
     </style>
-    <script language="javascript">
-		// 	function quitar()
-		// 	{	
-		// 		var nespacio = document.getElementById('espacioSeleccionado').value;
-		// 		// var placa    = document.getElementById('placaVehiculo').value;
-		// 		var nusuario = "TATTY";
-		// 		alert(nespacio+" "+nusuario);
-		// 		$.ajax({
-		// 			type: "POST",
-		// 			url: "registrar/index.php",
-		// 			data: "nespacio=" + nespacio + "&nusuario=" + nusuario,
-		// 			// data: "nespacio=" + nespacio + "&placa=" + placa + "&nusuario=" + nusuario,
-		// 			dataType:"html",
-		// 			success: function(data) 
-		// 			{
-		// 				alert(data);
-		// 			 	send(data);// array JSON
-		// 				// document.getElementById("espacioSeleccionado").value = "";
-		// 				// document.getElementById("placaVehiculo").value = "";
-		// 			}
-		// 			,
-		// 			error:function(data){
-		// 				alert(data);
-		// 			}
-		// 		});
-		// 	}
-	</script>
+    
 	<script type="text/javascript">
       $(document).on("ready",function(){
         $('th').click(function(){
@@ -265,7 +263,7 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            alert(clase+" "+valor);
+            // alert(clase+" "+valor);
         });
         
         function removerClase(tag, clase){
@@ -284,12 +282,9 @@
  			</div>
  			
  			<div class="valores">
- 				<div><p>Torre A:</p><p> Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo $libresA; ?></p> <p> Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
- 				<div><p>Torre B:</p><p> Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo $libresB; ?></p> <p> Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
- 				<div><p>Exterior:</p><p> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo $libresE; ?></p> <p> Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div>
- 				<!-- <div>Torre A  [Libres: <?php echo $libresA; ?><p>Torre A</p> Ocupados: <?php echo $ocupadosA; ?> Reservados: <?php echo $reservadosA ?>]</div>
-				<div>Torre B  [Libres: <?php echo $libresB; ?> Ocupados: <?php echo $ocupadosB; ?> Reservados: <?php echo $reservadosB ?>]</div>
-				<div>Exterior  [Libres: <?php echo $libresE; ?> Ocupados: <?php echo $ocupadosE; ?> Reservados: <?php echo $reservadosE ?>]</div>-->
+ 				<div><p>Torre A: Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p> <p> Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
+ 				<div><p>Torre B: Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p> <p> Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
+ 				<div><p>Exterior: Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div> 		
  			</div>
 			
  			<div class="registrar">
@@ -300,24 +295,11 @@
 	 				<input name="ocupadosB" type="hidden" value="<?php echo $ocupadosB; ?>"/>
 	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
-	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio seleccionado..."/>
+	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
 		 			<input class="boton" type="submit" value="Registrar"/>
  				</form>
  			</div>
- 			
  		</div>
- 		<!-- <nav class="navbar" role="navigation">
- 			<div class="navbar-custom-menu">
- 				<ul>
- 				<li>
-				  	<a href="#">
-			            <img src="img/avatar2.png" class="user-image" alt="User Image">
-			            <span>TATTY</span>
-	             	</a>
- 				</li>
- 			</ul>
- 			</div>
- 		</nav> -->
  	</header>
  	<aside class="barralateral-principal">
  		<section class="barralateral">
@@ -340,6 +322,7 @@
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
  						<li><a href="#"><span>Registrar</span></a></li>
+ 						<li><a href="../"><span>Salir</span></a></li>
  					</ul>
  				</li>
  			</ul>
@@ -347,14 +330,60 @@
  	</aside>
  	<div class="contenedor">
  		<section class="contenido">
- 			<h3>Seleccione el espacio de parqueo</h3>
-		 	<div class="tablero">
-				<table cellspacing="0" cellpadding="0">     
-		            <tr id="espaciosVacios">        
-		                <?php  while($arr = mysql_fetch_array($espaciosVacios)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
-		            </tr>
-		        </table>
-			</div>
+ 			<h2>Seleccione el espacio de parqueo</h2>
+ 				
+ 			<div class="edificios">
+ 				<h3>Torre A</h3>
+ 				<div class="tablero">
+					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	$indice=0;
+			                	while($arr = mysql_fetch_array($espaciosVaciosA)){ 
+				                	echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";
+									$torreA[$indice]=$arr['nombre_espacio'];
+									$indice++;
+			                	}
+			                ?>
+			            </tr>
+			        </table>
+				</div>
+ 			</div>
+ 			<div class="edificios">
+ 				<h3>Torre B</h3>
+ 				<div class="tablero">
+					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosB">        
+			                <?php  
+			                	$indice=0;
+			                	while($arr = mysql_fetch_array($espaciosVaciosB)){ 
+			                		echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";
+			                		$torreB[$indice]=$arr['nombre_espacio'];
+									$indice++;
+			                	}
+			                ?>
+			            </tr>
+			        </table>
+				</div>
+ 			</div>
+ 			<div class="edificios">
+ 				<h3>Exteriores</h3>
+ 				<div class="tablero">
+					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosC">        
+			                <?php  
+				                $indice=0;
+				                while($arr = mysql_fetch_array($espaciosVaciosE)){ 
+				                	echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";
+				                	$exteriores[$indice]=$arr['nombre_espacio'];
+									$indice++;
+				                }
+			             	?>
+			            </tr>
+			        </table>
+				</div>
+ 			</div>
+		 	
 			<!-- <h3>Registrar el espacio de parqueo</h3>
 			<div>
 				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="TATTY"/>

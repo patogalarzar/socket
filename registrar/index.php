@@ -50,7 +50,7 @@
  <html>
  <head>
  	<meta charset="utf-8" />
-	<title>Socket</title>
+	<title>OROMALL</title>
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
 	<script src="../js/jquery-1.7.2.min.js"></script>
 	<script src="../js/fancywebsocket.js"></script>
@@ -127,7 +127,7 @@
 		font-size: 20px;
 		font-weight: 300;
 		height: 65px;
-		line-height: 50px;
+		/*line-height: 50px;*/
 		/*overflow: hidden;*/
 		/*padding: 0 15px;*/
 		position: fixed;
@@ -197,6 +197,49 @@
 		.naranja{
 		background-color: #ff5000;
 		}
+		.tablero{
+			padding-top: 15px;
+			margin-bottom: 30px;
+		}
+		.logo{
+			display: inline-block;
+			width: 19%;
+		}
+		.logo a{
+			color: #fff;
+			font-size: 24px;
+			float: left;
+			/*margin-left: 45px;*/
+			margin-top: 10px;
+		}
+		.logo a:hover{
+			color: #000;
+			font-size: 30px;
+			margin-left: 40px;
+		}
+		
+		.valores{
+			display: inline-block;
+			font-size: 16px;
+			/*margin-left: 115px;*/
+			/*margin-top: 10px;*/
+			width: 30%;
+		}
+		.valores div{
+			display: block;
+		}
+		.valores p{
+			display: inline-block;
+		}
+		.registrar{
+			display: inline-block;
+			width: 50%;
+		}
+		.registrar form{
+			float: right;
+			margin-right: 20px;
+			margin-top: 14px;
+		}
     </style>
     <script language="javascript">
 		function quitar()
@@ -210,7 +253,7 @@
 			var ocupadosB = "<?php echo $ocupadosB ?>";
 			var libresE = "<?php echo $libresE ?>";
 			var ocupadosE = "<?php echo $ocupadosE ?>";
-			alert(nespacio+" "+placa+" "+nusuario);
+			// alert(nespacio+" "+placa+" "+nusuario);
 			$.ajax({
 				type: "POST",
 				url: "quitar.php",
@@ -218,7 +261,7 @@
 				dataType:"html",
 				success: function(data) 
 				{
-					alert(data);
+					// alert(data);
 				 	send(data);// array JSON
 				 	window.location="../tablero/";
 					// document.getElementById("espacioSeleccionado").value = "";
@@ -248,7 +291,7 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            alert(clase+" "+valor);
+            // alert(clase+" "+valor);
         });
         
         function removerClase(tag, clase){
@@ -260,26 +303,31 @@
  <body>
  	<header class="cabecera">
  		<div class="barra">
- 			<a  href="../tablero/">
- 				<span>Web<b>PARKING</b></span>
- 			</a>
- 			<!-- <form action="../registrar/" method=GET role="form">
- 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio seleccionado..."/>
-	 			<input class="boton" type="submit" value="Registrar"/>
- 			</form> -->
- 		</div> 		
- 		<!-- <nav class="navbar" role="navigation">
- 			<div class="navbar-custom-menu">
- 				<ul>
- 				<li>
-				  	<a href="#">
-			            <img src="img/avatar2.png" class="user-image" alt="User Image">
-			            <span>TATTY</span>
-	             	</a>
- 				</li>
- 			</ul>
+ 			<div class="logo">
+ 				<a  href="../tablero/">
+ 					<span>Web<b>PARKING</b></span>
+ 				</a>
  			</div>
- 		</nav> -->
+ 			
+ 			<div class="valores">
+ 				<div><p>Torre A: Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p> <p> Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
+ 				<div><p>Torre B: Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p> <p> Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
+ 				<div><p>Exterior: Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div> 		
+ 			</div>
+			
+ 			<!-- <div class="registrar">
+ 				<form action="../registrar/" method=GET role="form">
+	 				<input name="libresA" type="hidden" value="<?php echo $libresA; ?>"/>
+	 				<input name="ocupadosA" type="hidden" value="<?php echo $ocupadosA; ?>"/>
+	 				<input name="libresB" type="hidden" value="<?php echo $libresB; ?>"/>
+	 				<input name="ocupadosB" type="hidden" value="<?php echo $ocupadosB; ?>"/>
+	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
+	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
+	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
+		 			<input class="boton" type="submit" value="Registrar"/>
+ 				</form>
+ 			</div> -->
+ 		</div> 		
  	</header>
  	<aside class="barralateral-principal">
  		<section class="barralateral">
@@ -302,6 +350,7 @@
  					<ul>
  						<li><a href="#"><span>Login</span></a></li>
  						<li><a href="#"><span>Registrar</span></a></li>
+ 						<li><a href="../"><span>Salir</span></a></li>
  					</ul>
  				</li>
  			</ul>
