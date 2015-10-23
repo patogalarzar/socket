@@ -339,9 +339,9 @@
  			</div>
  			
  			<div class="valores">
- 				<div><p>Torre A:</p><p> Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo $libresA; ?></p> <p> Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
- 				<div><p>Torre B:</p><p> Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo $libresB; ?></p> <p> Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
- 				<div><p>Exterior:</p><p> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo $libresE; ?></p> <p> Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div>
+ 				<div><p><b>Torre A:</b> Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p> <p> / Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
+ 				<div><p><b>Torre B:</b> Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p> <p> / Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
+ 				<div><p><b>Exterior:</b> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> / Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div>
  				<!-- <div>Torre A  [Libres: <?php echo $libresA; ?><p>Torre A</p> Ocupados: <?php echo $ocupadosA; ?> Reservados: <?php echo $reservadosA ?>]</div>
 				<div>Torre B  [Libres: <?php echo $libresB; ?> Ocupados: <?php echo $ocupadosB; ?> Reservados: <?php echo $reservadosB ?>]</div>
 				<div>Exterior  [Libres: <?php echo $libresE; ?> Ocupados: <?php echo $ocupadosE; ?> Reservados: <?php echo $reservadosE ?>]</div>-->

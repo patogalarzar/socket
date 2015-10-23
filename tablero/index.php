@@ -25,6 +25,7 @@
 		$espaciosVaciosB = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(6,7,8,9)");
 		$espaciosVaciosE = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(10)");
 
+		$tridimensional=array();
 		$torreA=array();
 		$torreB=array();
 		$exteriores=array();
@@ -35,34 +36,46 @@
 			$est = $espacios["estado_espacio"];
 			if ($est=="LIBRE") {
 				$libresA = $libresA + 1;
+				$torreA[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
+				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosA = $ocupadosA + 1;
 			}else{
 				$reservadosA = $reservadosA + 1;
 			}
 		}
+		// var_dump($torreA);
+		
 		$espaciosTorreB = mysql_query("SELECT * FROM espacio WHERE id_piso IN(6,7,8,9)");
+		$indice=0;
 		while ($espacios = mysql_fetch_array($espaciosTorreB)) {
 			$est = $espacios["estado_espacio"];
 			if ($est=="LIBRE") {
 				$libresB = $libresB + 1;
+				$torreB[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
+				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosB = $ocupadosB + 1;
 			}else{
 				$reservadosB = $reservadosB + 1;
 			}
 		}
+		$indice=0;
 		$espaciosExteriores = mysql_query("SELECT * FROM espacio WHERE id_piso IN(10)");
 		while ($espacios = mysql_fetch_array($espaciosExteriores)) {
 			$est = $espacios["estado_espacio"];
 			if ($est=="LIBRE") {
 				$libresE = $libresE + 1;
+				$exteriores[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
+				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosE = $ocupadosE + 1;
 			}else{
 				$reservadosE = $reservadosE + 1;
 			}
 		}
+		$tridimensional[] = array("torreA"=>$torreA,"&torreB"=>$torreB,"&exteriores"=>$exteriores);
+		// var_dump($tridimensional);
 		salir();
 	}
  ?>
@@ -177,7 +190,7 @@
 		border-radius: 3px;
 		border-top: 5px solid #FF656D;
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-		margin: 10px auto;
+		margin: 15px auto;
 		margin-bottom: 20px;
 		padding: 15px 15px;
  		/*position: relative;*/
@@ -282,9 +295,9 @@
  			</div>
  			
  			<div class="valores">
- 				<div><p>Torre A: Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p> <p> Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
- 				<div><p>Torre B: Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p> <p> Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
- 				<div><p>Exterior: Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div> 		
+ 				<div><p><b>Torre A:</b> Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p> <p> / Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
+ 				<div><p><b>Torre B:</b> Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p> <p> / Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
+ 				<div><p><b>Exterior:</b> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> / Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div> 		
  			</div>
 			
  			<div class="registrar">
