@@ -16,7 +16,7 @@
 	}else{
 		require_once("../clases/consultas.php");
 		date_default_timezone_set("America/Guayaquil");
-		$nusuario = "TATTY";
+		$id_usuario = $_SESSION['id_usuario'];
 		$nespacio = "";
 		$placa = "";
 		$espaciosOcupados = consultarGeneral("espacio","estado_espacio","=","OCUPADO");
@@ -27,6 +27,11 @@
 		$libresE=0;$ocupadosE=0;$reservadosE=0;
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
 		conexion();
+		$nusuario="";
+		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
+		while ($arr = mysql_fetch_array($usuarios)) {
+			$nusuario = $arr["nombre_usuario"];
+		}
 		$espaciosTorreA = mysql_query("SELECT * FROM espacio WHERE id_piso IN(1,2,3,4,5)");
 		while ($espacios = mysql_fetch_array($espaciosTorreA)) {
 			$est = $espacios["estado_espacio"];
@@ -91,19 +96,34 @@
 		z-index: -1;
 		}
 		.barralateral{
+		background-color: #3E474F;
+		color: #fff;
 		padding-bottom: 10px;
 
 		}
 		.barralateral-menu{
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 18px;
 		list-style: none;
-	  	margin: 0;
-	  	padding-top: 85px;
-	  	padding-left: 45px;
+	  	margin: 5px;
+	  	padding-top: 60px;
+	  	/*padding-left: 45px;*/
 		}
-		.barralateral-menu > li{
+		.barralateral-menu h3 {
+		margin: 0 auto;
+		padding: 0 0 18px;
+		}
+		.barralateral-menu li{
 		position: relative;
-	  	margin: 0;
+	  	margin: 5px;
 	  	padding: 0;
+	  	list-style: none;
+	  	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
+		}
+		.barralateral-menu a {
+		color: #fff;
+		margin-left: 10px;
+		text-decoration: none;
 		}
 		.boton{
 		background-color: #00AB6B;
@@ -145,6 +165,14 @@
  		/*position: relative;*/
 		width: 50%;
 		}
+		.caja-menu{
+		border-radius: 3px;
+		border-top: 5px solid #FFF;
+		/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
+		margin: 0 auto;
+		/*margin-bottom: 20px;*/
+		padding: 10px 5px;
+		}
 		.cajatexto{
 		border: 1px solid #B8B8B8;
 		border-radius: 5px;
@@ -178,8 +206,11 @@
 		margin-right: auto;
 		padding-left: 15px;
 		padding-right: 15px;
-		padding-top: 98px;
+		padding-top: 79px;
 		width: 100%
+		}
+		.contenido h2{
+		text-align: center;
 		}
 		.espacios:hover {
 		background-color: #ff5000;
@@ -210,7 +241,7 @@
 			color: #fff;
 			font-size: 24px;
 			float: left;
-			/*margin-left: 45px;*/
+			margin-left: 45px;
 			margin-top: 10px;
 		}
 		.logo a:hover{
@@ -222,7 +253,7 @@
 		.valores{
 			display: inline-block;
 			font-size: 16px;
-			/*margin-left: 115px;*/
+			margin-left: 25px;
 			/*margin-top: 10px;*/
 			width: 30%;
 		}
@@ -364,33 +395,37 @@
  	<aside class="barralateral-principal">
  		<section class="barralateral">
  			<ul class="barralateral-menu">
- 				<li>MENU PRINCIPAL</li>
- 				<li>
- 					<a href="#">
- 						<i></i><span>Tickets</span><i> ">"</i>
- 					</a>
- 					<ul>
- 						<!-- <li><a href="../registrar/index.php"><span>Registrar</span></a></li> -->
- 						<li><a href="#"><span>Liberar</span></a></li>
- 						<li><a href="../historial/"><span>Historial</span></a></li>
- 					</ul>
- 				</li>
- 				<li>
- 					<a href="#">
- 						<i></i><span>Usuarios</span><i> ">"</i>
- 					</a>
- 					<ul>
- 						<li><a href="../"><span>Login</span></a></li>
- 						<li><a href="../usuario/"><span>Registrar</span></a></li>
- 						<li><a href="../"><span>Salir</span></a></li>
- 					</ul>
- 				</li>
+ 				<h3><?php echo($nusuario); ?></h3>
+ 				<div class="caja-menu">
+ 					<li>MENU PRINCIPAL</li>
+ 				</div>
+ 				<div class="caja-menu">
+ 					<li>
+	 					<i></i><span>TICKETS</span><i></i>
+	 					<ul>
+	 						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
+	 						<li><a href="#"><span>Liberar</span></a></li>
+	 						<li><a href="../historial/"><span>Historial</span></a></li>
+	 						<li><a href="../vehiculos/"><span>Vehiculos</span></a></li>
+	 					</ul>
+	 				</li>
+ 				</div>
+ 				<div class="caja-menu">
+ 					<li>
+	 					<i></i><span>USUARIOS</span><i></i>
+	 					<ul>
+	 						<li><a href="../"><span>Login</span></a></li>
+	 						<li><a href="../usuario/"><span>Registrar</span></a></li>
+	 						<li><a href="../"><span>Salir</span></a></li>
+	 					</ul>
+	 				</li>
+ 				</div>
  			</ul>
  		</section>
  	</aside>
  	<div class="contenedor">
  		<section class="contenido">
- 			<h3>Seleccione el espacio de parqueo</h3>
+ 			<h2>Seleccione el espacio de parqueo</h2>
 		 	<div class="tablero">
 				<table cellspacing="0" cellpadding="0">     
 		            <tr>        

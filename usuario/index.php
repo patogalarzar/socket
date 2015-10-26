@@ -15,13 +15,20 @@
 		header("Location: /socket/");
 	}else{
 		require_once("../clases/consultas.php");
-		date_default_timezone_set("America/Guayaquil");
+		date_default_timezone_set("America/Guayaquil");		
+		$id_usuario = $_SESSION['id_usuario'];
+
 		$libresA=0;$ocupadosA=0;$reservadosA=0;
 		$libresB=0;$ocupadosB=0;$reservadosB=0;
 		$libresE=0;$ocupadosE=0;$reservadosE=0;
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
 
 		conexion();
+		$nusuario="";
+		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
+		while ($arr = mysql_fetch_array($usuarios)) {
+			$nusuario = $arr["nombre_usuario"];
+		}
 		$espaciosVaciosA = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(1,2,3,4,5)");
 		$espaciosVaciosB = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(6,7,8,9)");
 		$espaciosVaciosE = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(10)");
@@ -85,23 +92,7 @@
 			/*display: inline-block;
 			vertical-align: top;*/
 		}
-		.barra a{
-			color: #fff;
-			font-size: 24px;
-			float: left;
-			margin-left: 45px;
-			margin-top: 10px;
-		}
-		.barra a:hover{
-			color: #000;
-			font-size: 30px;
-			margin-left: 40px;
-		}
-		.barra form{
-			float: right;
-			margin-right: 20px;
-			margin-top: 14px;
-		}
+		
 		.barralateral-principal{
 		/*position: absolute;*/
 		/*top: 0;
@@ -112,19 +103,34 @@
 		z-index: -1;
 		}
 		.barralateral{
+		background-color: #3E474F;
+		color: #fff;
 		padding-bottom: 10px;
 
 		}
 		.barralateral-menu{
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 18px;
 		list-style: none;
-	  	margin: 0;
-	  	padding-top: 85px;
-	  	padding-left: 45px;
+	  	margin: 5px;
+	  	padding-top: 60px;
+	  	/*padding-left: 45px;*/
 		}
-		.barralateral-menu > li{
+		.barralateral-menu h3 {
+		margin: 0 auto;
+		padding: 0 0 18px;
+		}
+		.barralateral-menu li{
 		position: relative;
-	  	margin: 0;
+	  	margin: 5px;
 	  	padding: 0;
+	  	list-style: none;
+	  	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
+		}
+		.barralateral-menu a {
+		color: #fff;
+		margin-left: 10px;
+		text-decoration: none;
 		}
 		.boton{
 		background-color: #00AB6B;
@@ -166,6 +172,14 @@
  		/*position: relative;*/
 		width: 50%;
 		}
+		.caja-menu{
+		border-radius: 3px;
+		border-top: 5px solid #FFF;
+		/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
+		margin: 0 auto;
+		/*margin-bottom: 20px;*/
+		padding: 10px 5px;
+		}
 		.cajatexto{
 		border: 1px solid #B8B8B8;
 		border-radius: 5px;
@@ -180,25 +194,40 @@
 		background-color: #39cccc;
 		}
 		.contenedor, .barralateral-principal{
-			display: inline-block;
-			vertical-align: top;
+		display: inline-block;
+		vertical-align: top;
 		}
 		.contenedor{
   		background-color: #ecf0f5;
   		font-family: 'Source Sans Pro', sans-serif;
 		/*margin-left: 225px;*/
 		min-height: 100%;
-		padding-top: 80px;
 		width: 80%;
 		/*z-index: 820;*/
 		}
 		.contenido{
 		min-height: 250px;
-		padding: 15px;
-		margin-right: auto;
+		padding: 5px;
 		margin-left: auto;
+		margin-right: auto;
 		padding-left: 15px;
 		padding-right: 15px;
+		padding-top: 79px;
+		width: 100%
+		}
+		.contenido h2 {
+		text-align: center;
+		}
+		.edificios{
+		background: #ffffff;
+		border-radius: 3px;
+		border-top: 5px solid #FF656D;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		margin: 15px auto;
+		margin-bottom: 20px;
+		padding: 15px 15px;
+ 		/*position: relative;*/
+		width: 98%;
 		}
 		.espacios:hover {
 		background-color: #ff5000;
@@ -218,47 +247,47 @@
 		background-color: #ff5000;
 		}
 		.tablero{
-			padding-top: 15px;
-			margin-bottom: 30px;
+		padding-top: 15px;
+		margin-bottom: 30px;
 		}
 		.logo{
-			display: inline-block;
-			width: 19%;
+		display: inline-block;
+		width: 19%;
 		}
 		.logo a{
-			color: #fff;
-			font-size: 24px;
-			float: left;
-			/*margin-left: 45px;*/
-			margin-top: 10px;
+		color: #fff;
+		font-size: 24px;
+		float: left;
+		margin-left: 45px;
+		margin-top: 10px;
 		}
 		.logo a:hover{
-			color: #000;
-			font-size: 30px;
-			margin-left: 40px;
+		color: #000;
+		font-size: 30px;
+		margin-left: 40px;
 		}
 		
 		.valores{
-			display: inline-block;
-			font-size: 16px;
-			/*margin-left: 115px;*/
-			/*margin-top: 10px;*/
-			width: 30%;
+		display: inline-block;
+		font-size: 16px;
+		margin-left: 25px;
+		/*margin-top: 10px;*/
+		width: 30%;
 		}
 		.valores div{
-			display: block;
+		display: block;
 		}
 		.valores p{
-			display: inline-block;
+		display: inline-block;
 		}
 		.registrar{
-			display: inline-block;
-			width: 50%;
+		display: inline-block;
+		width: 45%;
 		}
 		.registrar form{
-			float: right;
-			margin-right: 20px;
-			margin-top: 14px;
+		float: right;
+		margin-right: 20px;
+		margin-top: 14px;
 		}
     </style>
     <script language="javascript">
@@ -334,7 +363,7 @@
  				<div><p><b>Exterior:</b> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> / Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div> 		
  			</div>
 			
- 			<!-- <div class="registrar">
+ 			<div class="registrar">
  				<form action="../registrar/" method=GET role="form">
 	 				<input name="libresA" type="hidden" value="<?php echo $libresA; ?>"/>
 	 				<input name="ocupadosA" type="hidden" value="<?php echo $ocupadosA; ?>"/>
@@ -342,50 +371,46 @@
 	 				<input name="ocupadosB" type="hidden" value="<?php echo $ocupadosB; ?>"/>
 	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
-	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
-		 			<input class="boton" type="submit" value="Registrar"/>
+	 				<!-- <input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
+		 			<input class="boton" type="submit" value="Registrar"/> -->
  				</form>
- 			</div> -->
+ 			</div>
  		</div> 		
  	</header>
  	<aside class="barralateral-principal">
  		<section class="barralateral">
  			<ul class="barralateral-menu">
- 				<li>MENU PRINCIPAL</li>
- 				<li>
- 					<a href="#">
- 						<i></i><span>Tickets</span><i> ></i>
- 					</a>
- 					<ul>
- 						<!-- <li><a href="#"><span>Registrar</span></a></li> -->
- 						<li><a href="../liberar/"><span>Liberar</span></a></li>
- 						<li><a href="../historial/"><span>Historial</span></a></li>
- 					</ul>
- 				</li>
- 				<li>
- 					<a href="#">
- 						<i></i><span>Usuarios</span><i> ></i>
- 					</a>
- 					<ul>
- 						<li><a href="../"><span>Login</span></a></li>
- 						<li><a href="#"><span>Registrar</span></a></li>
- 						<li><a href="../"><span>Salir</span></a></li>
- 					</ul>
- 				</li>
+ 				<h3><?php echo($nusuario); ?></h3>
+ 				<div class="caja-menu">
+ 					<li>MENU PRINCIPAL</li>
+ 				</div>
+ 				<div class="caja-menu">
+ 					<li>
+	 					<i></i><span>TICKETS</span><i></i>
+	 					<ul>
+	 						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
+	 						<li><a href="../liberar/"><span>Liberar</span></a></li>
+	 						<li><a href="../historial/"><span>Historial</span></a></li>
+	 						<li><a href="../vehiculos/"><span>Vehiculos</span></a></li>
+	 					</ul>
+	 				</li>
+ 				</div>
+ 				<div class="caja-menu">
+ 					<li>
+	 					<i></i><span>USUARIOS</span><i></i>
+	 					<ul>
+	 						<li><a href="../"><span>Login</span></a></li>
+	 						<li><a href="#"><span>Registrar</span></a></li>
+	 						<li><a href="../"><span>Salir</span></a></li>
+	 					</ul>
+	 				</li>
+ 				</div>
  			</ul>
  		</section>
  	</aside>
  	<div class="contenedor">
  		<section class="contenido">
- 			<!-- <h3>Seleccione el espacio de parqueo</h3> -->
-		 	<!-- <div>
-				<table cellspacing="0" cellpadding="0">     
-		            <tr id="espaciosVacios">        
-		                <?php  while($arr = mysql_fetch_array($espaciosVacios)){ echo "<th class='espacios' id='".$arr['nombre_espacio']."' valor='".$arr['nombre_espacio']."'>".$arr['nombre_espacio']."</th>";}?>
-		            </tr>
-		        </table>
-			</div> -->
-			<h3>Registrar el espacio de parqueo</h3>
+ 			<h2>Registrar usuario del sistema</h2>
 			<div class="caja">
 				<input class="cajatexto" id="nombreUsuario" type="text" placeholder="Nombre usuario..."/>
 				<input class="cajatexto" id="aliasUsuario" type="text" placeholder="Alias usuario..."/>

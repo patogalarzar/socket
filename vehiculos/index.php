@@ -49,27 +49,28 @@
 			$piso= $espacios["id_piso"];
 			if ($est=="LIBRE") {
 				$libresA = $libresA + 1;
-				$torreA[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
-				$indice=$indice+1;
+
+
 			}elseif ($est=="OCUPADO") {
 				$ocupadosA = $ocupadosA + 1;
-
+				$torreA[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 				if ($piso=="1") {
-					
+					$as1[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contas1++;
 				}elseif ($piso=="2") {
-					
+					$as2[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contas2++;
 				}elseif ($piso=="3") {
-					
+					$ap1[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contap1++;
 				}elseif ($piso=="4") {
-					
+					$ap2[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contap2++;
 				}else{
-					
+					$ap3[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contap3++;
 				}
+				$indice=$indice+1;
 			}else{
 				$reservadosA = $reservadosA + 1;
 			}
@@ -83,24 +84,25 @@
 			$piso= $espacios["id_piso"];
 			if ($est=="LIBRE") {
 				$libresB = $libresB + 1;
-				$torreB[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
-				$indice=$indice+1;
+
+
 			}elseif ($est=="OCUPADO") {
 				$ocupadosB = $ocupadosB + 1;
-
+				$torreB[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 				if ($piso=="6") {
-					
+					$bp1[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contbp1++;
 				}elseif ($piso=="7") {
-					
+					$bp2[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contbp2++;
 				}elseif ($piso=="8") {
-					
+					$bp3[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contbp3++;
 				}else{
-					
+					$bp4[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 					$contbp4++;
 				}
+				$indice=$indice+1;
 			}else{
 				$reservadosB = $reservadosB + 1;
 			}
@@ -110,11 +112,11 @@
 		while ($espacios = mysql_fetch_array($espaciosExteriores)) {
 			$est = $espacios["estado_espacio"];
 			if ($est=="LIBRE") {
-				$libresE = $libresE + 1;
-				$exteriores[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
-				$indice=$indice+1;
+				$libresE = $libresE + 1;	
 			}elseif ($est=="OCUPADO") {
 				$ocupadosE = $ocupadosE + 1;
+				$exteriores[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
+				$indice=$indice+1;
 			}else{
 				$reservadosE = $reservadosE + 1;
 			}
@@ -175,7 +177,6 @@
 	  	margin: 5px;
 	  	padding: 0;
 	  	list-style: none;
-	  	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
 		}
 		.barralateral-menu a {
 		color: #fff;
@@ -275,13 +276,17 @@
  		/*position: relative;*/
 		width: 98%;
 		}
-		.edificios h3 {
-	    display: inline-block;
-	    margin: 0px;
-	    padding: 10px;
-	    background-color: #3E474F;
-	    width: 207px;
-	    color: #fff;
+		.pisos{
+		background: #ffffff;
+		border-radius: 3px;
+		border-top: 5px solid #384047;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		display: inline-block;
+		margin: 15px auto;
+		margin-bottom: 20px;
+		padding: 15px 15px;
+ 		/*position: relative;*/
+		width: 32%;	
 		}
 		.espacios:hover {
 		background-color: #ff5000;
@@ -336,7 +341,7 @@
 		}
 		.registrar{
 		display: inline-block;
-		width: 45%;
+		width: 50%;
 		}
 		.registrar form{
 		float: right;
@@ -395,8 +400,8 @@
 	 				<input name="ocupadosB" type="hidden" value="<?php echo $ocupadosB; ?>"/>
 	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
-	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
-		 			<input class="boton" type="submit" value="Registrar"/>
+	 				<!-- <input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
+		 			<input class="boton" type="submit" value="Registrar"/> -->
  				</form>
  			</div>
  		</div>
@@ -415,7 +420,7 @@
 	 						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
 	 						<li><a href="../liberar/"><span>Liberar</span></a></li>
 	 						<li><a href="../historial/"><span>Historial</span></a></li>
-	 						<li><a href="../vehiculos/"><span>Vehiculos</span></a></li>
+	 						<li><a href="#"><span>Vehiculos</span></a></li>
 	 					</ul>
 	 				</li>
  				</div>
@@ -437,54 +442,137 @@
  			<h2>Seleccione el espacio de parqueo</h2>
  				
  			<div class="edificios">
- 				<h2>Torre A:</h2>
- 				<h3> <?php echo "AS1: Libres = ".(80-$contas1)." / Ocupados = ".$contas1 ; ?></h3>
- 				<h3> <?php echo "AS2: Libres = ".(80-$contas2)." / Ocupados = ".$contas2 ; ?></h3>
- 				<h3> <?php echo "AP1: Libres = ".(100-$contap1)." / Ocupados = ".$contap1 ; ?></h3>
- 				<h3> <?php echo "AP2: Libres = ".(100-$contap2)." / Ocupados = ".$contap2 ; ?></h3>
- 				<h3> <?php echo "AP3: Libres = ".(100-$contap3)." / Ocupados = ".$contap3 ; ?></h3>
- 				<div class="tablero">
-					<table cellspacing="0" cellpadding="0">     
+ 				<h3>Vehiculos Torre A:  <?php echo($ocupadosA); ?></h3>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Subsuelo 1:  <?php echo($contas1); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
 			            <tr id="espaciosVaciosA">        
 			                <?php  
-			                	while (list(,$val) = each($torreA)) {
-			                		// echo $val["nespacio"];
-   									echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
-								}
-			                ?>
-			            </tr>
-			        </table>
-				</div>
- 			</div>
- 			<div class="edificios">
- 				<h2>Torre B:</h2>
- 				<h3> <?php echo "BP1: Libres = ".(100-$contbp1)." / Ocupados = ".$contbp1 ; ?></h3>
- 				<h3> <?php echo "BP2: Libres = ".(120-$contbp2)." / Ocupados = ".$contbp2 ; ?></h3>
- 				<h3> <?php echo "BP3: Libres = ".(120-$contbp3)." / Ocupados = ".$contbp3 ; ?></h3>
- 				<h3> <?php echo "BP4: Libres = ".(120-$contbp4)." / Ocupados = ".$contbp4 ; ?></h3>
- 				
- 				<div class="tablero">
-					<table cellspacing="0" cellpadding="0">     
-			            <tr id="espaciosVaciosB">        
-			                <?php  
-			                	while (list(,$val) = each($torreB)) {
-			                		// echo $val["nespacio"];
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($as1)) {
    									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
 								}
 			                ?>
 			            </tr>
 			        </table>
-				</div>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Subsuelo 2:  <?php echo($contas2); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($as2)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 1:  <?php echo($contap1); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($ap1)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 2:  <?php echo($contap2); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($ap2)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 3:  <?php echo($contap3); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($ap3)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				
  			</div>
  			<div class="edificios">
- 				<h2>Exteriores:</h2>
- 				<h3> <?php echo "E1: Libres = ".$libresE." / Ocupados = ".$ocupadosE ; ?></h3>
+ 				<h3>Vehiculos Torre B: <?php echo($ocupadosB); ?></h3>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 1:  <?php echo($contbp1); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($bp1)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 2:  <?php echo($contbp2); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($bp2)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 3:  <?php echo($contbp3); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($bp3)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 				<div class="pisos">
+ 					<h3>Vehiculos Piso Alto 4:  <?php echo($contbp4); ?></h3>
+ 					<table cellspacing="0" cellpadding="0">     
+			            <tr id="espaciosVaciosA">        
+			                <?php  
+			                	// var_dump($torreA);
+			                	while (list(,$val) = each($bp4)) {
+   									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+								}
+			                ?>
+			            </tr>
+			        </table>
+ 				</div>
+ 			</div>
+ 			<div class="edificios">
+ 				<h3>Vehiculos Exteriores: <?php echo($ocupadosE); ?></h3>
  				<div class="tablero">
 					<table cellspacing="0" cellpadding="0">     
 			            <tr id="espaciosVaciosC">        
 			                <?php  
-				                while (list(,$val) = each($exteriores)) {
-			                		// echo $val["nespacio"];
+				                // var_dump($torreA);
+			                	while (list(,$val) = each($exteriores)) {
    									 echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
 								}
 			             	?>

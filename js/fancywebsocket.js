@@ -76,7 +76,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://192.168.1.7:8080');
+	Server = new FancyWebSocket('ws://192.168.1.6:8080');
     Server.bind('open', function()
 	{
     });
