@@ -22,8 +22,17 @@
 		$nespacio = $_GET['nespacio'];
 		$libresA = $_GET['libresA'];
 		$ocupadosA = $_GET['ocupadosA'];
+		$contas1=$_GET['contas1'];
+		$contas2=$_GET['contas2'];
+		$contap1=$_GET['contap1'];
+		$contap2=$_GET['contap2'];
+		$contap3=$_GET['contap3'];
 		$libresB = $_GET['libresB'];
 		$ocupadosB = $_GET['ocupadosB'];
+		$contbp1=$_GET['contbp1'];
+		$contbp2=$_GET['contbp2'];
+		$contbp3=$_GET['contbp3'];
+		$contbp4=$_GET['contbp4'];
 		$libresE = $_GET['libresE'];
 		$ocupadosE = $_GET['ocupadosE'];
 		$id_piso="";
@@ -31,7 +40,10 @@
 		$nombre_piso = "";
 		$tipo_piso = "";
 		$nombre_edificio = "";
-		$nusuario = "TATTY";
+		
+		$nusuario=$id_usuario;
+		
+
 		$fechaRegistro = date("Y-m-d H:i:s");
 		$espacios  = consultarGeneral("espacio","nombre_espacio","=",$_GET['nespacio']);
 		while ($espacio=mysql_fetch_array($espacios)) {
@@ -268,11 +280,20 @@
 			var ocupadosB = "<?php echo $ocupadosB ?>";
 			var libresE = "<?php echo $libresE ?>";
 			var ocupadosE = "<?php echo $ocupadosE ?>";
+			var contas1="<?php echo $contas1 ?>";
+			var contas2="<?php echo $contas2 ?>";
+			var contap1="<?php echo $contap1 ?>";
+			var contap2="<?php echo $contap2 ?>";
+			var contap3="<?php echo $contap3 ?>";
+			var contbp1="<?php echo $contbp1 ?>";
+			var contbp2="<?php echo $contbp2 ?>";
+			var contbp3="<?php echo $contbp3 ?>";
+			var contbp4="<?php echo $contbp4 ?>";
 			// alert(nespacio+" "+placa+" "+nusuario);
 			$.ajax({
 				type: "POST",
 				url: "quitar.php",
-				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE,
+				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
 				dataType:"html",
 				success: function(data) 
 				{

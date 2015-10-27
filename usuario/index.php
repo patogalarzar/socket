@@ -297,28 +297,33 @@
 			var aliasUsuario    = document.getElementById('aliasUsuario').value;
 			var passUsuario =document.getElementById('passUsuario').value;
 			var confirmarPass = document.getElementById('confirmarPass').value;
+			if (passUsuario==confirmarPass) {
+				// alert(nombreUsuario+" "+placa+" "+passUsuario);
+				$.ajax({
+					type: "POST",
+					url: "guardar.php",
+					data: "nombreUsuario="+nombreUsuario+"&aliasUsuario="+aliasUsuario+"&passUsuario="+passUsuario,
+					dataType:"html",
+					success: function(data) 
+					{
+						// alert(data);
+					 	send(data);// array JSON
+					 	// window.location="../tablero/";
+					 	alert("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
+						document.getElementById('nombreUsuario').value = "";
+						document.getElementById('aliasUsuario').value = "";
+						document.getElementById('passUsuario').value = "";
+						document.getElementById('confirmarPass').value = "";
+					},
+					error:function(data){
+						alert(data);
+					}
+				});
+			} else{
+				alert("Las claves no coinciden.")
+				document.getElementById('confirmarPass').value = "";
+			};
 			
-			// alert(nombreUsuario+" "+placa+" "+passUsuario);
-			$.ajax({
-				type: "POST",
-				url: "guardar.php",
-				data: "nombreUsuario="+nombreUsuario+"&aliasUsuario="+aliasUsuario+"&passUsuario="+passUsuario,
-				dataType:"html",
-				success: function(data) 
-				{
-					// alert(data);
-				 	send(data);// array JSON
-				 	// window.location="../tablero/";
-				 	alert("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
-					document.getElementById('nombreUsuario').value = "";
-					document.getElementById('aliasUsuario').value = "";
-					document.getElementById('passUsuario').value = "";
-					document.getElementById('confirmarPass').value = "";
-				},
-				error:function(data){
-					alert(data);
-				}
-			});
 		}
 	</script>
 	<script type="text/javascript">

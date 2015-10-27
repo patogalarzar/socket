@@ -391,8 +391,17 @@
  				<form action="../registrar/" method=GET role="form">
 	 				<input name="libresA" type="hidden" value="<?php echo $libresA; ?>"/>
 	 				<input name="ocupadosA" type="hidden" value="<?php echo $ocupadosA; ?>"/>
+	 				<input name="contas1" type="hidden" value="<?php echo $contas1; ?>"/>
+	 				<input name="contas2" type="hidden" value="<?php echo $contas2; ?>"/>
+	 				<input name="contap1" type="hidden" value="<?php echo $contap1; ?>"/>
+	 				<input name="contap2" type="hidden" value="<?php echo $contap2; ?>"/>
+	 				<input name="contap3" type="hidden" value="<?php echo $contap3; ?>"/>
 	 				<input name="libresB" type="hidden" value="<?php echo $libresB; ?>"/>
 	 				<input name="ocupadosB" type="hidden" value="<?php echo $ocupadosB; ?>"/>
+	 				<input name="contbp1" type="hidden" value="<?php echo $contbp1; ?>"/>
+	 				<input name="contbp2" type="hidden" value="<?php echo $contbp2; ?>"/>
+	 				<input name="contbp3" type="hidden" value="<?php echo $contbp3; ?>"/>
+	 				<input name="contbp4" type="hidden" value="<?php echo $contbp4; ?>"/>
 	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
 	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
@@ -438,11 +447,11 @@
  				
  			<div class="edificios">
  				<h2>Torre A:</h2>
- 				<h3> <?php echo "AS1: Libres = ".(80-$contas1)." / Ocupados = ".$contas1 ; ?></h3>
- 				<h3> <?php echo "AS2: Libres = ".(80-$contas2)." / Ocupados = ".$contas2 ; ?></h3>
- 				<h3> <?php echo "AP1: Libres = ".(100-$contap1)." / Ocupados = ".$contap1 ; ?></h3>
- 				<h3> <?php echo "AP2: Libres = ".(100-$contap2)." / Ocupados = ".$contap2 ; ?></h3>
- 				<h3> <?php echo "AP3: Libres = ".(100-$contap3)." / Ocupados = ".$contap3 ; ?></h3>
+ 				<h3 id="AS1"> <?php echo "AS1: Libres = ".(80-$contas1)." / Ocupados = ".$contas1 ; ?></h3>
+ 				<h3 id="AS2"> <?php echo "AS2: Libres = ".(80-$contas2)." / Ocupados = ".$contas2 ; ?></h3>
+ 				<h3 id="AP1"> <?php echo "AP1: Libres = ".(100-$contap1)." / Ocupados = ".$contap1 ; ?></h3>
+ 				<h3 id="AP2"> <?php echo "AP2: Libres = ".(100-$contap2)." / Ocupados = ".$contap2 ; ?></h3>
+ 				<h3 id="AP3"> <?php echo "AP3: Libres = ".(100-$contap3)." / Ocupados = ".$contap3 ; ?></h3>
  				<div class="tablero">
 					<table cellspacing="0" cellpadding="0">     
 			            <tr id="espaciosVaciosA">        
@@ -458,10 +467,10 @@
  			</div>
  			<div class="edificios">
  				<h2>Torre B:</h2>
- 				<h3> <?php echo "BP1: Libres = ".(100-$contbp1)." / Ocupados = ".$contbp1 ; ?></h3>
- 				<h3> <?php echo "BP2: Libres = ".(120-$contbp2)." / Ocupados = ".$contbp2 ; ?></h3>
- 				<h3> <?php echo "BP3: Libres = ".(120-$contbp3)." / Ocupados = ".$contbp3 ; ?></h3>
- 				<h3> <?php echo "BP4: Libres = ".(120-$contbp4)." / Ocupados = ".$contbp4 ; ?></h3>
+ 				<h3 id="BP1"> <?php echo "BP1: Libres = ".(100-$contbp1)." / Ocupados = ".$contbp1 ; ?></h3>
+ 				<h3 id="BP2"> <?php echo "BP2: Libres = ".(120-$contbp2)." / Ocupados = ".$contbp2 ; ?></h3>
+ 				<h3 id="BP3"> <?php echo "BP3: Libres = ".(120-$contbp3)." / Ocupados = ".$contbp3 ; ?></h3>
+ 				<h3 id="BP4"> <?php echo "BP4: Libres = ".(120-$contbp4)." / Ocupados = ".$contbp4 ; ?></h3>
  				
  				<div class="tablero">
 					<table cellspacing="0" cellpadding="0">     
@@ -478,7 +487,7 @@
  			</div>
  			<div class="edificios">
  				<h2>Exteriores:</h2>
- 				<h3> <?php echo "E1: Libres = ".$libresE." / Ocupados = ".$ocupadosE ; ?></h3>
+ 				<h3 id="E1"> <?php echo "E1: Libres = ".$libresE." / Ocupados = ".$ocupadosE ; ?></h3>
  				<div class="tablero">
 					<table cellspacing="0" cellpadding="0">     
 			            <tr id="espaciosVaciosC">        

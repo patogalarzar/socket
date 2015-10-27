@@ -76,7 +76,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://192.168.1.6:8080');
+	Server = new FancyWebSocket('ws://192.168.0.199:8080');
     Server.bind('open', function()
 	{
     });
@@ -106,6 +106,15 @@ function quitar_espacio(message)
 				var ocupadosE = JSONdata[0].ocupadosE;
 				var actualizacion = JSONdata[0].actualizacion;
 				var espacios = JSONdata[0].espacios;
+				var contas1 = JSONdata[0].contas1;
+				var contas2 = JSONdata[0].contas2;
+				var contap1 = JSONdata[0].contap1;
+				var contap2 = JSONdata[0].contap2;
+				var contap3 = JSONdata[0].contap3;
+				var contbp1 = JSONdata[0].contbp1;
+				var contbp2 = JSONdata[0].contbp2;
+				var contbp3 = JSONdata[0].contbp3;
+				var contbp4 = JSONdata[0].contbp4;
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
@@ -116,59 +125,154 @@ function quitar_espacio(message)
 					// alert(libresA);
 					var nuevaEtiqueta = document.createElement("p");
 					var nuevaEtiquetaO = document.createElement("p");
+					var etiquetaAS1 = document.createElement("h3");
+					var etiquetaAS2 = document.createElement("h3");
+					var etiquetaAP1 = document.createElement("h3");
+					var etiquetaAP2 = document.createElement("h3");
+					var etiquetaAP3 = document.createElement("h3");
+					var txt="";
 					var texto = document.createTextNode(libresA);
 					var textoO = document.createTextNode(ocupadosA);
+					txt = "AS1: Libres = "+(80-contas1)+" / Ocupados = "+contas1;
+					var textoAS1 = document.createTextNode(txt);
+					txt="";
+					txt="AS2: Libres = "+(80-contas2)+"/ Ocupados = "+contas2;
+					var textoAS2 = document.createTextNode(txt);
+					txt="";
+					txt="AP1: Libres = "+(100-contap1)+"/ Ocupados = "+contap1;
+					var textoAP1 = document.createTextNode(txt);
+					txt="";
+					txt="AP2: Libres = "+(100-contap2)+"/ Ocupados = "+contap2;
+					var textoAP2 = document.createTextNode(txt);
+					txt="";
+					txt="AP3: Libres = "+(100-contap3)+"/ Ocupados = "+contap3;
+					var textoAP3 = document.createTextNode(txt);
+
 					nuevaEtiqueta.appendChild(texto);
 					nuevaEtiquetaO.appendChild(textoO);
+					etiquetaAS1.appendChild(textoAS1);
+					etiquetaAS2.appendChild(textoAS2);
+					etiquetaAP1.appendChild(textoAP1);
+					etiquetaAP2.appendChild(textoAP2);
+					etiquetaAP3.appendChild(textoAP3);
+
 					nuevaEtiqueta.setAttribute('id','libresA');
 					nuevaEtiquetaO.setAttribute('id','ocupadosA');
 					nuevaEtiqueta.setAttribute('value',libresA);
 					nuevaEtiquetaO.setAttribute('value',ocupadosA);
+
 					var etiquetaAnterior = document.getElementById("libresA");
 					var etiquetaAnteriorO = document.getElementById("ocupadosA");
+					var etiquetaAnteriorAS1 = document.getElementById("AS1");
+					var etiquetaAnteriorAS2 = document.getElementById("AS2");
+					var etiquetaAnteriorAP1 = document.getElementById("AP1");
+					var etiquetaAnteriorAP2 = document.getElementById("AP2");
+					var etiquetaAnteriorAP3 = document.getElementById("AP3");
+
 					etiquetaAnterior.setAttribute('value',libresA);
 					etiquetaAnteriorO.setAttribute('value',ocupadosA);
+
 					etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 					etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+
+					etiquetaAnteriorAS1.parentNode.replaceChild(etiquetaAS1,etiquetaAnteriorAS1);
+					etiquetaAnteriorAS2.parentNode.replaceChild(etiquetaAS2,etiquetaAnteriorAS2);
+					etiquetaAnteriorAP1.parentNode.replaceChild(etiquetaAP1,etiquetaAnteriorAP1);
+					etiquetaAnteriorAP2.parentNode.replaceChild(etiquetaAP2,etiquetaAnteriorAP2);
+					etiquetaAnteriorAP3.parentNode.replaceChild(etiquetaAP3,etiquetaAnteriorAP3);
 				} else{
 					if (edificio=="2") {
 						// alert("entro al 2");
 						// alert(libresB);
 						var nuevaEtiqueta = document.createElement("p");
 						var nuevaEtiquetaO = document.createElement("p");
+
+						var etiquetaBP1 = document.createElement("h3");
+						var etiquetaBP2 = document.createElement("h3");
+						var etiquetaBP3 = document.createElement("h3");
+						var etiquetaBP4 = document.createElement("h3");
+						
+						var txt="";
+						var texto = document.createTextNode(libresA);
+						var textoO = document.createTextNode(ocupadosA);
+						txt = "BP1: Libres = "+(100-contbp1)+" / Ocupados = "+contbp1;
+						var textoBP1 = document.createTextNode(txt);
+						txt="";
+						txt="BP2: Libres = "+(120-contbp2)+"/ Ocupados = "+contbp2;
+						var textoBP2 = document.createTextNode(txt);
+						txt="";
+						txt="BP3: Libres = "+(120-contbp3)+"/ Ocupados = "+contbp3;
+						var textoBP3 = document.createTextNode(txt);
+						txt="";
+						txt="BP4: Libres = "+(120-contbp4)+"/ Ocupados = "+contbp4;
+						var textoBP4 = document.createTextNode(txt);
+						
+
 						var texto = document.createTextNode(libresB);
 						var textoO = document.createTextNode(ocupadosB);
+
 						nuevaEtiqueta.appendChild(texto);
 						nuevaEtiquetaO.appendChild(textoO);
+						etiquetaBP1.appendChild(textoBP1);
+						etiquetaBP2.appendChild(textoBP2);
+						etiquetaBP3.appendChild(textoBP3);
+						etiquetaBP4.appendChild(textoBP4);
+
 						nuevaEtiqueta.setAttribute('id','libresB');
 						nuevaEtiquetaO.setAttribute('id','ocupadosB');
 						nuevaEtiqueta.setAttribute('value',libresB);
 						nuevaEtiquetaO.setAttribute('value',ocupadosB);
+
 						var etiquetaAnterior = document.getElementById("libresB");
 						var etiquetaAnteriorO = document.getElementById("ocupadosB");
+						var etiquetaAnteriorBP1 = document.getElementById("BP1");
+						var etiquetaAnteriorBP2 = document.getElementById("BP2");
+						var etiquetaAnteriorBP3 = document.getElementById("BP3");
+						var etiquetaAnteriorBP4 = document.getElementById("BP4");
+
 						etiquetaAnterior.setAttribute('value',libresB);
 						etiquetaAnteriorO.setAttribute('value',ocupadosB);
+
 						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+						etiquetaAnteriorBP1.parentNode.replaceChild(etiquetaBP1,etiquetaAnteriorBP1);
+						etiquetaAnteriorBP2.parentNode.replaceChild(etiquetaBP2,etiquetaAnteriorBP2);
+						etiquetaAnteriorBP3.parentNode.replaceChild(etiquetaBP3,etiquetaAnteriorBP3);
+						etiquetaAnteriorBP4.parentNode.replaceChild(etiquetaBP4,etiquetaAnteriorBP4);
+
 					} else{
 						// alert("entro al 3");
 						// alert(libresE);
 						var nuevaEtiqueta = document.createElement("p");
 						var nuevaEtiquetaO = document.createElement("p");
+						var etiquetaE1 = document.createElement("h3");
+
+						var txt="";
+						txt = "E1: Libres = "+(80-ocupadosE)+" / Ocupados = "+ocupadosE;
+						var textoE1 = document.createTextNode(txt);
 						var texto = document.createTextNode(libresE);
 						var textoO = document.createTextNode(ocupadosE);
+
 						nuevaEtiqueta.appendChild(texto);
 						nuevaEtiquetaO.appendChild(textoO);
+						etiquetaE1.appendChild(textoE1);
+
 						nuevaEtiqueta.setAttribute('id','libresE');
 						nuevaEtiquetaO.setAttribute('id','ocupadosE');
 						nuevaEtiqueta.setAttribute('value',libresE);
 						nuevaEtiquetaO.setAttribute('value',ocupadosE);
+
 						var etiquetaAnterior = document.getElementById("libresE");
 						var etiquetaAnteriorO = document.getElementById("ocupadosE");
+						var etiquetaAnteriorE1 = document.getElementById("E1");
+
 						etiquetaAnterior.setAttribute('value',libresE);
 						etiquetaAnteriorO.setAttribute('value',ocupadosE);
+
 						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+						etiquetaAnteriorE1.parentNode.replaceChild(etiquetaE1,etiquetaAnteriorE1);
+
 					}
 				}
 				var etiqueta = document.getElementById(nespacio);
