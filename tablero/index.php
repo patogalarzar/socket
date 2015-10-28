@@ -40,36 +40,42 @@
 		$torreB=array();
 		$bp1=array();$bp2=array();$bp3=array();$bp4=array();
 		$contbp1=0;$contbp2=0;$contbp3=0;$contbp4=0;
-		$exteriores=array();
+		$exteriores=array();$ep1=array();
 		$indice=0;	
 		
 		$espaciosTorreA = mysql_query("SELECT * FROM espacio WHERE id_piso IN(1,2,3,4,5)");
 		while ($espacios = mysql_fetch_array($espaciosTorreA)) {
 			$est = $espacios["estado_espacio"];
 			$piso= $espacios["id_piso"];
+
+			if ($piso=="1") {
+				$as1= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contas1++;
+			}elseif ($piso=="2") {
+				$as2= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contas2++;
+			}elseif ($piso=="3") {
+				$ap1= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contap1++;
+			}elseif ($piso=="4") {
+				$ap2= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contap2++;
+			}else{
+				$ap3= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contap3++;
+			}
+			
 			if ($est=="LIBRE") {
 				$libresA = $libresA + 1;
 				$torreA[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosA = $ocupadosA + 1;
-
-				if ($piso=="1") {
-					
-					$contas1++;
-				}elseif ($piso=="2") {
-					
-					$contas2++;
-				}elseif ($piso=="3") {
-					
-					$contap1++;
-				}elseif ($piso=="4") {
-					
-					$contap2++;
-				}else{
-					
-					$contap3++;
-				}
 			}else{
 				$reservadosA = $reservadosA + 1;
 			}
@@ -81,26 +87,31 @@
 		while ($espacios = mysql_fetch_array($espaciosTorreB)) {
 			$est = $espacios["estado_espacio"];
 			$piso= $espacios["id_piso"];
+
+			if ($piso=="6") {
+				$bp1= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contbp1++;
+			}elseif ($piso=="7") {
+				$bp2= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contbp2++;
+			}elseif ($piso=="8") {
+				$bp3= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contbp3++;
+			}else{
+				$bp4= array('nespacio'=>$espacios['nombre_espacio'],
+							'estado'=>$espacios["estado_espacio"]);
+				$contbp4++;
+			}
+
 			if ($est=="LIBRE") {
 				$libresB = $libresB + 1;
 				$torreB[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosB = $ocupadosB + 1;
-
-				if ($piso=="6") {
-					
-					$contbp1++;
-				}elseif ($piso=="7") {
-					
-					$contbp2++;
-				}elseif ($piso=="8") {
-					
-					$contbp3++;
-				}else{
-					
-					$contbp4++;
-				}
 			}else{
 				$reservadosB = $reservadosB + 1;
 			}
@@ -109,6 +120,8 @@
 		$espaciosExteriores = mysql_query("SELECT * FROM espacio WHERE id_piso IN(10)");
 		while ($espacios = mysql_fetch_array($espaciosExteriores)) {
 			$est = $espacios["estado_espacio"];
+			$ep1= array('nespacio'=>$espacios['nombre_espacio'],
+						'estado'=>$espacios["estado_espacio"]);
 			if ($est=="LIBRE") {
 				$libresE = $libresE + 1;
 				$exteriores[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
@@ -236,10 +249,7 @@
 		vertical-align: top;
 		width: 150px;
 		}
-		.celeste{
-		background-color: #39cccc;
-		}
-		.contenedor, .barralateral-principal{
+				.contenedor, .barralateral-principal{
 		display: inline-block;
 		vertical-align: top;
 		}
@@ -283,6 +293,18 @@
 	    width: 207px;
 	    color: #fff;
 		}
+		.pisos{
+		background: #ffffff;
+		border-radius: 3px;
+		border-top: 5px solid #384047;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		display: block;
+		margin: 15px auto;
+		margin-bottom: 20px;
+		padding: 15px 15px;
+ 		/*position: relative;*/
+		width: 32%;	
+		}
 		.espacios:hover {
 		background-color: #ff5000;
 		}
@@ -298,6 +320,12 @@
 		padding: 10px 5px;
 		}
 		.naranja{
+		background-color: #ff5000;
+		}
+		.libre{
+		background-color: #39cccc;
+		}
+		.ocupado{
 		background-color: #ff5000;
 		}
 		.tablero{
@@ -349,18 +377,18 @@
       $(document).on("ready",function(){
         $('th').click(function(){
             
-            removerClase('th', 'celeste');
+            removerClase('th', 'libre');
             removerClase('th', 'naranja');
             var clase=$(this).attr('class');
             var valor=$(this).attr('valor');
             
             if (clase=='espacios naranja') {
               //cambio de color espacio
-              $(this).addClass('celeste').removeClass('naranja');
+              $(this).addClass('libre').removeClass('naranja');
               
             }else{
               //cambio de color espacio
-              $(this).addClass('naranja').removeClass('celeste');
+              $(this).addClass('naranja').removeClass('libre');
             };
             document.getElementById("espacioSeleccionado").value = valor;
             // alert(clase+" "+valor);
@@ -448,6 +476,20 @@
  			<div class="edificios">
  				<h2>Torre A:</h2>
  				<h3 id="AS1"> <?php echo "AS1: Libres = ".(80-$contas1)." / Ocupados = ".$contas1 ; ?></h3>
+ 				<div class="pisos">
+ 					<div class="tablero">
+						<table cellspacing="0" cellpadding="0">     
+				            <tr id="espaciosVaciosA">        
+				                <?php  
+				                	while (list(,$val) = each($as1)) {
+				                		// echo $val["nespacio"];
+	   									echo "<th class='espacios ".$val['estado']."' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
+									}
+				                ?>
+				            </tr>
+				        </table>
+					</div>
+ 				</div>
  				<h3 id="AS2"> <?php echo "AS2: Libres = ".(80-$contas2)." / Ocupados = ".$contas2 ; ?></h3>
  				<h3 id="AP1"> <?php echo "AP1: Libres = ".(100-$contap1)." / Ocupados = ".$contap1 ; ?></h3>
  				<h3 id="AP2"> <?php echo "AP2: Libres = ".(100-$contap2)." / Ocupados = ".$contap2 ; ?></h3>
