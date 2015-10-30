@@ -1,0 +1,307 @@
+@font-face {
+	font-family: "Flaticon";
+	src: url("flaticon.eot");
+	src: url("flaticon.eot#iefix") format("embedded-opentype"),
+	url("flaticon.woff") format("woff"),
+	url("flaticon.ttf") format("truetype"),
+	url("flaticon.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+	font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}.flaticon-arrow221:before {
+	content: "\e000";
+}
+.flaticon-bank76:before {
+	content: "\e001";
+}
+.flaticon-battery27:before {
+	content: "\e002";
+}
+.flaticon-boxes2:before {
+	content: "\e003";
+}
+.flaticon-building98:before {
+	content: "\e004";
+}
+.flaticon-buildings8:before {
+	content: "\e005";
+}
+.flaticon-calendar92:before {
+	content: "\e006";
+}
+.flaticon-car189:before {
+	content: "\e007";
+}
+.flaticon-car21:before {
+	content: "\e008";
+}
+.flaticon-car80:before {
+	content: "\e009";
+}
+.flaticon-car86:before {
+	content: "\e00a";
+}
+.flaticon-cars27:before {
+	content: "\e00b";
+}
+.flaticon-cinema44:before {
+	content: "\e00c";
+}
+.flaticon-circular-clock3:before {
+	content: "\e00d";
+}
+.flaticon-circular160:before {
+	content: "\e00e";
+}
+.flaticon-cleaning19:before {
+	content: "\e00f";
+}
+.flaticon-clock117:before {
+	content: "\e010";
+}
+.flaticon-clock148:before {
+	content: "\e011";
+}
+.flaticon-collision:before {
+	content: "\e012";
+}
+.flaticon-comfortable1:before {
+	content: "\e013";
+}
+.flaticon-decoration10:before {
+	content: "\e014";
+}
+.flaticon-direction23:before {
+	content: "\e015";
+}
+.flaticon-do10:before {
+	content: "\e016";
+}
+.flaticon-dogs:before {
+	content: "\e017";
+}
+.flaticon-download8:before {
+	content: "\e018";
+}
+.flaticon-driving1:before {
+	content: "\e019";
+}
+.flaticon-escalator2:before {
+	content: "\e01a";
+}
+.flaticon-escalator3:before {
+	content: "\e01b";
+}
+.flaticon-event8:before {
+	content: "\e01c";
+}
+.flaticon-exit13:before {
+	content: "\e01d";
+}
+.flaticon-floor:before {
+	content: "\e01e";
+}
+.flaticon-forest2:before {
+	content: "\e01f";
+}
+.flaticon-fun12:before {
+	content: "\e020";
+}
+.flaticon-garage1:before {
+	content: "\e021";
+}
+.flaticon-garage13:before {
+	content: "\e022";
+}
+.flaticon-garage15:before {
+	content: "\e023";
+}
+.flaticon-garage22:before {
+	content: "\e024";
+}
+.flaticon-garage23:before {
+	content: "\e025";
+}
+.flaticon-garage24:before {
+	content: "\e026";
+}
+.flaticon-garden35:before {
+	content: "\e027";
+}
+.flaticon-google34:before {
+	content: "\e028";
+}
+.flaticon-gps48:before {
+	content: "\e029";
+}
+.flaticon-history2:before {
+	content: "\e02a";
+}
+.flaticon-history6:before {
+	content: "\e02b";
+}
+.flaticon-idcard4:before {
+	content: "\e02c";
+}
+.flaticon-identification16:before {
+	content: "\e02d";
+}
+.flaticon-identification8:before {
+	content: "\e02e";
+}
+.flaticon-login17:before {
+	content: "\e02f";
+}
+.flaticon-login18:before {
+	content: "\e030";
+}
+.flaticon-menu48:before {
+	content: "\e031";
+}
+.flaticon-menu51:before {
+	content: "\e032";
+}
+.flaticon-menu57:before {
+	content: "\e033";
+}
+.flaticon-month1:before {
+	content: "\e034";
+}
+.flaticon-open207:before {
+	content: "\e035";
+}
+.flaticon-outline:before {
+	content: "\e036";
+}
+.flaticon-park11:before {
+	content: "\e037";
+}
+.flaticon-park15:before {
+	content: "\e038";
+}
+.flaticon-park32:before {
+	content: "\e039";
+}
+.flaticon-park35:before {
+	content: "\e03a";
+}
+.flaticon-park49:before {
+	content: "\e03b";
+}
+.flaticon-parking12:before {
+	content: "\e03c";
+}
+.flaticon-parking19:before {
+	content: "\e03d";
+}
+.flaticon-password13:before {
+	content: "\e03e";
+}
+.flaticon-placeholder8:before {
+	content: "\e03f";
+}
+.flaticon-plan1:before {
+	content: "\e040";
+}
+.flaticon-playground5:before {
+	content: "\e041";
+}
+.flaticon-presentationcard:before {
+	content: "\e042";
+}
+.flaticon-restaurants2:before {
+	content: "\e043";
+}
+.flaticon-restricted:before {
+	content: "\e044";
+}
+.flaticon-road-sign2:before {
+	content: "\e045";
+}
+.flaticon-road12:before {
+	content: "\e046";
+}
+.flaticon-road32:before {
+	content: "\e047";
+}
+.flaticon-road38:before {
+	content: "\e048";
+}
+.flaticon-roadsing:before {
+	content: "\e049";
+}
+.flaticon-round70:before {
+	content: "\e04a";
+}
+.flaticon-stacked9:before {
+	content: "\e04b";
+}
+.flaticon-stairs12:before {
+	content: "\e04c";
+}
+.flaticon-stairs6:before {
+	content: "\e04d";
+}
+.flaticon-stairs7:before {
+	content: "\e04e";
+}
+.flaticon-steeringwheel:before {
+	content: "\e04f";
+}
+.flaticon-stones:before {
+	content: "\e050";
+}
+.flaticon-storage48:before {
+	content: "\e051";
+}
+.flaticon-storage54:before {
+	content: "\e052";
+}
+.flaticon-terminal8:before {
+	content: "\e053";
+}
+.flaticon-ticket13:before {
+	content: "\e054";
+}
+.flaticon-time44:before {
+	content: "\e055";
+}
+.flaticon-traffic-signal:before {
+	content: "\e056";
+}
+.flaticon-traffic14:before {
+	content: "\e057";
+}
+.flaticon-traffic25:before {
+	content: "\e058";
+}
+.flaticon-transport122:before {
+	content: "\e059";
+}
+.flaticon-uparrow117:before {
+	content: "\e05a";
+}
+.flaticon-user168:before {
+	content: "\e05b";
+}
+.flaticon-user43:before {
+	content: "\e05c";
+}
+.flaticon-user7:before {
+	content: "\e05d";
+}
+.flaticon-users53:before {
+	content: "\e05e";
+}
+.flaticon-water82:before {
+	content: "\e05f";
+}
+.flaticon-zoom3:before {
+	content: "\e060";
+}

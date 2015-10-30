@@ -40,42 +40,36 @@
 		$torreB=array();
 		$bp1=array();$bp2=array();$bp3=array();$bp4=array();
 		$contbp1=0;$contbp2=0;$contbp3=0;$contbp4=0;
-		$exteriores=array();$ep1=array();
+		$exteriores=array();
 		$indice=0;	
 		
 		$espaciosTorreA = mysql_query("SELECT * FROM espacio WHERE id_piso IN(1,2,3,4,5)");
 		while ($espacios = mysql_fetch_array($espaciosTorreA)) {
 			$est = $espacios["estado_espacio"];
 			$piso= $espacios["id_piso"];
-
-			if ($piso=="1") {
-				$as1= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contas1++;
-			}elseif ($piso=="2") {
-				$as2= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contas2++;
-			}elseif ($piso=="3") {
-				$ap1= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contap1++;
-			}elseif ($piso=="4") {
-				$ap2= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contap2++;
-			}else{
-				$ap3= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contap3++;
-			}
-			
 			if ($est=="LIBRE") {
 				$libresA = $libresA + 1;
 				$torreA[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosA = $ocupadosA + 1;
+
+				if ($piso=="1") {
+					
+					$contas1++;
+				}elseif ($piso=="2") {
+					
+					$contas2++;
+				}elseif ($piso=="3") {
+					
+					$contap1++;
+				}elseif ($piso=="4") {
+					
+					$contap2++;
+				}else{
+					
+					$contap3++;
+				}
 			}else{
 				$reservadosA = $reservadosA + 1;
 			}
@@ -87,31 +81,26 @@
 		while ($espacios = mysql_fetch_array($espaciosTorreB)) {
 			$est = $espacios["estado_espacio"];
 			$piso= $espacios["id_piso"];
-
-			if ($piso=="6") {
-				$bp1= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contbp1++;
-			}elseif ($piso=="7") {
-				$bp2= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contbp2++;
-			}elseif ($piso=="8") {
-				$bp3= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contbp3++;
-			}else{
-				$bp4= array('nespacio'=>$espacios['nombre_espacio'],
-							'estado'=>$espacios["estado_espacio"]);
-				$contbp4++;
-			}
-
 			if ($est=="LIBRE") {
 				$libresB = $libresB + 1;
 				$torreB[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
 				$indice=$indice+1;
 			}elseif ($est=="OCUPADO") {
 				$ocupadosB = $ocupadosB + 1;
+
+				if ($piso=="6") {
+					
+					$contbp1++;
+				}elseif ($piso=="7") {
+					
+					$contbp2++;
+				}elseif ($piso=="8") {
+					
+					$contbp3++;
+				}else{
+					
+					$contbp4++;
+				}
 			}else{
 				$reservadosB = $reservadosB + 1;
 			}
@@ -120,8 +109,6 @@
 		$espaciosExteriores = mysql_query("SELECT * FROM espacio WHERE id_piso IN(10)");
 		while ($espacios = mysql_fetch_array($espaciosExteriores)) {
 			$est = $espacios["estado_espacio"];
-			$ep1= array('nespacio'=>$espacios['nombre_espacio'],
-						'estado'=>$espacios["estado_espacio"]);
 			if ($est=="LIBRE") {
 				$libresE = $libresE + 1;
 				$exteriores[$indice]= array('nespacio'=>$espacios['nombre_espacio']);
@@ -141,264 +128,15 @@
  <head>
  	<meta charset="utf-8" />
 	<title>OROMALL</title>
-	<!-- <link rel="stylesheet" href="css/style.css"> -->
-	<script src="../js/jquery-1.7.2.min.js"></script>
-	<script src="../js/fancywebsocket.js"></script>
-	<style type="text/css">
-		@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
-		*{
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-		.barra{
-			/*display: block;
-			vertical-align: top;*/
-		}
-		
-		.barralateral-principal{
-		/*position: absolute;*/
-		/*top: 0;
-		left: 0;*/
-		padding-top: 15;
-		min-height: 100%;
-		width: 19%;
-		z-index: -1;
-		}
-		.barralateral{
-		background-color: #3E474F;
-		color: #fff;
-		padding-bottom: 10px;
 
-		}
-		.barralateral-menu{
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 18px;
-		list-style: none;
-	  	margin: 5px;
-	  	padding-top: 60px;
-	  	/*padding-left: 45px;*/
-		}
-		.barralateral-menu h3 {
-		margin: 0 auto;
-		padding: 0 0 18px;
-		}
-		.barralateral-menu li{
-		position: relative;
-	  	margin: 5px;
-	  	padding: 0;
-	  	list-style: none;
-	  	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
-		}
-		.barralateral-menu a {
-		color: #fff;
-		margin-left: 10px;
-		text-decoration: none;
-		}
-		.boton{
-		background-color: #00AB6B;
-		border: 1px solid #fff;
-		border-radius: 5px;
-		color: #fff;
-		padding: 10px 5px;
-		text-align: center;
-		vertical-align: top;
-		width: 100px;
-		}
-		.cabecera{
-		background-color: #FF656D;
-		color:#fff;
-		/*display: block;*/
-		/*float: left;*/
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 20px;
-		font-weight: 300;
-		height: 65px;
-		/*line-height: 50px;*/
-		/*overflow: hidden;*/
-		/*padding: 0 15px;*/
-		position: fixed;
-		text-align: left;
-		width: 100%;
-		z-index: 1;
-		}
-		.caja{
-		background: #ffffff;
-		border-radius: 3px;
-		border-top: 5px solid #FF656D;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-		margin: 10px auto;
-		margin-bottom: 20px;
-		padding: 15px 15px;
- 		/*position: relative;*/
-		width: 50%;
-		}
-		.caja-menu{
-		border-radius: 3px;
-		border-top: 5px solid #FFF;
-		/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
-		margin: 0 auto;
-		/*margin-bottom: 20px;*/
-		padding: 10px 5px;
-		}
-		.cajatexto{
-		border: 1px solid #B8B8B8;
-		border-radius: 5px;
-		color: #B8B8B8;
-		padding: 10px 5px;
-		vertical-align: top;
-		width: 150px;
-		}
-				.contenedor, .barralateral-principal{
-		display: inline-block;
-		vertical-align: top;
-		}
-		.contenedor{
-  		background-color: #ecf0f5;
-  		font-family: 'Source Sans Pro', sans-serif;
-		/*margin-left: 225px;*/
-		min-height: 100%;
-		width: 80%;
-		/*z-index: 820;*/
-		}
-		.contenido{
-		min-height: 250px;
-		padding: 5px;
-		margin-left: auto;
-		margin-right: auto;
-		padding-left: 15px;
-		padding-right: 15px;
-		padding-top: 79px;
-		width: 100%
-		}
-		.contenido h2{
-		text-align: center;
-		}
-		.edificios{
-		background: #ffffff;
-		border-radius: 3px;
-		border-top: 5px solid #FF656D;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-		margin: 15px auto;
-		margin-bottom: 20px;
-		padding: 15px 15px;
- 		/*position: relative;*/
-		width: 98%;
-		}
-		.edificios h3 {
-	    display: inline-block;
-	    margin: 0px;
-	    padding: 10px;
-	    background-color: #3E474F;
-	    width: 207px;
-	    color: #fff;
-		}
-		.pisos{
-		background: #ffffff;
-		border-radius: 3px;
-		border-top: 5px solid #384047;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-		display: block;
-		margin: 15px auto;
-		margin-bottom: 20px;
-		padding: 15px 15px;
- 		/*position: relative;*/
-		width: 32%;	
-		}
-		.espacios:hover {
-		background-color: #ff5000;
-		}
-		.espacios{
-		display: inline-block;
-		vertical-align: top;
-		width: 50px;
-		text-align: center;
-		background-color: #39cccc;
-		border: 1px solid #fff;
-		color: #fff;
-		cursor: pointer;
-		padding: 10px 5px;
-		}
-		.naranja{
-		background-color: #ff5000;
-		}
-		.libre{
-		background-color: #39cccc;
-		}
-		.ocupado{
-		background-color: #ff5000;
-		}
-		.tablero{
-		padding-top: 15px;
-		margin-bottom: 30px;
-		}
-		.logo{
-		display: inline-block;
-		width: 19%;
-		}
-		.logo a{
-		color: #fff;
-		font-size: 24px;
-		float: left;
-		margin-left: 45px;
-		margin-top: 10px;
-		}
-		.logo a:hover{
-		color: #000;
-		font-size: 30px;
-		margin-left: 40px;
-		}
-		
-		.valores{
-		display: inline-block;
-		font-size: 16px;
-		margin-left: 25px;
-		/*margin-top: 10px;*/
-		width: 30%;
-		}
-		.valores div{
-		display: block;
-		}
-		.valores p{
-		display: inline-block;
-		}
-		.registrar{
-		display: inline-block;
-		width: 45%;
-		}
-		.registrar form{
-		float: right;
-		margin-right: 20px;
-		margin-top: 14px;
-		}
-    </style>
-    
-	<script type="text/javascript">
-      $(document).on("ready",function(){
-        $('th').click(function(){
-            
-            removerClase('th', 'libre');
-            removerClase('th', 'naranja');
-            var clase=$(this).attr('class');
-            var valor=$(this).attr('valor');
-            
-            if (clase=='espacios naranja') {
-              //cambio de color espacio
-              $(this).addClass('libre').removeClass('naranja');
-              
-            }else{
-              //cambio de color espacio
-              $(this).addClass('naranja').removeClass('libre');
-            };
-            document.getElementById("espacioSeleccionado").value = valor;
-            // alert(clase+" "+valor);
-        });
-        
-        function removerClase(tag, clase){
-          $(tag).removeClass(clase);
-        }
-      });
-    </script>
+	<link rel="stylesheet" href="../css/style.css">	
+	<link type="text/css" rel="stylesheet"  href="../fonts/flaticon/flaticon.css"> 
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <script src="../js/jquery-1.7.2.min.js"></script>
+	<script src="../js/fancywebsocket.js"></script>
+	<script src="../js/socket.js"></script>
+	
  </head>
  <body>
  	<header class="cabecera">
@@ -470,41 +208,104 @@
  		</section>
  	</aside>
  	<div class="contenedor">
- 		<section class="contenido">
+ 		<section class="contenido"> 				
+
  			<h2>Seleccione el espacio de parqueo</h2>
+ 			<?php $edificios = consultarGeneral("edificio","id_edificio",">","0"); ?>
+ 			
+			<?php while ($arrE=mysql_fetch_array($edificios)) { ?>
+				<div id='edificio<?php echo $arrE["id_edificio"]; ?>' class="edificios">				
+	 				<div class="nombre_torre"><?php echo $arrE["nombre_edificio"]; ?></div>
+	 				<div id='btnEdificio<?php echo $arrE["id_edificio"]; ?>' class="icono_torre flaticon-menu57"></div>
+
+	 				<!-- Niveles -->
+	 				<center>
+	 				<?php $pisos = consultarGeneral("piso","id_piso",">","0");
+					while ($arrP=mysql_fetch_array($pisos)) {
+						if ($arrP["id_edificio"]==$arrE["id_edificio"]) { ?>
+							<div id="<?php echo $arrP["id_piso"] ?>" class="niveles">
+			 				    <div class='flaticon-building98'><?php echo $arrP["nombre_piso"]; ?></div>
+			 				    <div class='flaticon-transport122'> Libres = 30 </div>
+			 				    <div class='flaticon-cars27'> Reservado = 3 </div>
+			 				    <div class='flaticon-car21'> Ocupados = 32 </div>		 				    
+			 					<input id='btnNivel<?php echo $arrP["id_piso"] ?>' id-piso='<?php echo $arrP["id_piso"] ?>' type='button' class="flaticon-zoom3" value='Buscar Espacio' />
+		 					</div>		 				
+		 			<?php }
+					} ?>		
+		 			</center>		
+		 			<!-- Espacios -->		 			
+	 				<?php $pisos = consultarGeneral("piso","id_edificio","=",$arrE["id_edificio"]);
+						while ($arrP=mysql_fetch_array($pisos)) { ?>
+															
+							<table id='espacios<?php echo $arrP["id_piso"]; ?>' class='espacios_nivel' cellspacing="0" cellpadding="0">
+								<center>
+			   					<tr id="">
+								<?php $espacios = consultarGeneral("espacio","id_espacio",">","0");
+									while ($arrS=mysql_fetch_array($espacios)) {
+									if ($arrS["id_piso"]==$arrP["id_piso"]) {  ?>														
+										<th class='espacios' id='<?php echo $arrS["id_espacio"]; ?>'>			                	
+						                	<div class='detalle'>
+						                		<div class="icono flaticon-placeholder8"></div>
+						                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
+						                	</div>
+						                	<div class="estado">DISPONIBLE</div>
+					           			</th>
+									<?php }
+									} ?>
+								</tr>
+								</center>
+							</table>
+							
+					<?php } ?>		
+		 		</div>	
+	 		<?php } ?>
+ 			
+
+				
  				
- 			<div class="edificios">
+ 			<!-- <div class="edificios">
  				<h2>Torre A:</h2>
- 				<h3 id="AS1"> <?php echo "AS1: Libres = ".(80-$contas1)." / Ocupados = ".$contas1 ; ?></h3>
- 				<div class="pisos">
- 					<div class="tablero">
-						<table cellspacing="0" cellpadding="0">     
-				            <tr id="espaciosVaciosA">        
-				                <?php  
-				                	while (list(,$val) = each($as1)) {
-				                		// echo $val["nespacio"];
-	   									echo "<th class='espacios ".$val['estado']."' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
-									}
-				                ?>
-				            </tr>
-				        </table>
-					</div>
+
+ 				<div id="AS1" class="niveles"> 				   
+ 				    <div class='flaticon-building98'>Subsuelo - AS1</div>
+ 				    <div class='flaticon-transport122'> Libres = 30 </div>
+ 				    <div class='flaticon-cars27'> Reservado = 3 </div>
+ 				    <div class='flaticon-car21'> Ocupados = 32 </div>
+ 				    
+ 					<input type='button' class="flaticon-zoom3" value='Buscar Espacio' />
  				</div>
- 				<h3 id="AS2"> <?php echo "AS2: Libres = ".(80-$contas2)." / Ocupados = ".$contas2 ; ?></h3>
- 				<h3 id="AP1"> <?php echo "AP1: Libres = ".(100-$contap1)." / Ocupados = ".$contap1 ; ?></h3>
- 				<h3 id="AP2"> <?php echo "AP2: Libres = ".(100-$contap2)." / Ocupados = ".$contap2 ; ?></h3>
- 				<h3 id="AP3"> <?php echo "AP3: Libres = ".(100-$contap3)." / Ocupados = ".$contap3 ; ?></h3>
+
+ 				<div class="niveles">
+ 					<h3 id="AS2" class='flaticon-building98'> <?php echo "AS2: Libres = ".(80-$contas2)." / Ocupados = ".$contas2 ; ?></h3>
+ 				</div>
+ 				<div class="niveles">
+ 					<h3 id="AP1" class='flaticon-building98'> <?php echo "AP1: Libres = ".(100-$contap1)." / Ocupados = ".$contap1 ; ?></h3>
+ 				</div>
+ 				<div class="niveles">
+ 					<h3 id="AP2" class='flaticon-building98'> <?php echo "AP2: Libres = ".(100-$contap2)." / Ocupados = ".$contap2 ; ?></h3>
+ 				</div>
+ 				<div class="niveles">
+ 					<h3 id="AP3" class='flaticon-building98'> <?php echo "AP3: Libres = ".(100-$contap3)." / Ocupados = ".$contap3 ; ?></h3>
+ 				</div>
+
  				<div class="tablero">
+ 					<center>
 					<table cellspacing="0" cellpadding="0">     
-			            <tr id="espaciosVaciosA">        
-			                <?php  
-			                	while (list(,$val) = each($torreA)) {
-			                		// echo $val["nespacio"];
-   									echo "<th class='espacios' id='".$val['nespacio']."' valor='".$val['nespacio']."'>".$val['nespacio']."</th>";
-								}
-			                ?>
+			            <tr id="espaciosVaciosA">
+			                <?php while (list(,$val) = each($torreA)) { ?>
+   									
+								<th class='espacios' id='<?php echo $val['nespacio'] ?>'>			                	
+				                	<div class='detalle'>
+				                		<div class="icono flaticon-placeholder8"></div>
+				                		<div class="nombre_espacio"><?php echo $val['nespacio'] ?></div>
+				                	</div>
+				                	<div class="estado">DISPONIBLE</div>
+		               			</th>
+			               			
+							<?php } ?>
 			            </tr>
 			        </table>
+			        </center>
 				</div>
  			</div>
  			<div class="edificios">
@@ -542,7 +343,7 @@
 			            </tr>
 			        </table>
 				</div>
- 			</div>
+ 			</div> -->
 		 	
 			<!-- <h3>Registrar el espacio de parqueo</h3>
 			<div>
