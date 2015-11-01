@@ -296,7 +296,7 @@
 				dataType:"html",
 				success: function(data) 
 				{
-					alert(data);
+					// alert(data);
 				 	send(data);// array JSON
 				 	window.location="../tablero/";
 					// document.getElementById("espacioSeleccionado").value = "";
@@ -335,7 +335,7 @@
               url:"consultarPlaca.php",
               data:{nespacio:valor}
             }).done(function(msg){
-            	alert(msg);
+            	// alert(msg);
             	var JSONdata    = JSON.parse(msg); //parseo la informacion
 					var placa = JSONdata[0].placa;
 					var nombre_piso = JSONdata[0].nombre_piso;
@@ -351,7 +351,7 @@
 	            document.getElementById("edificioEspacio").value = "Edificio: "+nombre_edificio;
             });
 
-            alert(clase+" "+valor);
+            // alert(clase+" "+valor);
         });
         
         function removerClase(tag, clase){

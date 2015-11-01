@@ -70,7 +70,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://130.2.0.182:8080');
+	Server = new FancyWebSocket('ws://192.168.1.6:8080');
     Server.bind('open', function()
 	{
     });
@@ -292,7 +292,7 @@ function colocar_espacio(message)
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
-				alert("Edificio: "+edificio);
+				// alert("Edificio: "+edificio);
 				var idPadre=""; // id del padre al que se va a añadir el espacio liberado
 				if (edificio=="1") {
 					// alert("entro al 1");

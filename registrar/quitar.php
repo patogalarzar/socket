@@ -104,6 +104,5 @@
 						'contbp3'=>$contbp3,
 						'contbp4'=>$contbp4
 					  );
-
 	echo json_encode($arrayjson);
 ?>

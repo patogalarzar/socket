@@ -271,6 +271,7 @@
     <script language="javascript">
 		function quitar()
 		{	
+
 			var nespacio = "<?php echo $nespacio; ?>";
 			var placa    = document.getElementById('placaVehiculo').value;
 			var nusuario = "<?php echo $nusuario; ?>";
@@ -299,7 +300,28 @@
 				{
 					// alert(data);
 				 	send(data);// array JSON
-				 	window.location="../tablero/";
+				 	// window.location="../tablero/";
+					// document.getElementById("espacioSeleccionado").value = "";
+					// document.getElementById("placaVehiculo").value = "";
+				},
+				error:function(data){
+					alert(data);
+				}
+			});
+			var fechaRegistro = document.getElementById('fechaRegistro').value;
+			var edificioEspacio = document.getElementById('edificioEspacio').value;
+			var pisoEspacio = document.getElementById('pisoEspacio').value;
+
+			$.ajax({
+				type: "POST",
+				url: "imprimirpdf.php",
+				data: "nusuario="+nusuario+"&fechaRegistro="+fechaRegistro+"&edificioEspacio="+edificioEspacio+"&pisoEspacio="+pisoEspacio+"&nespacio="+nespacio+"&placa="+placa,
+				dataType:"html",
+				success: function(data) 
+				{
+					// alert(data);
+				 	// send(data);// array JSON
+				 	// window.location="../tablero/";
 					// document.getElementById("espacioSeleccionado").value = "";
 					// document.getElementById("placaVehiculo").value = "";
 				},
@@ -408,6 +430,9 @@
 			</div> -->
 			<h3>Registrar el espacio de parqueo</h3>
 			<div class="caja">
+				<form ACTION =>
+					
+				</form>
 				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
 				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
 				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
