@@ -58,13 +58,7 @@ var FancyWebSocket = function(url)
 					break;
 					
 				}
-				//aqui se ejecuta toda la accion
-				
-				
-				
-				
-				
-				
+				//aqui se ejecuta toda la accion				
 			}
 	}
 };
@@ -76,7 +70,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://192.168.0.199:8080');
+	Server = new FancyWebSocket('ws://130.2.0.182:8080');
     Server.bind('open', function()
 	{
     });
