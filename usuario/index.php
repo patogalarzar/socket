@@ -295,6 +295,8 @@
 		{	
 			var nombreUsuario = document.getElementById('nombreUsuario').value;
 			var aliasUsuario    = document.getElementById('aliasUsuario').value;
+			var garitaUsuario = document.getElementById('garitaUsuario').value;
+			// alert(garitaUsuario);
 			var passUsuario =document.getElementById('passUsuario').value;
 			var confirmarPass = document.getElementById('confirmarPass').value;
 			if (passUsuario==confirmarPass) {
@@ -302,18 +304,27 @@
 				$.ajax({
 					type: "POST",
 					url: "guardar.php",
-					data: "nombreUsuario="+nombreUsuario+"&aliasUsuario="+aliasUsuario+"&passUsuario="+passUsuario,
+					data: "nombreUsuario="+nombreUsuario+"&aliasUsuario="+aliasUsuario+"&garitaUsuario="+garitaUsuario+"&passUsuario="+passUsuario,
 					dataType:"html",
 					success: function(data) 
 					{
+						
+					 // 	send(data);
 						// alert(data);
-					 	send(data);// array JSON
+					 	// array JSON
 					 	// window.location="../tablero/";
-					 	alert("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
+					 	// alert("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
 						document.getElementById('nombreUsuario').value = "";
 						document.getElementById('aliasUsuario').value = "";
+						// document.getElementById('garitaUsuario').value = "";
 						document.getElementById('passUsuario').value = "";
 						document.getElementById('confirmarPass').value = "";
+
+						var respuesta = "Usuario: "+nombreUsuario+" <br>Alias: "+aliasUsuario+" <br>Garita: "+garitaUsuario+" <br>Registrado con exito. <br><a href='../usuario/'> Registrar nuevo usuario</a>";
+						$("#titulo").hide();
+						$("#formRegistrar").hide();
+						$("#resultado").html(respuesta);
+
 					},
 					error:function(data){
 						alert(data);
@@ -415,14 +426,21 @@
  	</aside>
  	<div class="contenedor">
  		<section class="contenido">
- 			<h2>Registrar usuario del sistema</h2>
-			<div class="caja">
+ 			<h2 id="titulo">Registrar usuario del sistema</h2>
+			<div id="formRegistrar" class="caja">
 				<input class="cajatexto" id="nombreUsuario" type="text" placeholder="Nombre usuario..."/>
 				<input class="cajatexto" id="aliasUsuario" type="text" placeholder="Alias usuario..."/>
+				<select id="garitaUsuario" class="cajatexto">
+					<option value="1">Garita Torre A</option>
+					<option value="2">Garita Torre B</option>
+					<option value="3">Garita Exteriores</option>
+				</select>
+				<!-- <input class="cajatexto" id="garitaUsuario" type="text" placeholder="Garita usuario..."/> -->
 				<input class="cajatexto" id="passUsuario" type="password" placeholder="Clave..."/>
 				<input class="cajatexto" id="confirmarPass" type="password" placeholder="Confirmar Clave..."/>
-				<input class="boton" type="submit" value="Registrar" onclick="usuario();"/>
+				<input id="btnRegistrar" class="boton" type="submit" value="Registrar" onclick="usuario();"/>
 			</div>
+			<h2 id="resultado"></h2>
  	  	</section>
  	</div>
  </body>
