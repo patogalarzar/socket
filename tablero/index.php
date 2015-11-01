@@ -248,13 +248,13 @@
 			   					<tr id="">
 			   						<div id='opcion<?php echo $arrP["id_piso"]; ?>' class='opciones'>
 										<span class='flaticon-building98'>Nivel: <?php echo $arrP["nombre_piso"]; ?></span>
-										<input type='button' id="todos<?php echo $arrP["id_piso"]; ?>" data='opcion' value='Todos' />
-										<input type='button' id="dispo<?php echo $arrP["id_piso"]; ?>" data='opcion' class='flaticon-transport122' value='Disponibles' />
-										<input type='button' id="reser<?php echo $arrP["id_piso"]; ?>" data='opcion' class='flaticon-cars27' value='Reservados' />
-										<input type='button' id="ocupa<?php echo $arrP["id_piso"]; ?>" data='opcion' class='flaticon-car21' value='Ocupados' />
-										<input type='button' id="volve<?php echo $arrP["id_piso"]; ?>" data='opcion' value='Volver' id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' />
+										<input type='button' data='opcion' id="todos<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' value='Todos' />
+										<input type='button' data='opcion' id="dispo<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-transport122' value='Disponibles' />
+										<input type='button' data='opcion' id="reser<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-cars27' value='Reservados' />
+										<input type='button' data='opcion' id="ocupa<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-car21' value='Ocupados' />
+										<input type='button' data='opcion' id="volve<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' value='Volver' />
 									</div>
-								<?php $espacios = consultarGeneral("espacio","id_espacio",">","0");
+									<?php $espacios = consultarGeneral("espacio","id_espacio",">","0");
 									while ($arrS=mysql_fetch_array($espacios)) {
 									if ($arrS["id_piso"]==$arrP["id_piso"]) {  ?>
 
