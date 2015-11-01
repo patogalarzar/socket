@@ -20,16 +20,17 @@ $(document).on("ready",function() {
           }); 
 
           $('#edificio'+idEdi+' .niveles').slideUp();
-          $('.opciones').hide();
-          $('.espacios_nivel').hide();          
+                    
 
         } else {
           
           $(this).attr('btn-estado','ocultar');
+
           $('#edificio'+idEdi+' .icono_torre').css({
             'transform': 'rotate(180deg)'  
           }); 
 
+          $('#info-niveles'+idEdi).slideDown();
           $('#edificio'+idEdi+' .niveles').slideDown();
           $('#edificio'+idEdi+' .niveles').css({
             'display': 'inline-block',
@@ -37,6 +38,10 @@ $(document).on("ready",function() {
           });
           
         }
+
+        $('.opciones').hide();
+        $('.espacios_nivel').hide();
+
       }
           
     });
@@ -47,11 +52,13 @@ $(document).on("ready",function() {
       //Ocultar opciones y espacios_nivel
       $('.opciones').hide();
       $('.espacios_nivel').hide();
-      $('#espacios'+$(this).attr('id-piso')).slideDown('slow');
-      $('#opcion'+$(this).attr('id-piso')).show();
-    }
+      $('#info-niveles'+$(this).attr('id-edificio')).slideUp();
 
-    // $(this).attr('id-piso');
+      $('#opcion'+$(this).attr('id-piso')).slideDown();
+      $('#espacios'+$(this).attr('id-piso')).slideDown();
+            
+    }
+   
     if ( $(this).attr('data') == "opcion" ) {
 
       if ( $(this).attr('value') == "Todos" ) {
@@ -60,21 +67,52 @@ $(document).on("ready",function() {
 
       if ( $(this).attr('value') == "Disponibles" ) {
         alert('Disponibles');
+        // Arreglo de th de un id
+        // $('#espacios1 th')
       }
 
       if ( $(this).attr('value') == "Reservados" ) {
         alert('Reservados');
+        var th = $('#espacios1');
+        console.log('th: '+th);
+
+        $.each( $('#espacios1 th') , function(){
+          console.log('th: '+$('#espacios1 th'));
+        });
+
+        // $.each( $('#espacios'+$(this).attr('id-piso')+' th'), function(){
+
+        //   console.log('th: '+$(this));
+
+        //   if( $('th').attr('value') == "Reservados") {
+            
+        //     $('th').fadeOut('normal').hide();
+          
+        //   }else{
+            
+        //     $('th').fadeIn('slow').show();
+          
+        //   }
+        // });
       }
 
       if ( $(this).attr('value') == "Ocupados" ) {
         alert('Ocupados');
       }
 
+      if ( $(this).attr('value') == "Volver" ) {
+        // alert('Volver');
+        $('#info-niveles'+$(this).attr('id-edificio')).slideDown();
+
+        $('#opcion'+$(this).attr('id-piso')).slideUp();
+        $('#espacios'+$(this).attr('id-piso')).slideUp();
+       
+      }
+
     }
 
    });
-  // }
-  
+   
 
   $('th').click(function() {  
 
@@ -88,25 +126,23 @@ $(document).on("ready",function() {
 
     var clase=$(this).attr('class');
     var id = $(this).attr('value');
-      
+          
     $(this).css({
       'border': '3px solid #ff5500'
     });
 
-    $('#'+id+' div.estado').text('RESERVADO');    
-    $('#'+id+' div.estado').css({
+    $('#espacio'+id+' div.estado').text('RESERVADO');    
+    $('#espacio'+id+' div.estado').css({
       'background-color': '#FF5500'
     });
 
     $(this).attr('data-estado','RESERVADO');
-    document.getElementById("espacioSeleccionado").value = id;
+    document.getElementById("espacioSeleccionado").value = $(this).attr('nombre');
 
     // cambiar estado en la base de datos
     
     // alert(clase+" "+valor);
   });
 
-  // Arreglo de th de un id
-  // $('#espacios1 th')
-
+  
 });
