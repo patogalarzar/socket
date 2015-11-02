@@ -171,8 +171,8 @@
 	 				<input name="contbp4" type="hidden" value="<?php echo $contbp4; ?>"/>
 	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
-	 				<input class="cajatexto" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
-		 			<input class="boton" type="submit" value="Registrar"/>
+	 				<input class="cajatexto-tablero" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
+		 			<input class="boton-tablero" type="submit" value="Registrar"/>
  				</form>
  			</div>
  		</div>
@@ -214,26 +214,31 @@
  			<h2>Seleccione el espacio de parqueo</h2>
  			<?php $edificios = consultarGeneral("edificio","id_edificio",">","0"); ?>
  			
-			<?php while ($arrE=mysql_fetch_array($edificios)) { ?>
-				<div id='edificio<?php echo $arrE["id_edificio"]; ?>' class="edificios">				
-	 				<div class="nombre_torre"><?php echo $arrE["nombre_edificio"]; ?></div>
-	 				<div id='btnVerEdificio' id-edificio='<?php echo $arrE["id_edificio"]; ?>' data='edificios' btn-estado='ocultar' class="icono_torre flaticon-menu57"></div>
+			<?php while ( $arrE = mysql_fetch_array($edificios)) { ?>
+				<div id='edificio<?php echo $arrE["id_edificio"]; ?>' class="edificios">
 
-	 				<!-- Niveles -->
-	 				<center>
-	 				<?php $pisos = consultarGeneral("piso","id_piso",">","0");
-					while ($arrP=mysql_fetch_array($pisos)) {
-						if ($arrP["id_edificio"]==$arrE["id_edificio"]) { ?>
-							<div id="nivel<?php echo $arrP["id_piso"] ?>" class="niveles">
-			 				    <div class='flaticon-building98'><?php echo $arrP["nombre_piso"]; ?></div>
-			 				    <div class='flaticon-transport122'> Libres = 30 </div>
-			 				    <div class='flaticon-cars27'> Reservado = 3 </div>
-			 				    <div class='flaticon-car21'> Ocupados = 32 </div>		 				    
-			 					<input id='btnVerNivel<?php echo $arrP["id_piso"] ?>' id-piso='<?php echo $arrP["id_piso"] ?>' data='niveles' type='button' class="flaticon-zoom3" value='Buscar Espacio' />
-		 					</div>		 				
-		 			<?php }
-					} ?>		
-		 			</center>		
+					<div class="info-torre">
+						<div class="nombre_torre"><?php echo $arrE["nombre_edificio"]; ?></div>
+	 					<div id='btnVerEdificio' id-edificio='<?php echo $arrE["id_edificio"]; ?>' data='edificios' btn-estado='ocultar' class="icono_torre flaticon-menu57"></div>
+					</div>				
+
+	 				<!-- Niveles -->	 				
+	 				<div id='info-niveles<?php echo $arrE["id_edificio"]; ?>' class="info-niveles">
+		 				<center>
+		 				<?php $pisos = consultarGeneral("piso","id_piso",">","0");
+						while ($arrP=mysql_fetch_array($pisos)) {
+							if ($arrP["id_edificio"]==$arrE["id_edificio"]) { ?>
+								<div id="nivel<?php echo $arrP["id_piso"] ?>" class="niveles">
+				 				    <div class='flaticon-building98'><?php echo $arrP["nombre_piso"]; ?></div>
+				 				    <div class='flaticon-transport122'> Libres = 30 </div>
+				 				    <div class='flaticon-cars27'> Reservado = 3 </div>
+				 				    <div class='flaticon-car21'> Ocupados = 32 </div>		 				    
+				 					<input id='btnVerNivel<?php echo $arrP["id_piso"] ?>' id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' data='niveles' type='button' class="flaticon-zoom3" value='Buscar Espacio' />
+			 					</div>		 				
+			 			<?php }
+						} ?>		
+			 			</center>
+		 			</div>		
 		 			<!-- Espacios -->		 			
 	 				<?php $pisos = consultarGeneral("piso","id_edificio","=",$arrE["id_edificio"]);
 						while ($arrP=mysql_fetch_array($pisos)) { ?>
@@ -242,17 +247,18 @@
 								<!-- <center> -->
 			   					<tr id="">
 			   						<div id='opcion<?php echo $arrP["id_piso"]; ?>' class='opciones'>
-										<span class='flaticon-building98'>Nivel: AS1</span>
-										<input type='button' id="todos<?php echo $arrP["id_piso"]; ?>" data='opcion' value='Todos' />
-										<input type='button' id="dispo<?php echo $arrP["id_piso"]; ?>" data='opcion' class='flaticon-transport122' value='Disponibles' />
-										<input type='button' id="reser<?php echo $arrP["id_piso"]; ?>" data='opcion' class='flaticon-cars27' value='Reservados' />
-										<input type='button' id="ocupa<?php echo $arrP["id_piso"]; ?>" data='opcion' class='flaticon-car21' value='Ocupados' />
+										<span class='flaticon-building98'>Nivel: <?php echo $arrP["nombre_piso"]; ?></span>
+										<input type='button' data='opcion' id="todos<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' value='Todos' />
+										<input type='button' data='opcion' id="dispo<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-transport122' value='Disponibles' />
+										<input type='button' data='opcion' id="reser<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-cars27' value='Reservados' />
+										<input type='button' data='opcion' id="ocupa<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-car21' value='Ocupados' />
+										<input type='button' data='opcion' id="volve<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' value='Volver' />
 									</div>
-								<?php $espacios = consultarGeneral("espacio","id_espacio",">","0");
+									<?php $espacios = consultarGeneral("espacio","id_espacio",">","0");
 									while ($arrS=mysql_fetch_array($espacios)) {
 									if ($arrS["id_piso"]==$arrP["id_piso"]) {  ?>
 
-										<th id='espacio<?php echo $arrS["id_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' class='espacios' data-estado='DISPONIBLE'>
+										<th id='espacio<?php echo $arrS["id_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='DISPONIBLE'>
 						                	<div class='detalle'>
 						                		<div class="icono flaticon-placeholder8"></div>
 						                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
