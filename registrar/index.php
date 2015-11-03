@@ -430,9 +430,6 @@
 			</div> -->
 			<h3>Registrar el espacio de parqueo</h3>
 			<div class="caja">
-				<form ACTION =>
-					
-				</form>
 				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
 				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
 				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
