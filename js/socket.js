@@ -1,5 +1,7 @@
 $(document).on("ready",function() {
 
+  var id = '';
+
   verEdificio();
   
   function verEdificio(){
@@ -121,37 +123,127 @@ $(document).on("ready",function() {
 
    });
    
-
+  var idAnterior = '';
   $('th').click(function() {  
 
-    $('.espacios').css({
-      'border': '3px solid #00AB6B'
-    });
-    $('.espacios div.estado').text('DISPONIBLE');
-    $('.espacios').attr('data-estado','DISPONIBLE');
-    $('.espacios div.estado').css({
-      'background-color': '#00AB6B'
-    });
+    switch ( $(this).attr('data-estado') ) {      
 
-    var clase=$(this).attr('class');
-    var id = $(this).attr('value');
-          
-    $(this).css({
-      'border': '3px solid #ff5500'
-    });
+    case 'LIBRE':
+      // alert('DISPONIBLE');
+      // todos los espacios en disponible
+      // $('.espacios').css({
+      //   'border': '3px solid #00AB6B'
+      // });
+      // $('.espacios div.estado').text('LIBRE');
+      // $('.espacios').attr('data-estado','LIBRE');
+      // $('.espacios div.estado').css({
+      //   'background-color': '#00AB6B'
+      // });
+      // cambiar el objeto a reservado
+      // var clase=$(this).attr('class');
+      id = $(this).attr('id');
+                  
+      // $('#'+id).css({
+      //   'border': '3px solid #ff5500'
+      // });
+      // $('#'+id+' div.estado').text('RESERVADO');    
+      // $('#'+id+' div.estado').css({
+      //   'background-color': '#FF5500'
+      // });
+      // $(this).attr('data-estado','RESERVADO');
+      document.getElementById("espacioSeleccionado").value = id;
 
-    $('#espacio'+id+' div.estado').text('RESERVADO');    
-    $('#espacio'+id+' div.estado').css({
-      'background-color': '#FF5500'
-    });
+      $.ajax({
+        type: "POST",
+        url: "reservar.php",
+        // data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+        data: { nespacio: id, idAnterior: idAnterior},
+        dataType:"html",
+        success: function(data) 
+        {
+          // alert(data);
+          send(data);// array JSON
+          // window.location="../tablero/";          
+        },
+        error:function(data){
+          alert(data);
+        }
+      });
+      // cambiar estado en la base de datos a resevado
+      idAnterior = id;
+      // $('#parqueo').hide();
+      // $('#registrar').show();
 
-    $(this).attr('data-estado','RESERVADO');
-    document.getElementById("espacioSeleccionado").value = $(this).attr('nombre');
+      break;
 
-    // cambiar estado en la base de datos
-    
+    case 'RESERVADO':
+      // alert('RESERVADO');      
+      id = $(this).attr('id');      
+      document.getElementById("espacioSeleccionado").value = id;
+      break;
+
+    case 'OCUPADO':
+      // alert('OCUPADO');
+
+      id = $(this).attr('id'); 
+      // window.location="../liberar/";
+      $.ajax({
+        type: "GET",
+        url: "../liberar/",
+        // data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+        data: { nespacio: id, actualizacion: '4'},
+        dataType:"html",
+        success: function(data) 
+        {
+          // alert(data);
+          send(data);// array JSON
+                    
+        },
+        error:function(data){
+          alert(data);
+        }
+      });
+
+            
+      // cambiar estado en la base de datos a disponible
+      break;    
+    }
     // alert(clase+" "+valor);
   });
 
-  
+  $('#btnRegistarTicket').click(function (){
+      // cambiar el objeto a reservado
+      // id = $(this).attr('value');
+            
+      // $(this).css({
+      //   'border': '3px solid #ff5500'
+      // });
+      // $('#espacio'+id+' div.estado').text('OCUPADO');    
+      // $('#espacio'+id+' div.estado').css({
+      //   'background-color': '#FF5500'
+      // });
+      // $(this).attr('data-estado','OCUPADO');
+      // document.getElementById("espacioSeleccionado").value = $(this).attr('nombre');
+      
+  });
+
+  $('#btnRegistrar').click( function(){
+    // window.location.href = '../registrar/';
+  });
+
+  $('#btnCancelarRegistrar').click( function () {
+    // body...
+    $('#espacio'+id).css({
+      'border': '3px solid #00AB6B'
+    });
+    $('#espacio'+id+' div.estado').text('DISPONIBLE');    
+    $('#espacio'+id+' div.estado').css({
+      'background-color': '#00AB6B'
+    });
+    $(this).attr('data-estado','DISPONIBLE');
+
+    $('#parqueo').show();
+    $('#registrar').hide();
+  });
+ 
 });

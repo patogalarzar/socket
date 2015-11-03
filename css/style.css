@@ -165,6 +165,7 @@ width: 100%
 }
 
 .contenido h2{
+font-size: 24px;
 text-align: center;
 }
 
@@ -439,4 +440,20 @@ line-height: 70px;
 font-size: 24px;
 /* width: 40px; */
 /* background: #ff5500; */
+}
+
+#registrar{
+	display: none;
+}
+
+#btnRegistrar{
+	cursor: pointer;
+}
+
+#btnCancelarRegistrar{
+	cursor: pointer;
+}
+
+#liberar{
+	display: none;
 }

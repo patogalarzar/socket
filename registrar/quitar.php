@@ -106,4 +106,6 @@
 					  );
 
 	echo json_encode($arrayjson);
+
+	// header('Location: ../tablero/');
 ?>

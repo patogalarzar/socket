@@ -53,8 +53,17 @@ var FancyWebSocket = function(url)
 					case '1':
 					quitar_espacio(message);
 					break;
+
 					case '2':
 					colocar_espacio(message);
+					break;
+
+					case '3':
+					reservar(message);
+					break;
+
+					case '4':
+					liberar(message);
 					break;
 					
 				}
@@ -70,7 +79,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://130.2.0.182:8080');
+	Server = new FancyWebSocket('ws://192.168.1.6:8080');
     Server.bind('open', function()
 	{
     });
@@ -169,11 +178,21 @@ function quitar_espacio(message)
 					etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
 					etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
 
-					etiquetaAnteriorAS1.parentNode.replaceChild(etiquetaAS1,etiquetaAnteriorAS1);
-					etiquetaAnteriorAS2.parentNode.replaceChild(etiquetaAS2,etiquetaAnteriorAS2);
-					etiquetaAnteriorAP1.parentNode.replaceChild(etiquetaAP1,etiquetaAnteriorAP1);
-					etiquetaAnteriorAP2.parentNode.replaceChild(etiquetaAP2,etiquetaAnteriorAP2);
-					etiquetaAnteriorAP3.parentNode.replaceChild(etiquetaAP3,etiquetaAnteriorAP3);
+					// nombre_espacioA1
+
+					var th = document.getElementById(nespacio);
+					th.style.border = '3px solid #F00';
+					var espacio = document.getElementById('nombre_espacio'+nespacio);
+					console.log(espacio);
+					espacio.setAttribute('data-estado','OCUPADO');
+					espacio.innerHTML = 'OCUPADO';					
+					espacio.style.background = '#F00';
+
+					// etiquetaAnteriorAS1.parentNode.replaceChild(etiquetaAS1,etiquetaAnteriorAS1);
+					// etiquetaAnteriorAS2.parentNode.replaceChild(etiquetaAS2,etiquetaAnteriorAS2);
+					// etiquetaAnteriorAP1.parentNode.replaceChild(etiquetaAP1,etiquetaAnteriorAP1);
+					// etiquetaAnteriorAP2.parentNode.replaceChild(etiquetaAP2,etiquetaAnteriorAP2);
+					// etiquetaAnteriorAP3.parentNode.replaceChild(etiquetaAP3,etiquetaAnteriorAP3);
 				} else{
 					if (edificio=="2") {
 						// alert("entro al 2");
@@ -270,8 +289,18 @@ function quitar_espacio(message)
 					}
 				}
 				var etiqueta = document.getElementById(nespacio);
+				// etiqueta.setAttribute('data-estado','OCUPADO');
+				// etiqueta.css({
+    //     			'border': '3px solid #ff5500'
+    //   			});
+      			// var nEtiqueta = etiqueta.childNode.getElementById('estado');
+      			// $('#'+id+' div.estado').text('RESERVADO');    
+      			// $('#'+id+' div.estado').css({
+        	// 		'background-color': '#FF5500'
+      			// });
+      			// $(this).attr('data-estado','RESERVADO');
 
-				etiqueta.parentNode.removeChild(etiqueta);
+				// etiqueta.parentNode.removeChild(etiqueta);
 				// $("#"+tipo).html(contenidoDiv+mensajehtml);
 }
 function colocar_espacio(message)
@@ -362,6 +391,32 @@ function colocar_espacio(message)
 				var contenidoTabla  = $("#"+idPadre).html();
 				// alert(contenidoTabla);
 				var espaciohtml   = "<th class='espacios' id='"+nespacio+"' value='"+nespacio+"'>"+nespacio+"</th>";
-				$("#"+idPadre).html(contenidoTabla+espaciohtml);
+				$("#"+idPadre).html(contenidoTabla+espaciohtml);				
+}
+
+function reservar(message)
+{
+	var JSONdata    = JSON.parse(message); //parseo la informacion
+				var nespacio = JSONdata[0].nespacio;				
+				var idAnterior = JSONdata[0].idAnterior;
+				var actualizacion = JSONdata[0].actualizacion;
+
+				if ( idAnterior != '') {
+					var thAnterior = document.getElementById(idAnterior);
+					thAnterior.style.border = '3px solid #00AB6B';
+					thAnterior.setAttribute('data-estado','LIBRE');
+					var espacioAnterior = document.getElementById('nombre_espacio'+nespacio);
+					console.log(espacioAnterior);				
+					espacioAnterior.innerHTML = 'LIBRE';					
+					espacioAnterior.style.background = '#00AB6B)';
+				}
 				
+				var th = document.getElementById(nespacio);
+				th.style.border = '3px solid rgb(255, 255, 0))';
+				th.setAttribute('data-estado','RESERVADO');
+				var espacio = document.getElementById('nombre_espacio'+nespacio);
+				console.log(espacio);
+				// espacio.setAttribute('data-estado','RESERVADO');
+				espacio.innerHTML = 'RESERVADO';					
+				espacio.style.background = 'rgb(255, 255, 0)';
 }
