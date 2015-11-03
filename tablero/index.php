@@ -172,7 +172,7 @@
 	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
 	 				<input class="cajatexto-tablero" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
-		 			<input class="boton-tablero" type="submit" value="Registrar"/>
+		 			<input class="boton-tablero" type="submit" value="Registrar" />
  				</form>
  			</div>
  		</div>
@@ -209,14 +209,14 @@
  		</section>
  	</aside>
  	<div class="contenedor">
- 		<section class="contenido"> 				
+ 		<section id='parqueo' class="contenido"> 				
 
- 			<h2>Seleccione el espacio de parqueo</h2>
- 			<?php $edificios = consultarGeneral("edificio","id_edificio",">","0"); ?>
- 			
-			<?php while ( $arrE = mysql_fetch_array($edificios)) { ?>
+ 			<h2>Seleccione un Nivel Por Favor</h2>
+ 			<?php $edificios = consultarGeneral("edificio","id_edificio",">","0");  			
+			while ( $arrE = mysql_fetch_array($edificios)) { ?>
+
+				<!-- Edificios -->
 				<div id='edificio<?php echo $arrE["id_edificio"]; ?>' class="edificios">
-
 					<div class="info-torre">
 						<div class="nombre_torre"><?php echo $arrE["nombre_edificio"]; ?></div>
 	 					<div id='btnVerEdificio' id-edificio='<?php echo $arrE["id_edificio"]; ?>' data='edificios' btn-estado='ocultar' class="icono_torre flaticon-menu57"></div>
@@ -238,7 +238,8 @@
 			 			<?php }
 						} ?>		
 			 			</center>
-		 			</div>		
+		 			</div>
+
 		 			<!-- Espacios -->		 			
 	 				<?php $pisos = consultarGeneral("piso","id_edificio","=",$arrE["id_edificio"]);
 						while ($arrP=mysql_fetch_array($pisos)) { ?>
@@ -256,26 +257,78 @@
 									</div>
 									<?php $espacios = consultarGeneral("espacio","id_espacio",">","0");
 									while ($arrS=mysql_fetch_array($espacios)) {
-									if ($arrS["id_piso"]==$arrP["id_piso"]) {  ?>
-
-										<th id='espacio<?php echo $arrS["id_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='DISPONIBLE'>
-						                	<div class='detalle'>
-						                		<div class="icono flaticon-placeholder8"></div>
-						                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
-						                	</div>
-						                	<div class="estado">DISPONIBLE</div>
-					           			</th>
+									if ($arrS["id_piso"]==$arrP["id_piso"]) {  
+										if ( $arrS["estado_espacio"] == 'LIBRE' ) { ?>
+											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='LIBRE'>
+							                	<div class='detalle'>
+							                		<div class="icono flaticon-placeholder8"></div>
+							                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
+							                	</div>
+							                	<div id='nombre_espacio<?php echo $arrS["nombre_espacio"]; ?>' class="estado">LIBRE</div>
+						           			</th>
+										<?php } elseif ( $arrS["estado_espacio"] == 'RESERVADO' ) { ?>
+											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='RESERVADO' style='border: 3px solid rgb(255, 255, 0)'>
+							                	<div class='detalle'>
+							                		<div class="icono flaticon-placeholder8"></div>
+							                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
+							                	</div>
+							                	<div id='nombre_espacio<?php echo $arrS["nombre_espacio"]; ?>' class="estado" style='background-color: rgb(255, 255, 0)'>RESERVADO</div>
+						           			</th>
+										<?php } else { ?>
+											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='OCUPADO' style='border: 3px solid #F00'>
+							                	<div class='detalle'>
+							                		<div class="icono flaticon-placeholder8"></div>
+							                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
+							                	</div>
+							                	<div id='nombre_espacio<?php echo $arrS["nombre_espacio"]; ?>' class="estado" style='background-color: #F00'>OCUPADO</div>
+						           			</th>
+										<?php } ?>
+										
 									<?php }
 									} ?>
 								</tr>
 								<!-- </center> -->
-							</table>
-							
+							</table>							
 					<?php } ?>		
 		 		</div>	
 	 		<?php } ?>
  			
  	  	</section>
+
+ 	  	<section id='registrar' class="contenido"> 	
+
+			<h3>Registrar el espacio de parqueo</h3>
+			<div class="caja">
+				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
+				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
+				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
+				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
+				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
+				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
+				<input class="boton" type="submit" id='btnRegistrar' value="Registrar" onclick="quitar();"/>
+				<input class="boton" id='btnCancelarRegistrar' value="Cancelar" />
+			</div>
+
+		</section>
+
+		<section id='liberar' class="contenido"> 	
+
+			<h3>Registrar el espacio de parqueo</h3>
+			<div class="caja">
+				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
+				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
+				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
+				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
+				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
+				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
+				<input class="boton" type="submit" value="Registrar" onclick="quitar();"/>
+			</div>
+
+		</section>
+
+
  	</div>
+
+ 	
  </body>
  </html>

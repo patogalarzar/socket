@@ -105,4 +105,6 @@
 						'contbp4'=>$contbp4
 					  );
 	echo json_encode($arrayjson);
+
+	// header('Location: ../tablero/');
 ?>
