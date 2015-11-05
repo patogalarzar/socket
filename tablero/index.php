@@ -31,7 +31,21 @@
 		while ($arr = mysql_fetch_array($usuarios)) {
 			$nusuario = $arr["nombre_usuario"];
 			$alias_usuario = $arr["alias_usuario"];
-			// $garita_usuario = $arr["garita_usuario"];
+			switch ($arr["garita_usuario"]) {
+				case '1':
+					$garita_usuario = "TORRE A";
+					break;
+				case '2':
+					$garita_usuario = "TORRE B";
+					break;
+				case '3':
+					$garita_usuario = "EXTERIORES";
+					break;
+				default:
+					$garita_usuario = "TORRE A";
+					break;
+			}
+			
 		}
 		$espaciosVaciosA = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(1,2,3,4,5)");
 		$espaciosVaciosB = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(6,7,8,9)");
@@ -185,6 +199,7 @@
  		<section class="barralateral">
  			<ul class="barralateral-menu">
  				<h3><?php echo($nusuario); ?></h3>
+ 				<h3><?php echo($garita_usuario); ?></h3>
  				<div class="caja-menu">
  					<li>MENU PRINCIPAL</li>
  				</div>
