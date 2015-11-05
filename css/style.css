@@ -441,9 +441,15 @@ font-size: 24px;
 /* width: 40px; */
 /* background: #ff5500; */
 }
-
+.registrar {
+    display: none;
+}
 #registrar{
 	display: none;
+}
+#registrar h3 {
+	font-size: 24px;
+    text-align: center;
 }
 
 #btnRegistrar{
@@ -456,4 +462,8 @@ font-size: 24px;
 
 #liberar{
 	display: none;
+}
+#liberar h3 {
+    font-size: 24px;
+    text-align: center;
 }
