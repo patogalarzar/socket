@@ -314,8 +314,12 @@ function liberar_espacio(message)
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
+<<<<<<< HEAD
+				// alert("Edificio: "+edificio);
+=======
 				cambiarEstado(message);
 				alert("Edificio: "+edificio);
+>>>>>>> 969709a2716d5cd4717f5651a89a1543478a246f
 				var idPadre=""; // id del padre al que se va a añadir el espacio liberado
 				if (edificio=="1") {
 					// alert("entro al 1");
