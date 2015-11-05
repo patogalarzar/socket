@@ -25,9 +25,11 @@
 
 		conexion();
 		$nusuario="";
+		$alias_usuario='';
 		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
 		while ($arr = mysql_fetch_array($usuarios)) {
 			$nusuario = $arr["nombre_usuario"];
+			$alias_usuario = $arr["alias_usuario"];
 		}
 		$espaciosVaciosA = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(1,2,3,4,5)");
 		$espaciosVaciosB = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(6,7,8,9)");
@@ -156,20 +158,20 @@
 			
  			<div class="registrar">
  				<form action="../registrar/" method=GET role="form">
-	 				<input name="libresA" type="hidden" value="<?php echo $libresA; ?>"/>
+	 				<input name="libresA"   type="hidden" value="<?php echo $libresA; ?>"/>
 	 				<input name="ocupadosA" type="hidden" value="<?php echo $ocupadosA; ?>"/>
-	 				<input name="contas1" type="hidden" value="<?php echo $contas1; ?>"/>
-	 				<input name="contas2" type="hidden" value="<?php echo $contas2; ?>"/>
-	 				<input name="contap1" type="hidden" value="<?php echo $contap1; ?>"/>
-	 				<input name="contap2" type="hidden" value="<?php echo $contap2; ?>"/>
-	 				<input name="contap3" type="hidden" value="<?php echo $contap3; ?>"/>
-	 				<input name="libresB" type="hidden" value="<?php echo $libresB; ?>"/>
+	 				<input name="contas1"   type="hidden" value="<?php echo $contas1; ?>"/>
+	 				<input name="contas2"   type="hidden" value="<?php echo $contas2; ?>"/>
+	 				<input name="contap1"   type="hidden" value="<?php echo $contap1; ?>"/>
+	 				<input name="contap2"   type="hidden" value="<?php echo $contap2; ?>"/>
+	 				<input name="contap3"   type="hidden" value="<?php echo $contap3; ?>"/>
+	 				<input name="libresB"   type="hidden" value="<?php echo $libresB; ?>"/>
 	 				<input name="ocupadosB" type="hidden" value="<?php echo $ocupadosB; ?>"/>
-	 				<input name="contbp1" type="hidden" value="<?php echo $contbp1; ?>"/>
-	 				<input name="contbp2" type="hidden" value="<?php echo $contbp2; ?>"/>
-	 				<input name="contbp3" type="hidden" value="<?php echo $contbp3; ?>"/>
-	 				<input name="contbp4" type="hidden" value="<?php echo $contbp4; ?>"/>
-	 				<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
+	 				<input name="contbp1"   type="hidden" value="<?php echo $contbp1; ?>"/>
+	 				<input name="contbp2"   type="hidden" value="<?php echo $contbp2; ?>"/>
+	 				<input name="contbp3"   type="hidden" value="<?php echo $contbp3; ?>"/>
+	 				<input name="contbp4"   type="hidden" value="<?php echo $contbp4; ?>"/>
+	 				<input name="libresE"   type="hidden" value="<?php echo $libresE; ?>"/>
 	 				<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
 	 				<input class="cajatexto-tablero" id="espacioSeleccionado" name="nespacio" type="text" placeholder="Espacio Seleccionado..."/>
 		 			<input class="boton-tablero" type="submit" value="Registrar" />
@@ -250,7 +252,7 @@
 			   						<div id='opcion<?php echo $arrP["id_piso"]; ?>' class='opciones'>
 										<span class='flaticon-building98'>Nivel: <?php echo $arrP["nombre_piso"]; ?></span>
 										<input type='button' data='opcion' id="todos<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' value='Todos' />
-										<input type='button' data='opcion' id="dispo<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-transport122' value='Disponibles' />
+										<input type='button' data='opcion' id="dispo<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-transport122' value='Libres' />
 										<input type='button' data='opcion' id="reser<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-cars27' value='Reservados' />
 										<input type='button' data='opcion' id="ocupa<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' class='flaticon-car21' value='Ocupados' />
 										<input type='button' data='opcion' id="volve<?php echo $arrP["id_piso"]; ?>" id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' value='Volver' />
@@ -295,40 +297,126 @@
  			
  	  	</section>
 
- 	  	<section id='registrar' class="contenido"> 	
-
-			<h3>Registrar el espacio de parqueo</h3>
-			<div class="caja">
-				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
-				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
-				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
-				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
-				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
-				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
-				<input class="boton" type="submit" id='btnRegistrar' value="Registrar" onclick="quitar();"/>
-				<input class="boton" id='btnCancelarRegistrar' value="Cancelar" />
-			</div>
-
+ 	  	<section id='registrar' class="contenido">
+ 	  		<!-- contendio del formulario de registrar vehiculo -->
 		</section>
 
 		<section id='liberar' class="contenido"> 	
-
-			<h3>Registrar el espacio de parqueo</h3>
-			<div class="caja">
-				<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
-				<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
-				<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
-				<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
-				<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
-				<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
-				<input class="boton" type="submit" value="Registrar" onclick="quitar();"/>
-			</div>
-
+			<!-- contendio del formulario de liberar espacio -->
 		</section>
 
 
  	</div>
 
- 	
+ 	<script language="javascript">
+		function registrar() {
+			// alert('Boton Registrar - Falta cambiar en BD');			
+			var nespacio = document.getElementById('espacioSeleccionado').value;
+			var placa    = document.getElementById('placaVehiculo').value;
+			var nusuario = '<?php echo $alias_usuario; ?>';
+			// var libresA = "<?php echo $libresA ?>";
+			// var ocupadosA = "<?php echo $ocupadosA ?>";
+			// var libresB = "<?php echo $libresB ?>";
+			// var ocupadosB = "<?php echo $ocupadosB ?>";
+			// var libresE = "<?php echo $libresE ?>";
+			// var ocupadosE = "<?php echo $ocupadosE ?>";
+			// var contas1="<?php echo $contas1 ?>";
+			// var contas2="<?php echo $contas2 ?>";
+			// var contap1="<?php echo $contap1 ?>";
+			// var contap2="<?php echo $contap2 ?>";
+			// var contap3="<?php echo $contap3 ?>";
+			// var contbp1="<?php echo $contbp1 ?>";
+			// var contbp2="<?php echo $contbp2 ?>";
+			// var contbp3="<?php echo $contbp3 ?>";
+			// var contbp4="<?php echo $contbp4 ?>";
+			// alert(nespacio+" "+placa+" "+nusuario);
+			$.ajax({
+				type: "POST",
+				url: "../registrar/quitar.php",
+				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario,
+				dataType:"html",
+				success: function(data) 
+				{
+					// alert(data);
+				 	send(data);// array JSON
+				 	window.location="../tablero/";
+					// document.getElementById("espacioSeleccionado").value = "";
+					// document.getElementById("placaVehiculo").value = "";
+				},
+				error:function(data){
+					alert(data);
+				}
+			});
+		}
+
+		function cancelarRegistrar(){
+			// alert('Boton Cancelar - Falta cambiar en BD');
+			var id = document.getElementById('espacioSeleccionado').value;
+			
+		    $.ajax({
+				type: "POST",
+				url: "../tablero/cambiarEstado.php",
+				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+				data: { nespacio : id , estado: 'LIBRE' , accion : 'CANCELAR_R'},
+				dataType:"html",
+				success: function(data) 
+				{					
+				 	send(data);// array JSON
+				 	window.location="../tablero/";					
+				},
+				error:function(data){
+					alert(data);
+				}
+			});
+			$('#parqueo').show();
+		    $('#registrar').hide();
+		}
+
+		function liberar(){
+			var nespacio = document.getElementById('espacioSeleccionado').value;
+			var tag_placa    = document.getElementById('placaVehiculo');
+			var placa = tag_placa.getAttribute('valor');
+			var nusuario = '<?php echo $alias_usuario; ?>';			
+			$.ajax({
+				type: "POST",
+				url: "../liberar/colocar.php",
+				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario,
+				dataType:"html",
+				success: function(data) 
+				{
+					// alert(data);
+				 	send(data);// array JSON
+				 	// window.location="../tablero/";					
+				},
+				error:function(data){
+					alert(data);
+				}
+			});
+		}
+
+		function cancelarLiberar(){
+			// alert('Boton Cancelar - Falta cambiar en BD');
+			// var id = document.getElementById('espacioSeleccionado').value;
+			
+		 //    $('#'+id+' div.estado').text('LIBRE');    
+		 //    $('#'+id+' div.estado').css({
+		 //      'background-color': '#00AB6B'
+		 //    });
+		 //    $('#'+id).css({
+		 //      'border': '3px solid #00AB6B'
+		 //    });
+		 //    $('#'+id).attr('data-estado','LIBRE');
+			$('#parqueo').show();
+		    $('#registrar').hide();
+		}
+ 	</script>
+ 	<script>
+ 	$(document).on('ready',function(){
+ 		
+ 	});
+ 		
+ 	</script>
  </body>
  </html>

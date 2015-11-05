@@ -6,17 +6,15 @@
 	$nespacio = $_POST['nespacio'];
 	$placa = $_POST['placa'];
 	$nusuario = $_POST['nusuario'];
-	$libresA = $_POST['libresA'];
-	$ocupadosA = $_POST['ocupadosA'];
-	$libresB = $_POST['libresB'];
-	$ocupadosB = $_POST['ocupadosB'];
-	$libresE = $_POST['libresE'];
-	$ocupadosE = $_POST['ocupadosE'];
+	// $libresA = $_POST['libresA'];
+	// $ocupadosA = $_POST['ocupadosA'];
+	// $libresB = $_POST['libresB'];
+	// $ocupadosB = $_POST['ocupadosB'];
+	// $libresE = $_POST['libresE'];
+	// $ocupadosE = $_POST['ocupadosE'];
 	
 	$timestamp = date("Y-m-d H:i:s");
 	
-	
-
 	$id_espacio = "";
 	$id_ticket ="";
 	
@@ -54,28 +52,29 @@
 	$edificio="";
 	if ($idpiso > 0 and $idpiso < 6) {
 		$edificio = "1";
-		$libresA = $libresA +1;
-		$ocupadosA = $ocupadosA -1;
+		// $libresA = $libresA +1;
+		// $ocupadosA = $ocupadosA -1;
 	}elseif ($idpiso > 5 and $idpiso < 10) {
 		$edificio = "2";
-		$libresB = $libresB +1;
-		$ocupadosB = $ocupadosB -1;
+		// $libresB = $libresB +1;
+		// $ocupadosB = $ocupadosB -1;
 	}else{
 		$edificio = "3";
-		$libresE = $libresE +1;
-		$ocupadosE = $ocupadosE -1;
+		// $libresE = $libresE +1;
+		// $ocupadosE = $ocupadosE -1;
 	}
 	$arrayjson = array();
 	$arrayjson[]=array('nespacio'=> $nespacio,
 						'placa'   => $placa,
 						'nusuario'=> $nusuario,
 						'edificio'=> $edificio,
-						'libresA' => $libresA,
-						'ocupadosA' => $ocupadosA,
-						'libresB' => $libresB,
-						'ocupadosB' => $ocupadosB,
-						'libresE' => $libresE,
-						'ocupadosE' => $ocupadosE,
+						'estado'=> 'OCUPADO',
+						// 'libresA' => $libresA,
+						// 'ocupadosA' => $ocupadosA,
+						// 'libresB' => $libresB,
+						// 'ocupadosB' => $ocupadosB,
+						// 'libresE' => $libresE,
+						// 'ocupadosE' => $ocupadosE,
 						'actualizacion' => '2'
 					  );
 	

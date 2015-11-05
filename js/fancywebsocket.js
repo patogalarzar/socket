@@ -50,21 +50,25 @@ var FancyWebSocket = function(url)
 				var JSONdata    = JSON.parse(message); //parseo la informacion
 				switch(JSONdata[0].actualizacion)//que tipo de actualizacion vamos a hacer(un nuevo mensaje, solicitud de amistad nueva, etc )
 				{
-					case '1':
-					quitar_espacio(message);
+					case '1': // REGISTRAR ESPACIO
+					registrar_espacio(message);
 					break;
 
-					case '2':
-					colocar_espacio(message);
+					case '2': // LIBERAR ESPACIO
+					liberar_espacio(message);
 					break;
 
-					case '3':
+					case '3': // RESERVAR ESPACIO
 					reservar(message);
 					break;
 
-					case '4':
-					liberar(message);
+					case '4': // CANCELAR REGISTRAR
+					cancelar_r(message);
 					break;
+
+					case '5': // CANCELAR LIBERAR
+					// liberar(message);
+					break;					
 					
 				}
 				//aqui se ejecuta toda la accion				
@@ -77,6 +81,7 @@ function send( text )
 {
     Server.send( 'message', text );
 }
+
 $(document).ready(function() 
 {
 	Server = new FancyWebSocket('ws://192.168.1.6:8080');
@@ -94,7 +99,7 @@ $(document).ready(function()
 
 
 
-function quitar_espacio(message)
+function registrar_espacio(message)
 {
 	var JSONdata    = JSON.parse(message); //parseo la informacion
 				var nespacio = JSONdata[0].nespacio;
@@ -121,6 +126,7 @@ function quitar_espacio(message)
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
+				cambiarEstado(message);
 				alert("Edificio: "+edificio);
 
 				if (edificio=="1") {
@@ -179,15 +185,7 @@ function quitar_espacio(message)
 					etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
 
 					// nombre_espacioA1
-
-					var th = document.getElementById(nespacio);
-					th.style.border = '3px solid #F00';
-					var espacio = document.getElementById('nombre_espacio'+nespacio);
-					console.log(espacio);
-					espacio.setAttribute('data-estado','OCUPADO');
-					espacio.innerHTML = 'OCUPADO';					
-					espacio.style.background = '#F00';
-
+					
 					// etiquetaAnteriorAS1.parentNode.replaceChild(etiquetaAS1,etiquetaAnteriorAS1);
 					// etiquetaAnteriorAS2.parentNode.replaceChild(etiquetaAS2,etiquetaAnteriorAS2);
 					// etiquetaAnteriorAP1.parentNode.replaceChild(etiquetaAP1,etiquetaAnteriorAP1);
@@ -246,12 +244,12 @@ function quitar_espacio(message)
 						etiquetaAnterior.setAttribute('value',libresB);
 						etiquetaAnteriorO.setAttribute('value',ocupadosB);
 
-						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
-						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
-						etiquetaAnteriorBP1.parentNode.replaceChild(etiquetaBP1,etiquetaAnteriorBP1);
-						etiquetaAnteriorBP2.parentNode.replaceChild(etiquetaBP2,etiquetaAnteriorBP2);
-						etiquetaAnteriorBP3.parentNode.replaceChild(etiquetaBP3,etiquetaAnteriorBP3);
-						etiquetaAnteriorBP4.parentNode.replaceChild(etiquetaBP4,etiquetaAnteriorBP4);
+						// etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+						// etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+						// etiquetaAnteriorBP1.parentNode.replaceChild(etiquetaBP1,etiquetaAnteriorBP1);
+						// etiquetaAnteriorBP2.parentNode.replaceChild(etiquetaBP2,etiquetaAnteriorBP2);
+						// etiquetaAnteriorBP3.parentNode.replaceChild(etiquetaBP3,etiquetaAnteriorBP3);
+						// etiquetaAnteriorBP4.parentNode.replaceChild(etiquetaBP4,etiquetaAnteriorBP4);
 
 					} else{
 						// alert("entro al 3");
@@ -282,28 +280,23 @@ function quitar_espacio(message)
 						etiquetaAnterior.setAttribute('value',libresE);
 						etiquetaAnteriorO.setAttribute('value',ocupadosE);
 
-						etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
-						etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
-						etiquetaAnteriorE1.parentNode.replaceChild(etiquetaE1,etiquetaAnteriorE1);
+						// etiquetaAnterior.parentNode.replaceChild(nuevaEtiqueta,etiquetaAnterior);
+						// etiquetaAnteriorO.parentNode.replaceChild(nuevaEtiquetaO,etiquetaAnteriorO);
+						// etiquetaAnteriorE1.parentNode.replaceChild(etiquetaE1,etiquetaAnteriorE1);
 
 					}
 				}
-				var etiqueta = document.getElementById(nespacio);
-				// etiqueta.setAttribute('data-estado','OCUPADO');
-				// etiqueta.css({
-    //     			'border': '3px solid #ff5500'
-    //   			});
-      			// var nEtiqueta = etiqueta.childNode.getElementById('estado');
-      			// $('#'+id+' div.estado').text('RESERVADO');    
-      			// $('#'+id+' div.estado').css({
-        	// 		'background-color': '#FF5500'
-      			// });
-      			// $(this).attr('data-estado','RESERVADO');
 
-				// etiqueta.parentNode.removeChild(etiqueta);
-				// $("#"+tipo).html(contenidoDiv+mensajehtml);
+
+				// var th = document.getElementById(nespacio);
+				// th.style.border = '3px solid #F00';
+				// var espacio = document.getElementById('nombre_espacio'+nespacio);
+				// console.log(espacio);
+				// espacio.setAttribute('data-estado','OCUPADO');
+				// espacio.innerHTML = 'OCUPADO';					
+				// espacio.style.background = '#F00';
 }
-function colocar_espacio(message)
+function liberar_espacio(message)
 {
 	var JSONdata    = JSON.parse(message); //parseo la informacion
 				var nespacio = JSONdata[0].nespacio;
@@ -321,7 +314,12 @@ function colocar_espacio(message)
 				// alert(estado);
 				// var contenidoDiv  = $("#"+tipo).html();
 				// var mensajehtml   = fecha+' : '+mensaje;
+<<<<<<< HEAD
 				// alert("Edificio: "+edificio);
+=======
+				cambiarEstado(message);
+				alert("Edificio: "+edificio);
+>>>>>>> 969709a2716d5cd4717f5651a89a1543478a246f
 				var idPadre=""; // id del padre al que se va a añadir el espacio liberado
 				if (edificio=="1") {
 					// alert("entro al 1");
@@ -394,29 +392,71 @@ function colocar_espacio(message)
 				$("#"+idPadre).html(contenidoTabla+espaciohtml);				
 }
 
-function reservar(message)
-{
+function reservar(message) {
 	var JSONdata    = JSON.parse(message); //parseo la informacion
-				var nespacio = JSONdata[0].nespacio;				
-				var idAnterior = JSONdata[0].idAnterior;
-				var actualizacion = JSONdata[0].actualizacion;
+	var nespacio = JSONdata[0].nespacio;				
+	var idAnterior = JSONdata[0].idAnterior;
+	var actualizacion = JSONdata[0].actualizacion;
 
-				if ( idAnterior != '') {
-					var thAnterior = document.getElementById(idAnterior);
-					thAnterior.style.border = '3px solid #00AB6B';
-					thAnterior.setAttribute('data-estado','LIBRE');
-					var espacioAnterior = document.getElementById('nombre_espacio'+nespacio);
-					console.log(espacioAnterior);				
-					espacioAnterior.innerHTML = 'LIBRE';					
-					espacioAnterior.style.background = '#00AB6B)';
-				}
+	if ( idAnterior != '') {
+		var thAnterior = document.getElementById(idAnterior);
+		thAnterior.style.border = '3px solid #00AB6B';
+		thAnterior.setAttribute('data-estado','LIBRE');
+		var espacioAnterior = document.getElementById('nombre_espacio'+nespacio);
+		console.log(espacioAnterior);				
+		espacioAnterior.innerHTML = 'LIBRE';					
+		espacioAnterior.style.background = '#00AB6B';
+	}
 				
-				var th = document.getElementById(nespacio);
-				th.style.border = '3px solid rgb(255, 255, 0))';
-				th.setAttribute('data-estado','RESERVADO');
-				var espacio = document.getElementById('nombre_espacio'+nespacio);
-				console.log(espacio);
-				// espacio.setAttribute('data-estado','RESERVADO');
-				espacio.innerHTML = 'RESERVADO';					
-				espacio.style.background = 'rgb(255, 255, 0)';
+	var th = document.getElementById(nespacio);
+	th.style.border = '3px solid #FF0';
+	th.setAttribute('data-estado','RESERVADO');
+	var espacio = document.getElementById('nombre_espacio'+nespacio);
+	console.log(espacio);
+	// espacio.setAttribute('data-estado','RESERVADO');
+	espacio.innerHTML = 'RESERVADO';					
+	espacio.style.color = '#FFF';
+	espacio.style.background = '#FF0';
+}
+
+function cancelar_r(message){
+	cambiarEstado(message);
+}
+
+function cambiarEstado(message) {
+	var JSONdata = JSON.parse(message); //parseo la informacion
+	var nespacio = JSONdata[0].nespacio;				
+			
+	switch(JSONdata[0].estado){
+		case 'LIBRE':
+			var th = document.getElementById(nespacio);
+			th.style.border = '3px solid #FF0';
+			th.setAttribute('data-estado','RESERVADO');
+			var espacio = document.getElementById('nombre_espacio'+nespacio);						
+			espacio.innerHTML = 'RESERVADO';			
+			espacio.style.background = '#FF0';
+			console.log(th);
+			break;
+
+		case 'RESERVADO':
+			var th = document.getElementById(nespacio);
+			th.style.border = '3px solid #F00';
+			th.setAttribute('data-estado','OCUPADO');
+			var espacio = document.getElementById('nombre_espacio'+nespacio);						
+			espacio.innerHTML = 'OCUPADO';			
+			espacio.style.background = '#F00';
+			console.log(th);
+			break;
+
+		case 'OCUPADO':
+			var th = document.getElementById(nespacio);
+			th.style.border = '3px solid #00AB6B';
+			th.setAttribute('data-estado','LIBRE');
+			var espacio = document.getElementById('nombre_espacio'+nespacio);						
+			espacio.innerHTML = 'LIBRE';			
+			espacio.style.background = '#00AB6B';
+			console.log(th);
+			break;
+	}
+
 }
