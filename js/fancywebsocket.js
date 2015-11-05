@@ -42,11 +42,11 @@ var FancyWebSocket = function(url)
 	{
 		if(message == null || message == "")//aqui es donde se realiza toda la accion
 			{
-				// alert("mensaje nulo o vacio");
+				// console.log("mensaje nulo o vacio");
 			}
 			else
 			{
-				alert(message);
+				console.log(message);
 				var JSONdata    = JSON.parse(message); //parseo la informacion
 				switch(JSONdata[0].actualizacion)//que tipo de actualizacion vamos a hacer(un nuevo mensaje, solicitud de amistad nueva, etc )
 				{
@@ -82,9 +82,8 @@ function send( text )
     Server.send( 'message', text );
 }
 
-$(document).ready(function() 
-{
-	Server = new FancyWebSocket('ws://192.168.1.6:8080');
+$(document).ready(function() {
+	Server = new FancyWebSocket('ws://130.2.0.182:8080');
     Server.bind('open', function()
 	{
     });
@@ -99,73 +98,71 @@ $(document).ready(function()
 
 
 
-function registrar_espacio(message)
-{
-	var JSONdata    = JSON.parse(message); //parseo la informacion
-				var nespacio = JSONdata[0].nespacio;
-				var placa = JSONdata[0].placa;
-				var nusuario = JSONdata[0].nusuario;
-				var edificio = JSONdata[0].edificio;
-				var piso = JSONdata[0].piso;				
-				var actualizacion = JSONdata[0].actualizacion;
-				
-				var tag = document.getElementById('reservados'+piso);
-				var reservados = tag.getAttribute('value');								
-				var nr = 0 + reservados;
-				nr--;
-				console.log(nr);
-				tag.setAttribute('value', nr);			
-				tag.innerHTML = nr;
+function registrar_espacio(message) {
+	var JSONdata = JSON.parse(message); //parseo la informacion
+	var nespacio = JSONdata[0].nespacio;
+	var placa = JSONdata[0].placa;
+	var nusuario = JSONdata[0].nusuario;
+	var edificio = JSONdata[0].edificio;
+	var piso = JSONdata[0].piso;				
+	var actualizacion = JSONdata[0].actualizacion;
+	
+	var tag = document.getElementById('reservados'+piso);
+	var reservados = tag.getAttribute('value');								
+	var nr = 0 + reservados;
+	nr--;
+	console.log(nr);
+	tag.setAttribute('value', nr);			
+	tag.innerHTML = nr;
 
-				var tag = document.getElementById('ocupados'+piso);
-				var ocupados = tag.getAttribute('value');								
-				var no = 0 + ocupados;
-				no++;
-				console.log(no);
-				tag.setAttribute('value', no);			
-				tag.innerHTML = no;
+	var tag = document.getElementById('ocupados'+piso);
+	var ocupados = tag.getAttribute('value');								
+	var no = 0 + ocupados;
+	no++;
+	console.log(no);
+	tag.setAttribute('value', no);			
+	tag.innerHTML = no;
 
-				cambiarEstado(message);
-				alert("Edificio: "+edificio);
+	cambiarEstado(message);
+	console.log("Edificio: "+edificio);
 				
 }
 
-function liberar_espacio(message)
-{
+function liberar_espacio(message) {
 	var JSONdata    = JSON.parse(message); //parseo la informacion
-				var nespacio = JSONdata[0].nespacio;
-				var placa = JSONdata[0].placa;
-				var nusuario = JSONdata[0].nusuario;
-				var edificio = JSONdata[0].edificio;
-				var piso = JSONdata[0].piso;				
-				var actualizacion = JSONdata[0].actualizacion;
-				var espacios = JSONdata[0].espacios;
-				// alert(estado);
+	var nespacio = JSONdata[0].nespacio;
+	var placa = JSONdata[0].placa;
+	var nusuario = JSONdata[0].nusuario;
+	var edificio = JSONdata[0].edificio;
+	var piso = JSONdata[0].piso;				
+	var actualizacion = JSONdata[0].actualizacion;
+	var espacios = JSONdata[0].espacios;
+	// console.log(estado);
 
-				var tag = document.getElementById('libres'+piso);
-				var libres = tag.getAttribute('value');								
-				var nl = 0 + libres;
-				nl++;
-				console.log(nl);
-				tag.setAttribute('value', nl);			
-				tag.innerHTML = nl;
+	var tag = document.getElementById('libres'+piso);
+	var libres = tag.getAttribute('value');								
+	var nl = 0 + libres;
+	nl++;
+	console.log(nl);
+	tag.setAttribute('value', nl);			
+	tag.innerHTML = nl;
 
-				var tag = document.getElementById('ocupados'+piso);
-				var ocupados = tag.getAttribute('value');								
-				var no = 0 + ocupados;
-				no--;
-				console.log(no);
-				tag.setAttribute('value', no);			
-				tag.innerHTML = no;
-				
-				cambiarEstado(message);
+	var tag = document.getElementById('ocupados'+piso);
+	var ocupados = tag.getAttribute('value');								
+	var no = 0 + ocupados;
+	no--;
+	console.log(no);
+	tag.setAttribute('value', no);			
+	tag.innerHTML = no;
+	
+	cambiarEstado(message);
 
-				alert("Edificio: "+edificio);
-				var idPadre=""; // id del padre al que se va a añadir el espacio liberado
-				var contenidoTabla  = $("#"+idPadre).html();
-				// alert(contenidoTabla);
-				var espaciohtml   = "<th class='espacios' id='"+nespacio+"' value='"+nespacio+"'>"+nespacio+"</th>";
-				$("#"+idPadre).html(contenidoTabla+espaciohtml);				
+	console.log("Edificio: "+edificio);
+	var idPadre=""; // id del padre al que se va a añadir el espacio liberado
+	var contenidoTabla  = $("#"+idPadre).html();
+	// console.log(contenidoTabla);
+	var espaciohtml   = "<th class='espacios' id='"+nespacio+"' value='"+nespacio+"'>"+nespacio+"</th>";
+	$("#"+idPadre).html(contenidoTabla+espaciohtml);				
 }
 
 function reservar(message) {
@@ -221,35 +218,35 @@ function cambiarEstado(message) {
 	var nespacio = JSONdata[0].nespacio;				
 			
 	switch(JSONdata[0].estado){
-		case 'LIBRE':
-			var th = document.getElementById(nespacio);
-			th.style.border = '3px solid #FF0';
-			th.setAttribute('data-estado','RESERVADO');
-			var espacio = document.getElementById('nombre_espacio'+nespacio);						
-			espacio.innerHTML = 'RESERVADO';			
-			espacio.style.background = '#FF0';
-			console.log(th);
-			break;
+	case 'LIBRE':
+		var th = document.getElementById(nespacio);
+		th.style.border = '3px solid #FF0';
+		th.setAttribute('data-estado','RESERVADO');
+		var espacio = document.getElementById('nombre_espacio'+nespacio);						
+		espacio.innerHTML = 'RESERVADO';			
+		espacio.style.background = '#FF0';
+		console.log(th);
+		break;
 
-		case 'RESERVADO':
-			var th = document.getElementById(nespacio);
-			th.style.border = '3px solid #F00';
-			th.setAttribute('data-estado','OCUPADO');
-			var espacio = document.getElementById('nombre_espacio'+nespacio);						
-			espacio.innerHTML = 'OCUPADO';			
-			espacio.style.background = '#F00';
-			console.log(th);
-			break;
+	case 'RESERVADO':
+		var th = document.getElementById(nespacio);
+		th.style.border = '3px solid #F00';
+		th.setAttribute('data-estado','OCUPADO');
+		var espacio = document.getElementById('nombre_espacio'+nespacio);						
+		espacio.innerHTML = 'OCUPADO';			
+		espacio.style.background = '#F00';
+		console.log(th);
+		break;
 
-		case 'OCUPADO':
-			var th = document.getElementById(nespacio);
-			th.style.border = '3px solid #00AB6B';
-			th.setAttribute('data-estado','LIBRE');
-			var espacio = document.getElementById('nombre_espacio'+nespacio);						
-			espacio.innerHTML = 'LIBRE';			
-			espacio.style.background = '#00AB6B';
-			console.log(th);
-			break;
+	case 'OCUPADO':
+		var th = document.getElementById(nespacio);
+		th.style.border = '3px solid #00AB6B';
+		th.setAttribute('data-estado','LIBRE');
+		var espacio = document.getElementById('nombre_espacio'+nespacio);						
+		espacio.innerHTML = 'LIBRE';			
+		espacio.style.background = '#00AB6B';
+		console.log(th);
+		break;
 	}
 
 }

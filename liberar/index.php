@@ -328,7 +328,7 @@
 				dataType:"html",
 				success: function(data) 
 				{
-					alert(data);
+					console.log(data);
 				 	send(data);// array JSON
 				 	window.location="../tablero/";
 					// document.getElementById("espacioSeleccionado").value = "";
@@ -337,7 +337,7 @@
 				}
 				});
 			} else{
-				alert("Las placas no coinciden. "+ placa + " <> " + cplaca);
+				console.log("Las placas no coinciden. "+ placa + " <> " + cplaca);
 				document.getElementById('confirmarPlaca').value = "";
 			};
 			
@@ -367,7 +367,7 @@
               url:"consultarPlaca.php",
               data:{nespacio:valor}
             }).done(function(msg){
-            	alert(msg);
+            	console.log(msg);
             	var JSONdata    = JSON.parse(msg); //parseo la informacion
 					var placa = JSONdata[0].placa;
 					var nombre_piso = JSONdata[0].nombre_piso;
@@ -383,7 +383,7 @@
 	            document.getElementById("edificioEspacio").value = "Edificio: "+nombre_edificio;
             });
 
-            alert(clase+" "+valor);
+            console.log(clase+" "+valor);
         });
         
         function removerClase(tag, clase){

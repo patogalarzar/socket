@@ -281,7 +281,7 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            alert(clase+" "+valor);
+            console.log(clase+" "+valor);
         });
         
         function removerClase(tag, clase){

@@ -13,8 +13,8 @@
 	<script language="javascript">
 		function imprimir()
 		{	
-			alert("alert");
-			window.location.href="/tablero/";
+			console.log("Imprimiendo...");
+			// window.location.href="/tablero/";
 			// $.ajax({
 				
 				// type: "get",
@@ -23,14 +23,14 @@
 				// dataType:"html",
 				// success: function(data) 
 				// {
-				// 	// alert(data);
+				// 	// console.log(data);
 				//  	// send(data);// array JSON
 				//  	// window.location="../tablero/";
 				// 	// document.getElementById("espacioSeleccionado").value = "";
 				// 	// document.getElementById("placaVehiculo").value = "";
 				// },
 				// error:function(data){
-				// 	// alert(data);
+				// 	// console.log(data);
 				// }
 			// });
 		}
@@ -41,16 +41,15 @@
  		<section id="imprimir" class="contenido">
  			<h3>Imprimir ticket de parqueo</h3>
 			<div class="caja">
-				<form action="imprimirpdf.php" method=POST target="_blank">
-					<input class="cajatexto" id="usuarioSistema" name="usuarioSistema" type="text" placeholder="Usuario..." value="PATO"/>
+				<form action="imprimirpdf.php" method=GET target="_blank">
+					<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
 					<input class="cajatexto" id="fechaRegistro" name="fechaRegistro" type="text" placeholder="Fecha..." value="02/11/2015"/>
 					<input class="cajatexto" id="edificioEspacio" name="edificioEspacio" type="text" placeholder="Edificio espacio..." value="TORRE A"/>
 					<input class="cajatexto" id="pisoEspacio" name="pisoEspacio" type="text" placeholder="Piso espacio..." value="AS1 / SUBSUELO"/>
 					<input class="cajatexto" id="espacioSeleccionado" name="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="A1"/>
 					<input class="cajatexto" id="placaVehiculo" name="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
 					<input class="boton" type="submit" value="Registrar" onclick="imprimir();"/>
-				</form>
-				
+				</form>				
 			</div>
  	  	</section>
  	</div>

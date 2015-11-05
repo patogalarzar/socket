@@ -296,11 +296,11 @@
 			var nombreUsuario = document.getElementById('nombreUsuario').value;
 			var aliasUsuario    = document.getElementById('aliasUsuario').value;
 			 var garitaUsuario = document.getElementById('garitaUsuario').value;
-            // alert(garitaUsuario);    
+            // console.log(garitaUsuario);    
 			var passUsuario =document.getElementById('passUsuario').value;
 			var confirmarPass = document.getElementById('confirmarPass').value;
 			if (passUsuario==confirmarPass) {
-				// alert(nombreUsuario+" "+placa+" "+passUsuario);
+				// console.log(nombreUsuario+" "+placa+" "+passUsuario);
 				$.ajax({
 					type: "POST",
 					url: "guardar.php",
@@ -309,12 +309,12 @@
 					success: function(data) 
 					{
 						//     send(data);
-                        // alert(data);
+                        // console.log(data);
                          send(data);// array JSON
                          // array JSON
                          // window.location="../tablero/";
-                         alert("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
-                         // alert("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
+                         console.log("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
+                         // console.log("Usuario: "+nombreUsuario+" con Alias: "+aliasUsuario+" registrado.")
                         document.getElementById('nombreUsuario').value = "";
                         document.getElementById('aliasUsuario').value = "";
                         // document.getElementById('garitaUsuario').value = "";
@@ -327,11 +327,11 @@
                         $("#resultado").html(respuesta);
 					},
 					error:function(data){
-						alert(data);
+						console.log(data);
 					}
 				});
 			} else{
-				alert("Las claves no coinciden.")
+				console.log("Las claves no coinciden.")
 				document.getElementById('confirmarPass').value = "";
 			};
 			
@@ -355,7 +355,7 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            // alert(clase+" "+valor);
+            // console.log(clase+" "+valor);
         });
         
         function removerClase(tag, clase){

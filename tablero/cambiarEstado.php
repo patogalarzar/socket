@@ -2,11 +2,9 @@
 	require_once("../clases/conect.php");
 	date_default_timezone_set("America/Guayaquil");
 
-	conexion();
-		
+	conexion();		
 	$update  = "UPDATE espacio SET estado_espacio='".$_POST['estado']."' WHERE nombre_espacio='".$_POST['nespacio']."'";
 	$resU = mysql_query($update) or die (mysql_error());
-
 	salir();
 	
 	if ( $_POST['accion'] == 'CANCELAR_R') {
@@ -23,6 +21,4 @@
 						  );
 	}
 	echo json_encode($arrayjson);
-
-	// header('Location: ../tablero/');
 ?>

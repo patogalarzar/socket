@@ -19,22 +19,7 @@
 		$id_usuario = $_SESSION['id_usuario'];
 
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
-		$nespacio = $_GET['nespacio'];
-		// $libresA = $_GET['libresA'];
-		// $ocupadosA = $_GET['ocupadosA'];
-		// $contas1=$_GET['contas1'];
-		// $contas2=$_GET['contas2'];
-		// $contap1=$_GET['contap1'];
-		// $contap2=$_GET['contap2'];
-		// $contap3=$_GET['contap3'];
-		// $libresB = $_GET['libresB'];
-		// $ocupadosB = $_GET['ocupadosB'];
-		// $contbp1=$_GET['contbp1'];
-		// $contbp2=$_GET['contbp2'];
-		// $contbp3=$_GET['contbp3'];
-		// $contbp4=$_GET['contbp4'];
-		// $libresE = $_GET['libresE'];
-		// $ocupadosE = $_GET['ocupadosE'];
+		$nespacio = $_GET['nespacio'];		
 		$id_piso="";
 		$id_edificio = "";
 		$nombre_piso = "";
@@ -77,6 +62,8 @@
 	<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
 	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
 	<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..." required/>
-	<input class="boton" type="submit" value="Registrar" onclick="registrar();"/>	
-	<input class="boton" type="submit" value="Cancelar" onclick="cancelarRegistrar();"/>				
+	<div id='msg'>Ahora puedes imprimir tu Ticket. </br>Si lo deseas...</div>
+	<input id='btnImprimir' class="boton" type="submit" value="Imprimir" onclick="imprimir();"/>
+	<input id='btnRegistrar' class="boton" type="submit" value="Registrar" onclick="registrar();"/>		
+	<input id='btnCancelar' class="boton" type="submit" value="Cancelar" onclick="cancelarRegistrar();"/>				
 </div>

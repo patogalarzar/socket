@@ -277,8 +277,7 @@
 
 		 			<!-- Espacios -->		 			
 	 				<?php $pisos = consultarGeneral("piso","id_edificio","=",$arrE["id_edificio"]);
-						while ($arrP=mysql_fetch_array($pisos)) { ?>
-															
+						while ($arrP=mysql_fetch_array($pisos)) { ?>															
 							<table id='espacios<?php echo $arrP["id_piso"]; ?>' class='espacios_nivel' cellspacing="0" cellpadding="0">
 								<!-- <center> -->
 			   					<tr id="">
@@ -338,50 +337,50 @@
 			<!-- contendio del formulario de liberar espacio -->
 		</section>
 
-
  	</div>
 
  	<script language="javascript">
 		function registrar() {
-			// alert('Boton Registrar - Falta cambiar en BD');			
+			// console.log('Boton Registrar - Falta cambiar en BD');			
 			var nespacio = document.getElementById('espacioSeleccionado').value;
 			var placa    = document.getElementById('placaVehiculo').value;
-			var nusuario = '<?php echo $alias_usuario; ?>';
-			
+			var nusuario = '<?php echo $alias_usuario; ?>';			
 			$.ajax({
 				type: "POST",
 				url: "../registrar/quitar.php",			
 				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario,
 				dataType:"html",
-				success: function(data) 
-				{
-					// alert(data);
+				success: function(data) {
+					// console.log(data);
 				 	send(data);// array JSON
-				 	window.location="../tablero/";					
+				 	//boton y mensaje de imprimir
+				 	$('#btnRegistrar').hide();
+				 	
+				 	$('#msg').show();
+				 	$('#btnImprimir').show();
+				 	$('#btnImprimir').css({ 'display' : 'block'});
+				 	// window.location="../tablero/";					
 				},
 				error:function(data){
-					alert(data);
+					console.log(data);
 				}
 			});
 		}
 
 		function cancelarRegistrar(){
-			// alert('Boton Cancelar - Falta cambiar en BD');
-			var id = document.getElementById('espacioSeleccionado').value;
-			
+			// console.log('Boton Cancelar - Falta cambiar en BD');
+			var id = document.getElementById('espacioSeleccionado').value;			
 		    $.ajax({
 				type: "POST",
-				url: "../tablero/cambiarEstado.php",
-				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+				url: "../tablero/cambiarEstado.php",				
 				data: { nespacio : id , estado: 'LIBRE' , accion : 'CANCELAR_R'},
 				dataType:"html",
-				success: function(data) 
-				{					
+				success: function(data) {					
 				 	send(data);// array JSON
 				 	window.location="../tablero/";					
 				},
 				error:function(data){
-					alert(data);
+					console.log(data);
 				}
 			});
 			$('#parqueo').show();
@@ -390,48 +389,45 @@
 
 		function liberar(){
 			var nespacio = document.getElementById('espacioSeleccionado').value;
-			var tag_placa    = document.getElementById('placaVehiculo');
+			var tag_placa = document.getElementById('placaVehiculo');
 			var placa = tag_placa.getAttribute('valor');
 			var nusuario = '<?php echo $alias_usuario; ?>';			
 			$.ajax({
 				type: "POST",
-				url: "../liberar/colocar.php",
-				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+				url: "../liberar/colocar.php",				
 				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario,
 				dataType:"html",
-				success: function(data) 
-				{
-					// alert(data);
+				success: function(data) {
+					// console.log(data);
 				 	send(data);// array JSON
 				 	window.location="../tablero/";					
 				},
 				error:function(data){
-					alert(data);
+					console.log(data);
 				}
 			});
 		}
 
-		function cancelarLiberar(){
-			// alert('Boton Cancelar - Falta cambiar en BD');
-			// var id = document.getElementById('espacioSeleccionado').value;
-			
-		 //    $('#'+id+' div.estado').text('LIBRE');    
-		 //    $('#'+id+' div.estado').css({
-		 //      'background-color': '#00AB6B'
-		 //    });
-		 //    $('#'+id).css({
-		 //      'border': '3px solid #00AB6B'
-		 //    });
-		 //    $('#'+id).attr('data-estado','LIBRE');
+		function cancelarLiberar(){		
 			$('#parqueo').show();
 		    $('#registrar').hide();
 		}
- 	</script>
- 	<script>
- 	$(document).on('ready',function(){
- 		
- 	});
- 		
- 	</script>
+
+		function imprimir() {	
+			var nespacio = document.getElementById('espacioSeleccionado').value;
+			var placa = document.getElementById('placaVehiculo').value;			
+			var nusuario = '<?php echo $alias_usuario; ?>';
+			var fechaRegistro = document.getElementById('fechaRegistro').value;		
+			var edificioEspacio = document.getElementById('edificioEspacio').value;
+			var pisoEspacio = document.getElementById('pisoEspacio').value;
+
+			window.open('../imprimir/imprimirpdf.php?usuarioSistema='+nusuario+'&fechaRegistro='+fechaRegistro+'&edificioEspacio='+edificioEspacio+'&pisoEspacio='+pisoEspacio+'&espacioSeleccionado='+nespacio+'&placaVehiculo='+placa , 
+				"OroMall - Ticket" , 
+				"width=400,height=550,scrollbars=NO"); 
+
+			window.location="../tablero/";
+
+		}
+ 	</script> 	
  </body>
  </html>

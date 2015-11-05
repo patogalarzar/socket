@@ -20,51 +20,7 @@
 		$nespacio = "";
 		$placa = "";
 		$espaciosOcupados = consultarGeneral("espacio","estado_espacio","=","OCUPADO");
-		$fechaSalida = date("Y-m-d H:i:s");
-
-		$libresA=0;$ocupadosA=0;$reservadosA=0;
-		$libresB=0;$ocupadosB=0;$reservadosB=0;
-		$libresE=0;$ocupadosE=0;$reservadosE=0;
-		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
-		conexion();
-		$nusuario="";
-		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
-		while ($arr = mysql_fetch_array($usuarios)) {
-			$nusuario = $arr["nombre_usuario"];
-		}
-		$espaciosTorreA = mysql_query("SELECT * FROM espacio WHERE id_piso IN(1,2,3,4,5)");
-		while ($espacios = mysql_fetch_array($espaciosTorreA)) {
-			$est = $espacios["estado_espacio"];
-			if ($est=="LIBRE") {
-				$libresA = $libresA + 1;
-			}elseif ($est=="OCUPADO") {
-				$ocupadosA = $ocupadosA + 1;
-			}else{
-				$reservadosA = $reservadosA + 1;
-			}
-		}
-		$espaciosTorreB = mysql_query("SELECT * FROM espacio WHERE id_piso IN(6,7,8,9)");
-		while ($espacios = mysql_fetch_array($espaciosTorreB)) {
-			$est = $espacios["estado_espacio"];
-			if ($est=="LIBRE") {
-				$libresB = $libresB + 1;
-			}elseif ($est=="OCUPADO") {
-				$ocupadosB = $ocupadosB + 1;
-			}else{
-				$reservadosB = $reservadosB + 1;
-			}
-		}
-		$espaciosExteriores = mysql_query("SELECT * FROM espacio WHERE id_piso IN(10)");
-		while ($espacios = mysql_fetch_array($espaciosExteriores)) {
-			$est = $espacios["estado_espacio"];
-			if ($est=="LIBRE") {
-				$libresE = $libresE + 1;
-			}elseif ($est=="OCUPADO") {
-				$ocupadosE = $ocupadosE + 1;
-			}else{
-				$reservadosE = $reservadosE + 1;
-			}
-		}
+		$fechaSalida = date("Y-m-d H:i:s");		
 		
 		$id_piso="";
 		$id_edificio = "";
@@ -115,8 +71,7 @@
 	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$_GET['nespacio']; ?>"/>
 	<input class="cajatexto" id="espacioOculto" type="hidden"/>
 	<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..." valor='<?php echo $placa_ticket; ?>' value="<?php echo "Placa: ".$placa_ticket; ?>"/>
-	<input class="cajatexto" id="placaOculta" type="hidden"/>
-	<!-- <input class="cajatexto" id="confirmarPlaca" type="text" placeholder="Confirmar placa..."/> -->
+	<input class="cajatexto" id="placaOculta" type="hidden"/>	
 	<input class="boton" type="submit" value="Liberar" onclick="liberar();"/>
 	<input class="boton" type="submit" value="Cancelar" onclick="cancelarLiberar();"/>
 </div>
