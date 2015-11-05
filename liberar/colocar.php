@@ -68,13 +68,8 @@
 						'placa'   => $placa,
 						'nusuario'=> $nusuario,
 						'edificio'=> $edificio,
-						'estado'=> 'OCUPADO',
-						// 'libresA' => $libresA,
-						// 'ocupadosA' => $ocupadosA,
-						// 'libresB' => $libresB,
-						// 'ocupadosB' => $ocupadosB,
-						// 'libresE' => $libresE,
-						// 'ocupadosE' => $ocupadosE,
+						'piso'=> $idpiso,
+						'estado'=> 'OCUPADO',						
 						'actualizacion' => '2'
 					  );
 	

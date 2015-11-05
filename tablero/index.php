@@ -26,10 +26,12 @@
 		conexion();
 		$nusuario="";
 		$alias_usuario='';
+		$garita_usuario='';
 		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
 		while ($arr = mysql_fetch_array($usuarios)) {
 			$nusuario = $arr["nombre_usuario"];
 			$alias_usuario = $arr["alias_usuario"];
+			// $garita_usuario = $arr["garita_usuario"];
 		}
 		$espaciosVaciosA = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(1,2,3,4,5)");
 		$espaciosVaciosB = mysql_query("SELECT * FROM espacio WHERE estado_espacio ='LIBRE' AND id_piso IN(6,7,8,9)");
@@ -232,12 +234,28 @@
 							if ($arrP["id_edificio"]==$arrE["id_edificio"]) { ?>
 								<div id="nivel<?php echo $arrP["id_piso"] ?>" class="niveles">
 				 				    <div class='flaticon-building98'><?php echo $arrP["nombre_piso"]; ?></div>
-				 				    <div class='flaticon-transport122'> Libres = 30 </div>
-				 				    <div class='flaticon-cars27'> Reservado = 3 </div>
-				 				    <div class='flaticon-car21'> Ocupados = 32 </div>		 				    
+				 				    <?php 
+				 				    $libres = 0;
+				 				    $reservados = 0;
+				 				    $ocupados = 0;
+				 				    $espacios = consultarGeneral("espacio","id_espacio",">","0");
+									while ($arrS=mysql_fetch_array($espacios)) {
+										if ($arrS["id_piso"]==$arrP["id_piso"]) {  
+											if ( $arrS["estado_espacio"] == 'LIBRE' ) { 
+												$libres++; 
+											} elseif ( $arrS["estado_espacio"] == 'RESERVADO' ) { 
+												$reservados++; 
+											} else { 
+												$ocupados++; 
+											} 										
+										}
+									} ?>
+									<div class='flaticon-transport122'> Libres = <div id='libres<?php echo $arrP["id_piso"] ?>' value='<?php echo $libres; ?>' ><?php echo $libres; ?></div></div>
+									<div class='flaticon-cars27'> Reservado = <div id='reservados<?php echo $arrP["id_piso"] ?>' value='<?php echo $reservados; ?>' ><?php echo $reservados; ?></div></div>
+									<div class='flaticon-car21'> Ocupados = <div id='ocupados<?php echo $arrP["id_piso"] ?>' value='<?php echo $ocupados; ?>' ><?php echo $ocupados; ?></div></div>									
 				 					<input id='btnVerNivel<?php echo $arrP["id_piso"] ?>' id-edificio='<?php echo $arrE["id_edificio"]; ?>' id-piso='<?php echo $arrP["id_piso"]; ?>' data='niveles' type='button' class="flaticon-zoom3" value='Buscar Espacio' />
 			 					</div>		 				
-			 			<?php }
+			 			<?php } 
 						} ?>		
 			 			</center>
 		 			</div>
@@ -261,7 +279,7 @@
 									while ($arrS=mysql_fetch_array($espacios)) {
 									if ($arrS["id_piso"]==$arrP["id_piso"]) {  
 										if ( $arrS["estado_espacio"] == 'LIBRE' ) { ?>
-											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='LIBRE'>
+											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='LIBRE' id-piso='<?php echo $arrP["id_piso"]; ?>'>
 							                	<div class='detalle'>
 							                		<div class="icono flaticon-placeholder8"></div>
 							                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
@@ -269,7 +287,7 @@
 							                	<div id='nombre_espacio<?php echo $arrS["nombre_espacio"]; ?>' class="estado">LIBRE</div>
 						           			</th>
 										<?php } elseif ( $arrS["estado_espacio"] == 'RESERVADO' ) { ?>
-											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='RESERVADO' style='border: 3px solid rgb(255, 255, 0)'>
+											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='RESERVADO' id-piso='<?php echo $arrP["id_piso"]; ?>' style='border: 3px solid rgb(255, 255, 0)'>
 							                	<div class='detalle'>
 							                		<div class="icono flaticon-placeholder8"></div>
 							                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
@@ -277,7 +295,7 @@
 							                	<div id='nombre_espacio<?php echo $arrS["nombre_espacio"]; ?>' class="estado" style='background-color: rgb(255, 255, 0)'>RESERVADO</div>
 						           			</th>
 										<?php } else { ?>
-											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='OCUPADO' style='border: 3px solid #F00'>
+											<th id='<?php echo $arrS["nombre_espacio"]; ?>' value='<?php echo $arrS["id_espacio"]; ?>' nombre='<?php echo $arrS["nombre_espacio"]; ?>' class='espacios' data-estado='OCUPADO' id-piso='<?php echo $arrP["id_piso"]; ?>' style='border: 3px solid #F00'>
 							                	<div class='detalle'>
 							                		<div class="icono flaticon-placeholder8"></div>
 							                		<div class="nombre_espacio"><?php echo $arrS["nombre_espacio"]; ?></div>
@@ -314,35 +332,17 @@
 			var nespacio = document.getElementById('espacioSeleccionado').value;
 			var placa    = document.getElementById('placaVehiculo').value;
 			var nusuario = '<?php echo $alias_usuario; ?>';
-			// var libresA = "<?php echo $libresA ?>";
-			// var ocupadosA = "<?php echo $ocupadosA ?>";
-			// var libresB = "<?php echo $libresB ?>";
-			// var ocupadosB = "<?php echo $ocupadosB ?>";
-			// var libresE = "<?php echo $libresE ?>";
-			// var ocupadosE = "<?php echo $ocupadosE ?>";
-			// var contas1="<?php echo $contas1 ?>";
-			// var contas2="<?php echo $contas2 ?>";
-			// var contap1="<?php echo $contap1 ?>";
-			// var contap2="<?php echo $contap2 ?>";
-			// var contap3="<?php echo $contap3 ?>";
-			// var contbp1="<?php echo $contbp1 ?>";
-			// var contbp2="<?php echo $contbp2 ?>";
-			// var contbp3="<?php echo $contbp3 ?>";
-			// var contbp4="<?php echo $contbp4 ?>";
-			// alert(nespacio+" "+placa+" "+nusuario);
+			
 			$.ajax({
 				type: "POST",
-				url: "../registrar/quitar.php",
-				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
+				url: "../registrar/quitar.php",			
 				data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario,
 				dataType:"html",
 				success: function(data) 
 				{
 					// alert(data);
 				 	send(data);// array JSON
-				 	window.location="../tablero/";
-					// document.getElementById("espacioSeleccionado").value = "";
-					// document.getElementById("placaVehiculo").value = "";
+				 	window.location="../tablero/";					
 				},
 				error:function(data){
 					alert(data);
@@ -388,7 +388,7 @@
 				{
 					// alert(data);
 				 	send(data);// array JSON
-				 	// window.location="../tablero/";					
+				 	window.location="../tablero/";					
 				},
 				error:function(data){
 					alert(data);
