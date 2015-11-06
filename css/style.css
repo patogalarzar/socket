@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+/*@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);*/
 
 *{ margin: 0; padding: 0; outline: none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }		
 
@@ -169,29 +169,6 @@ font-size: 24px;
 text-align: center;
 }
 
-/*.edificios h3 {
-display: inline-block;
-margin: 0px;
-padding: 10px;
-background-color: #3E474F;
-width: 207px;
-color: #fff;
-}*/
-/*.espacios:hover {
-background-color: #ff5000;
-}
-.espacios{
-display: inline-block;
-vertical-align: top;
-width: 50px;
-text-align: center;
-background-color: #39cccc;
-border: 1px solid #fff;
-color: #fff;
-cursor: pointer;
-padding: 10px 5px;
-}*/
-
 .naranja{
 background-color: #ff5000;
 }
@@ -307,7 +284,7 @@ display: inline-block;
 vertical-align: top;
 border-radius: 5px;
 padding: 10px;
-width: 185px;
+width: 200px;
 text-align: left;
 }
 .niveles div {
@@ -328,21 +305,23 @@ margin-right: 10px;
     width: 32px;
     height: 32px;
     border-radius: 32px;
-    padding: 3px;
+    /*padding: 3px;*/
+    font-size: 16px;
+    line-height: 32px;
     text-align: center;
     color: #FFF;
     text-shadow: 1px 1px 1px #000;
 }
 .niveles .flaticon-transport122 > div {
 background: #00ab6b;
-margin-left: 32px;
+margin-left: 38px;
 }
 .niveles .flaticon-cars27 > div {
 background: #FF0;    
 }
 .niveles .flaticon-car21 > div {
 background: #F00;
-margin-left: 2px;    
+margin-left: 6px;    
 }
 
 .niveles .info {
@@ -404,16 +383,6 @@ margin: 5px;
 border-radius: 5px;
 }
 
-/*.espacios:hover {
-background-color: #FFFFFF;
-border: 3px solid #FBFF04;
-}
-.espacios:hover > .estado {
-background-color: #FBFF04;
-color: #000;
-text-shadow: 1px 1px 1px #FFF;
-}*/
-
 .espacios .flaticon-placeholder8:before {
 color: #3E474F;    
 margin: 0;
@@ -448,12 +417,12 @@ color: #3E474F;
 /* width: 35%; */
 display: inline-block;
 vertical-align: top;
-font-size: 14px;
+font-size: 10px;
 line-height: 70px;
 }
 
 .nombre_espacio {
-font-size: 24px;
+font-size: 20px;
 /* width: 40px; */
 /* background: #ff5500; */
 }
