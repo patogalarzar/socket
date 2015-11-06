@@ -57,8 +57,7 @@
 	}
 	$arrayjson = array();
 	$arrayjson[]=array('nespacio'=> $nespacio,
-						'placa'   => $placa,
-						'nusuario'=> $nusuario,
+						'placa'   => $placa,						
 						'edificio'=> $edificio,
 						'piso'=> $idpiso,
 						'estado'=> 'OCUPADO',						

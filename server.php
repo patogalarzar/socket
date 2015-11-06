@@ -59,6 +59,6 @@ $Server->bind('message', 'wsOnMessage');
 $Server->bind('open', 'wsOnOpen');
 $Server->bind('close', 'wsOnClose');
 
-$Server->wsStartServer('130.2.0.182',8080);
+$Server->wsStartServer('192.168.1.10',8080);
 
 ?>

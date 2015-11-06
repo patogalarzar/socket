@@ -47,7 +47,7 @@
 		$nusuario="";
 		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
 		while ($arr = mysql_fetch_array($usuarios)) {
-			$nusuario = $arr["nombre_usuario"];
+			$nusuario = $arr["alias_usuario"];
 		}
 		salir();
 	}
@@ -56,13 +56,13 @@
  	
 <h3>Registrar el espacio de parqueo</h3>
 <div class="caja">
-	<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
-	<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
-	<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
-	<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
-	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
+	<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." data-valor="<?php echo $nusuario; ?>" value="<?php echo "Usuario: ".$nusuario; ?>"/>
+	<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." data-valor="<?php echo $fechaRegistro; ?>" value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
+	<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." data-valor="<?php echo $nombre_edificio; ?>" value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
+	<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." data-valor="<?php echo $nombre_piso." / ".$tipo_piso; ?>" value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
+	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." data-valor="<?php echo $nespacio; ?>" value="<?php echo "Espacio: ".$nespacio; ?>"/>
 	<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..." required/>
-	<div id='msg'>Ahora puedes imprimir tu Ticket. </br>Si lo deseas...</div>
+	<div id='msg'>Imprima su Ticket para continuar.</div>
 	<input id='btnImprimir' class="boton" type="submit" value="Imprimir" onclick="imprimir();"/>
 	<input id='btnRegistrar' class="boton" type="submit" value="Registrar" onclick="registrar();"/>		
 	<input id='btnCancelar' class="boton" type="submit" value="Cancelar" onclick="cancelarRegistrar();"/>				

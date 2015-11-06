@@ -1,58 +1,54 @@
-<html>
-<head>
-	<title>Imprimir pdf</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+require('pdf_js.php');
 
-	<link rel="stylesheet" href="../css/style.css">	
-	<link type="text/css" rel="stylesheet"  href="../fonts/flaticon/flaticon.css"> 
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+class PDF_AutoPrint extends PDF_JavaScript
+{
+function AutoPrint($dialog=false)
+{
+	//Open the print dialog or start printing immediately on the standard printer
+	$param=($dialog ? 'true' : 'false');
+	$script="print($param);";
+	$this->IncludeJS($script);
+}
 
-    <script src="../js/jquery-1.7.2.min.js"></script>
-	<script src="../js/fancywebsocket.js"></script>
-	<script src="../js/socket.js"></script>
-	<script language="javascript">
-		function imprimir()
-		{	
-			console.log("Imprimiendo...");
-			// window.location.href="/tablero/";
-			// $.ajax({
-				
-				// type: "get",
-				// url: "imprimirpdf.php",
-				// data: "nespacio="+nespacio+"&placa="+placa+"&nusuario="+nusuario+"&libresA="+libresA+"&ocupadosA="+ocupadosA+"&libresB="+libresB+"&ocupadosB="+ocupadosB+"&libresE="+libresE+"&ocupadosE="+ocupadosE+"&contas1="+contas1+"&contas2="+contas2+"&contap1="+contap1+"&contap2="+contap2+"&contap3="+contap3+"&contbp1="+contbp1+"&contbp2="+contbp2+"&contbp3="+contbp3+"&contbp4="+contbp4,
-				// dataType:"html",
-				// success: function(data) 
-				// {
-				// 	// console.log(data);
-				//  	// send(data);// array JSON
-				//  	// window.location="../tablero/";
-				// 	// document.getElementById("espacioSeleccionado").value = "";
-				// 	// document.getElementById("placaVehiculo").value = "";
-				// },
-				// error:function(data){
-				// 	// console.log(data);
-				// }
-			// });
-		}
-	</script>
-</head>
-<body>
-	<div class="contenedor">
- 		<section id="imprimir" class="contenido">
- 			<h3>Imprimir ticket de parqueo</h3>
-			<div class="caja">
-				<form action="imprimirpdf.php" method=GET target="_blank">
-					<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
-					<input class="cajatexto" id="fechaRegistro" name="fechaRegistro" type="text" placeholder="Fecha..." value="02/11/2015"/>
-					<input class="cajatexto" id="edificioEspacio" name="edificioEspacio" type="text" placeholder="Edificio espacio..." value="TORRE A"/>
-					<input class="cajatexto" id="pisoEspacio" name="pisoEspacio" type="text" placeholder="Piso espacio..." value="AS1 / SUBSUELO"/>
-					<input class="cajatexto" id="espacioSeleccionado" name="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="A1"/>
-					<input class="cajatexto" id="placaVehiculo" name="placaVehiculo" type="text" placeholder="Placa vehiculo..."/>
-					<input class="boton" type="submit" value="Registrar" onclick="imprimir();"/>
-				</form>				
-			</div>
- 	  	</section>
- 	</div>
+function AutoPrintToPrinter($server, $printer, $dialog=false)
+{
+	//Print on a shared printer (requires at least Acrobat 6)
+	$script = "var pp = getPrintParams();";
+	if($dialog)
+		$script .= "pp.interactive = pp.constants.interactionLevel.full;";
+	else
+		$script .= "pp.interactive = pp.constants.interactionLevel.automatic;";
+	$script .= "pp.printerName = '\\\\\\\\".$server."\\\\".$printer."';";
+	$script .= "print(pp);";
+	$this->IncludeJS($script);
+}
+}
 
-</body>
-</html>
+$nusuario = $_GET['usuarioSistema'];
+$fechaRegistro = $_GET['fechaRegistro'];
+$edificioEspacio = $_GET['edificioEspacio'];
+$pisoEspacio = $_GET['pisoEspacio'];
+$nespacio = $_GET['espacioSeleccionado'];
+$placa = $_GET['placaVehiculo'];
+
+$pdf=new PDF_AutoPrint('P','mm','A5');
+$pdf->AddPage();
+$pdf->SetFont('Arial','B',16);
+$pdf->Cell(0,15,'Ticket de parqueo',0,1,'C');
+$pdf->Cell(50,10,'Usuario: ',1);
+$pdf->Cell(0,10,$nusuario,1,1);
+$pdf->Cell(50,10,'Fecha Registro: ',1);
+$pdf->Cell(0,10,$fechaRegistro,1,1);
+$pdf->Cell(50,10,'Edificio: ',1);
+$pdf->Cell(0,10,$edificioEspacio,1,1);
+$pdf->Cell(50,10,'Piso: ',1);
+$pdf->Cell(0,10,$pisoEspacio,1,1);
+$pdf->Cell(50,10,'Espacio: ',1);
+$pdf->Cell(0,10,$nespacio,1,1);
+$pdf->Cell(50,10,'Placa Vehiculo: ',1);
+$pdf->Cell(0,10,$placa,1,1);
+//Open the print dialog
+$pdf->AutoPrint(true);
+$pdf->Output();
+?>

@@ -53,6 +53,13 @@
 		while ($edificio = mysql_fetch_array($edificios)) {
 			$nombre_edificio = $edificio["nombre_edificio"];
 		}
+		conexion();
+		$nusuario="";
+		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
+		while ($arr = mysql_fetch_array($usuarios)) {
+			$nusuario = $arr["alias_usuario"];
+		}
+		salir();
 	}
  ?>
 
@@ -65,7 +72,7 @@
 	<input name="libresE" type="hidden" value="<?php echo $libresE; ?>"/>
 	<input name="ocupadosE" type="hidden" value="<?php echo $ocupadosE; ?>"/>
 	<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
-	<input class="cajatexto" id="fechaSalida" type="text" placeholder="Usuario..." value="<?php echo "Fecha Salida: ".$fechaSalida; ?>"/>
+	<input class="cajatexto" id="fechaSalida" type="text" placeholder="Fecha Salida..." value="<?php echo "Fecha Salida: ".$fechaSalida; ?>"/>
 	<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value='<?php echo "Edificio: ".$nombre_piso; ?>'/>
 	<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
 	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$_GET['nespacio']; ?>"/>

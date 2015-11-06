@@ -133,6 +133,7 @@ $(document).on("ready",function() {
     case 'LIBRE':    
 
       $.ajax({
+        async:false,
         type: "POST",
         url: "reservar.php",        
         data: { nespacio: id, idAnterior: idAnterior},
@@ -154,6 +155,7 @@ $(document).on("ready",function() {
       $('#parqueo').hide();
            
       $.ajax({
+        async:false,
         url : '../registrar/index2.php', 
         data : { nespacio: id }, 
         type : 'GET',
@@ -162,6 +164,18 @@ $(document).on("ready",function() {
         }
       });   
       
+      $.ajax({
+        async:false,        
+        url: "../arreglo.php",        
+        success: function(data) {
+          // console.log(data);
+          send(data);// array JSON          
+        },
+        error:function(data){
+          // console.log(data);
+        }
+      });
+
       break;
 
     case 'RESERVADO':
@@ -169,13 +183,14 @@ $(document).on("ready",function() {
       $('#registrar').show();
       $('#parqueo').hide();     
       $.ajax({
+        async:false,
         url : '../registrar/index2.php', 
         data : { nespacio: id }, 
         type : 'GET',
         success: function(data) { 
           $('#registrar').html(data);
         }
-      });       
+      });             
       break;
 
     case 'OCUPADO':
@@ -184,6 +199,7 @@ $(document).on("ready",function() {
       $('#liberar').show();
       $('#parqueo').hide();     
       $.ajax({
+        async:false,
         url : '../liberar/index2.php', 
         data : { nespacio: id }, 
         type : 'GET',
