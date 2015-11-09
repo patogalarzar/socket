@@ -289,7 +289,7 @@
 			var contbp2="<?php echo $contbp2 ?>";
 			var contbp3="<?php echo $contbp3 ?>";
 			var contbp4="<?php echo $contbp4 ?>";
-			// alert(nespacio+" "+placa+" "+nusuario);
+			// console.log(nespacio+" "+placa+" "+nusuario);
 			$.ajax({
 				type: "POST",
 				url: "quitar.php",
@@ -297,14 +297,14 @@
 				dataType:"html",
 				success: function(data) 
 				{
-					// alert(data);
+					// console.log(data);
 				 	send(data);// array JSON
 				 	window.location="../tablero/";
 					// document.getElementById("espacioSeleccionado").value = "";
 					// document.getElementById("placaVehiculo").value = "";
 				},
 				error:function(data){
-					alert(data);
+					console.log(data);
 				}
 			});
 		}
@@ -327,7 +327,7 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            // alert(clase+" "+valor);
+            // console.log(clase+" "+valor);
         });
         
         function removerClase(tag, clase){

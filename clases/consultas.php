@@ -1,6 +1,6 @@
 <?php 
 	require_once("conect.php");
-	conexion();
+	// conexion();
 	function consultarGeneral($tabla,$campo,$condicion,$parametro){
 		conexion();
 		$query = "SELECT * FROM ".$tabla." WHERE ".$campo.$condicion."'".$parametro."'";

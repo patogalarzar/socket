@@ -25,9 +25,26 @@
 
 		conexion();
 		$nusuario="";
+		$alias_usuario='';
+		$garita_usuario='';
 		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
 		while ($arr = mysql_fetch_array($usuarios)) {
 			$nusuario = $arr["nombre_usuario"];
+			$alias_usuario = $arr["alias_usuario"];
+			switch ($arr["garita_usuario"]) {
+				case '1':
+					$garita_usuario = "TORRE A";
+					break;
+				case '2':
+					$garita_usuario = "TORRE B";
+					break;
+				case '3':
+					$garita_usuario = "EXTERIORES";
+					break;
+				default:
+					$garita_usuario = "TORRE A";
+					break;
+			}
 		}
 		$espaciosTorreA = mysql_query("SELECT * FROM espacio WHERE id_piso IN(1,2,3,4,5)");
 		while ($espacios = mysql_fetch_array($espaciosTorreA)) {
@@ -281,7 +298,7 @@
               $(this).addClass('naranja').removeClass('celeste');
             };
             document.getElementById("espacioSeleccionado").value = valor;
-            alert(clase+" "+valor);
+            console.log(clase+" "+valor);
         });
         
         function removerClase(tag, clase){
@@ -300,12 +317,9 @@
  			</div>
  			
  			<div class="valores">
- 				<div><p><b>Torre A:</b> Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p> <p> / Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
- 				<div><p><b>Torre B:</b> Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p> <p> / Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
- 				<div><p><b>Exterior:</b> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p> <p> / Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div>
- 				<!-- <div>Torre A  [Libres: <?php echo $libresA; ?><p>Torre A</p> Ocupados: <?php echo $ocupadosA; ?> Reservados: <?php echo $reservadosA ?>]</div>
-				<div>Torre B  [Libres: <?php echo $libresB; ?> Ocupados: <?php echo $ocupadosB; ?> Reservados: <?php echo $reservadosB ?>]</div>
-				<div>Exterior  [Libres: <?php echo $libresE; ?> Ocupados: <?php echo $ocupadosE; ?> Reservados: <?php echo $reservadosE ?>]</div>-->
+ 				<div><p><b>Torre A:</b> Libres = </p><p id="libresA" value="<?php echo $libresA; ?>"><?php echo " ".$libresA; ?></p><p> / Reservados = </p><p id="reservadosA"><?php echo $reservadosA; ?></p> <p> / Ocupados = </p><p id="ocupadosA"><?php echo $ocupadosA; ?></p> </div>
+ 				<div><p><b>Torre B:</b> Libres = </p><p id="libresB" value="<?php echo $libresB; ?>"><?php echo " ".$libresB; ?></p><p> / Reservados = </p><p id="reservadosB"><?php echo $reservadosB; ?></p> <p> / Ocupados = </p><p id="ocupadosB"><?php echo $ocupadosB; ?></p> </div>
+ 				<div><p><b>Exterior:</b> Libres = </p><p id="libresE" value="<?php echo $libresE; ?>"><?php echo " ".$libresE; ?></p><p> / Reservados = </p><p id="reservadosE"><?php echo $reservadosE; ?></p> <p> / Ocupados = </p><p id="ocupadosE"><?php echo $ocupadosE; ?></p> </div>
  			</div>
 			
  			<div class="registrar">
@@ -327,15 +341,11 @@
  		<section class="barralateral">
  			<ul class="barralateral-menu">
  				<h3><?php echo($nusuario); ?></h3>
- 				<div class="caja-menu">
- 					<li>MENU PRINCIPAL</li>
- 				</div>
+				<h3><?php echo($garita_usuario); ?></h3> 								
  				<div class="caja-menu">
  					<li>
 	 					<i></i><span>TICKETS</span><i></i>
-	 					<ul>
-	 						<!-- <li><a href="registrar/index.php"><span>Registrar</span></a></li> -->
-	 						<li><a href="../liberar/"><span>Liberar</span></a></li>
+	 					<ul>	 						
 	 						<li><a href="#"><span>Historial</span></a></li>
 	 						<li><a href="../vehiculos/"><span>Vehiculos</span></a></li>
 	 					</ul>

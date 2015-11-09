@@ -4,15 +4,7 @@
 	date_default_timezone_set("America/Guayaquil");
 
 	$nespacio = $_POST['nespacio'];
-	$placa = $_POST['placa'];
-	$nusuario = $_POST['nusuario'];
-	// $libresA = $_POST['libresA'];
-	// $ocupadosA = $_POST['ocupadosA'];
-	// $libresB = $_POST['libresB'];
-	// $ocupadosB = $_POST['ocupadosB'];
-	// $libresE = $_POST['libresE'];
-	// $ocupadosE = $_POST['ocupadosE'];
-	
+	$placa = $_POST['placa'];	
 	$timestamp = date("Y-m-d H:i:s");
 	
 	$id_espacio = "";
@@ -65,8 +57,7 @@
 	}
 	$arrayjson = array();
 	$arrayjson[]=array('nespacio'=> $nespacio,
-						'placa'   => $placa,
-						'nusuario'=> $nusuario,
+						'placa'   => $placa,						
 						'edificio'=> $edificio,
 						'piso'=> $idpiso,
 						'estado'=> 'OCUPADO',						

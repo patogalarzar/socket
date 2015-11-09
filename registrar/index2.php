@@ -19,22 +19,7 @@
 		$id_usuario = $_SESSION['id_usuario'];
 
 		$espaciosVacios = consultarGeneral("espacio","estado_espacio","=","LIBRE");
-		$nespacio = $_GET['nespacio'];
-		// $libresA = $_GET['libresA'];
-		// $ocupadosA = $_GET['ocupadosA'];
-		// $contas1=$_GET['contas1'];
-		// $contas2=$_GET['contas2'];
-		// $contap1=$_GET['contap1'];
-		// $contap2=$_GET['contap2'];
-		// $contap3=$_GET['contap3'];
-		// $libresB = $_GET['libresB'];
-		// $ocupadosB = $_GET['ocupadosB'];
-		// $contbp1=$_GET['contbp1'];
-		// $contbp2=$_GET['contbp2'];
-		// $contbp3=$_GET['contbp3'];
-		// $contbp4=$_GET['contbp4'];
-		// $libresE = $_GET['libresE'];
-		// $ocupadosE = $_GET['ocupadosE'];
+		$nespacio = $_GET['nespacio'];		
 		$id_piso="";
 		$id_edificio = "";
 		$nombre_piso = "";
@@ -62,7 +47,7 @@
 		$nusuario="";
 		$usuarios = mysql_query("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
 		while ($arr = mysql_fetch_array($usuarios)) {
-			$nusuario = $arr["nombre_usuario"];
+			$nusuario = $arr["alias_usuario"];
 		}
 		salir();
 	}
@@ -71,12 +56,14 @@
  	
 <h3>Registrar el espacio de parqueo</h3>
 <div class="caja">
-	<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." value="<?php echo "Usuario: ".$nusuario; ?>"/>
-	<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
-	<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
-	<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
-	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." value="<?php echo "Espacio: ".$nespacio; ?>"/>
+	<input class="cajatexto" id="usuarioSistema" type="text" placeholder="Usuario..." data-valor="<?php echo $nusuario; ?>" value="<?php echo "Usuario: ".$nusuario; ?>"/>
+	<input class="cajatexto" id="fechaRegistro" type="text" placeholder="Usuario..." data-valor="<?php echo $fechaRegistro; ?>" value="<?php echo "Fecha: ".$fechaRegistro; ?>"/>
+	<input class="cajatexto" id="edificioEspacio" type="text" placeholder="Edificio espacio..." data-valor="<?php echo $nombre_edificio; ?>" value="<?php echo "Edificio: ".$nombre_edificio; ?>"/>
+	<input class="cajatexto" id="pisoEspacio" type="text" placeholder="Piso espacio..." data-valor="<?php echo $nombre_piso." / ".$tipo_piso; ?>" value="<?php echo "Piso: ".$nombre_piso. " / ".$tipo_piso; ?>"/>
+	<input class="cajatexto" id="espacioSeleccionado" type="text" placeholder="Espacio parqueo..." data-valor="<?php echo $nespacio; ?>" value="<?php echo "Espacio: ".$nespacio; ?>"/>
 	<input class="cajatexto" id="placaVehiculo" type="text" placeholder="Placa vehiculo..." required/>
-	<input class="boton" type="submit" value="Registrar" onclick="registrar();"/>	
-	<input class="boton" type="submit" value="Cancelar" onclick="cancelarRegistrar();"/>				
+	<div id='msg'>Imprima su Ticket para continuar.</div>
+	<input id='btnImprimir' class="boton" type="submit" value="Imprimir" onclick="imprimir();"/>
+	<input id='btnRegistrar' class="boton" type="submit" value="Registrar" onclick="registrar();"/>		
+	<input id='btnCancelar' class="boton" type="submit" value="Cancelar" onclick="cancelarRegistrar();"/>				
 </div>
